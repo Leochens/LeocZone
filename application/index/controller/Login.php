@@ -10,15 +10,34 @@ class Login extends Controller
     {
     	echo '这里是登录界面';
     	$this->check();
-    	
     }
     public function check()
     {
- 
     	$req=Request::instance();
-    	//echo $req->url(); 
     	$data=$req->get();
-    	print_r($data);
-
+    	if($this->isAdmin($data))
+    	{
+    		echo "<br>登录成功";
+    	}else{
+    		echo "<br>登录失败，用户名或密码错误";
+    	}
 	}
+
+	/**
+	 * 判断数据库内是否有这个管理员
+	 * @param  [type]  $e [获得的参数]
+	 * @return boolean    [1 是管理员 0 未找到管理员]
+	 */
+	public function isAdmin($e){
+		$res = Db::table('admins')
+			->where('name',$e['name'])
+			->where('password',$e['password'])
+			->find();
+		//print_r($res);
+		if($res)
+			return 1;
+		else
+			return 0;
+	}
+	
 }
