@@ -1,5 +1,5 @@
 <?php
-namespace app\index\controller;
+namespace app\index\controller\admin;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -14,7 +14,7 @@ class Admin extends Controller
     private function check()
     {
     	$req=Request::instance();
-    	$data=$req->get();
+    	$data=$req->param();
     	if($this->isAdmin($data))
     	{
     		echo "<br>登录成功";

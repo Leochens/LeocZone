@@ -13,7 +13,7 @@ class Index
     private function check()
     {
     	$req=Request::instance();
-    	$data=$req->get();
+    	$data=$req->parma();
     	if($this->isAdmin($data))
     	{
     		echo "<br>用户".$data['name']."登录成功";
