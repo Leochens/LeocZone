@@ -4,14 +4,14 @@ use think\Controller;
 use think\Db;
 use think\Request;
 
-class Login extends Controller
+class Admin extends Controller
 {
     public function index()
     {
     	echo '这里是登录界面';
     	$this->check();
     }
-    public function check()
+    private function check()
     {
     	$req=Request::instance();
     	$data=$req->get();
@@ -28,7 +28,7 @@ class Login extends Controller
 	 * @param  [type]  $e [获得的参数]
 	 * @return boolean    [1 是管理员 0 未找到管理员]
 	 */
-	public function isAdmin($e){
+	private function isAdmin($e){
 		$res = Db::table('admins')
 			->where('name',$e['name'])
 			->where('password',$e['password'])
@@ -39,5 +39,5 @@ class Login extends Controller
 		else
 			return 0;
 	}
-	
+
 }
