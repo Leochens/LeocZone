@@ -12,16 +12,20 @@ class Index extends Controller
 	}
     public function index()
     {
-    	echo '这里是首页';
+    	//echo '这里是首页';
     	$this->login();
     	if($this->check())
     	{
-    		echo "用户".Session::get('name')."已登录";
+    		$check = "用户".Session::get('name')."已登录";
     	}else
     	{
-    		echo "用户未登陆";
+    		$check = "用户未登陆";
     	}
-    	
+    	$this->assign([
+    		'msg'=>'这里是首页',
+            'check'=>$check
+    		]);
+    	return $this->fetch();
     	/*记得把index这个模块名写上*/
 
     	//print_r($this->e->deleteByUser(1,3));
