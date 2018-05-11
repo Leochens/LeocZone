@@ -15,12 +15,14 @@ class Admin extends Controller
     		 $this->error('管理员未登陆,跳转至登陆页面',"index/admin.Login/index");
     	}
         $userList = $this->getAllUser();
+        $recordList = $this->getAllRecords();
         // echo "<pre/>";
         // print_r($userList);
-       
+       //print_r($recordList);
     	$this->assign([
     			'msg'=>$msg,
-                'userList'=>$userList
+                'userList'=>$userList,
+                'recordList'=>$recordList
     			]);
     	return $this->fetch();
     }
@@ -34,7 +36,11 @@ class Admin extends Controller
         return $res;
     }
 
-
+    private function getAllRecords(){
+        $record = controller('index/record/Record');
+        $res = $record->getAllRecords();
+        return $res;
+    }
 
 
 

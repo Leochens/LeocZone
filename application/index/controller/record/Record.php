@@ -6,7 +6,7 @@ use think\Db;
  * @Author: Administrator
  * @Date:   2018-05-09 21:46:03
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-11 17:25:28
+ * @Last Modified time: 2018-05-11 22:05:18
  * 分层控制器  主要提供其他控制器数据集
  */
 
@@ -29,9 +29,9 @@ class Record extends Controller{
 	获取全部的数据
 	主要对于管理员
 	 */
-	public function getAll()
+	public function getAllRecords()
 	{
-		$res = $this->table->select();
+		$res = $this->single_user_records->select();
 		return $res?$res:-1;
 	}
 	/*
