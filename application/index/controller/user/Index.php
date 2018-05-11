@@ -57,7 +57,14 @@ class Index extends Controller
             $this->error('添加失败');
 
     }
-
+    public function deleteRecord($id)
+    {
+        $flag = $this->e->deleteByUser($this->user_id,$id);
+        if($flag)
+            $this->success('删除成功','user/index');
+        else
+            $this->error('删除失败');
+    }
 	public function logout(){
         Session::delete('user');
 		Session::delete('user_id');

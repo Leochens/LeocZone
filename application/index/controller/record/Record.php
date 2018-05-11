@@ -6,7 +6,7 @@ use think\Db;
  * @Author: Administrator
  * @Date:   2018-05-09 21:46:03
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-11 17:00:13
+ * @Last Modified time: 2018-05-11 17:25:28
  * 分层控制器  主要提供其他控制器数据集
  */
 
@@ -50,10 +50,10 @@ class Record extends Controller{
 	 * @param [type] $user_id [description]
 	 * @param [type] $data    [description]
 	 */
-	public function InsertByUser($user_id,$data)
+	public function insertByUser($user_id,$data)
 	{
 		$data['user_id']=$user_id;
-		$data['create_time']=Date('y-m-d h-i');
+		$data['create_time']=Date('y-m-d h-i-s');
 		$flag = $this->table
 				->insert($data);
 
@@ -71,7 +71,7 @@ class Record extends Controller{
 	 * @param [type] $user_id   [description]
 	 * @param [type] $record_id [description]
 	 */
-	public function DeleteByUser($user_id,$record_id)
+	public function deleteByUser($user_id,$record_id)
 	{
 		$flag = $this->table
 			->where('user_id',$user_id)
@@ -84,7 +84,7 @@ class Record extends Controller{
 	 * @param [type] $user_id   [description]
 	 * @param [type] $record_id [description]
 	 */
-	public function UpdateByUser($record_id,$data)
+	public function updateByUser($record_id,$data)
 	{
 		//$data['user_id']=$user_id;
 		$flag = $this->table

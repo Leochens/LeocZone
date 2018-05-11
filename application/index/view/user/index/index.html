@@ -21,10 +21,12 @@
 	{volist name='data' id='item'}
 	<li>
 		<ul>
+
 			<li><span>标题</span> {$item.title}</li>
 			<li><span>内容</span> {$item.content}</li>
 			<li><span>作者</span> {$item.author}</li>
 			<li><span>时间</span> {$item.create_time}</li>
+			<li><a href="index/deleteRecord?id={$item.id}">删除</a></li>
 		</ul>
 	</li>
 	{/volist}
