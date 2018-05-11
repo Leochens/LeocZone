@@ -22,11 +22,15 @@ class Index extends Controller
         else
             $this->error('用户未登陆,请登陆一下.',"index/user.login/index",'',$wait=1);
 
+        $show=1;
         $res = $this->getRecord();
+        if($res==-1)
+            $show=0;
         $this->assign([
             'msg'=>'这里是首页',
             'check'=>$check,
-            'data'=>$res
+            'data'=>$res,
+            'show'=>$show
             ]);
         //print_r($res);
     	return $this->fetch();
@@ -41,10 +45,7 @@ class Index extends Controller
 
     private function getRecord(){
         $res = $this->e->getByUser($this->user_id);
-        if($res==-1)
-            $this->error('获取用户记事列表失败');
-        else
-            return $res;
+        return $res;
     }
     public function insertRecord()
     {   

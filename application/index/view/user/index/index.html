@@ -17,6 +17,7 @@
 </form>
 <hr>
 <h2>我的记事</h2>
+{if condition="($show == 1 )"}
 <ul>
 	{volist name='data' id='item'}
 	<li>
@@ -31,7 +32,9 @@
 	</li>
 	{/volist}
 </ul>
-
+{else/}
+<h1>获取用户记事列表失败</h1>
+{/if}
 <a href="index/logout">注销</a>
 </body>
 </html>	
