@@ -6,19 +6,21 @@ use think\Db;
  * @Author: Administrator
  * @Date:   2018-05-09 21:46:03
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-11 16:43:55
+ * @Last Modified time: 2018-05-11 17:00:13
  * 分层控制器  主要提供其他控制器数据集
  */
 
 class Record extends Controller{
 
 
-	private $user_table ;
+	private $single_user_records ;
+	private $table;
 
 	public function _initialize()
 	{
 		//$this->table = Db::table('records');
-		$this->table = Db::table('single_user_records');
+		$this->single_user_records=Db::table('single_user_records');
+		$this->table = Db::table('records');
 	}
 	public function index(){
 
@@ -37,7 +39,7 @@ class Record extends Controller{
 	 */
 	public function getByUser($user_id)
 	{
-		$res = $this->table
+		$res = $this->single_user_records
 				->where('user_id',$user_id)
 				->select();
 		return $res?$res:-1;
@@ -51,6 +53,7 @@ class Record extends Controller{
 	public function InsertByUser($user_id,$data)
 	{
 		$data['user_id']=$user_id;
+		$data['create_time']=Date('y-m-d h-i');
 		$flag = $this->table
 				->insert($data);
 

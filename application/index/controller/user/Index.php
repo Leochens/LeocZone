@@ -46,7 +46,17 @@ class Index extends Controller
         else
             return $res;
     }
-    
+    public function insertRecord()
+    {   
+        $req = Request::instance();
+        $data = $req->param();
+        $flag = $this->e->insertByUser($this->user_id,$data);
+        if($flag)
+            $this->success('添加成功','user/index');
+        else
+            $this->error('添加失败');
+
+    }
 
 	public function logout(){
         Session::delete('user');

@@ -10,10 +10,10 @@
 <h2>{$check}</h2>
 <hr>
 <h2>添加记事</h2>
-<form action="login/login" method="post">
-	username: <input type="text" name="name"><br>
-	password: <input type="password" name="password" id=""><br>
-	<input type="submit" value="Login Now">	
+<form action="index/insertRecord" method="post">
+	title:<input type="text" name="title"><br>
+	content: <textarea name="content"  cols="30" rows="10"></textarea>
+	<input type="submit" value="add">	
 </form>
 <hr>
 <h2>我的记事</h2>
