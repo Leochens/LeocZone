@@ -24,13 +24,18 @@ class Index extends Controller
 
         $show=1;
         $res = $this->getRecord();
+
         if($res==-1)
             $show=0;
+        $res2= $this->getFriends($this->user_id);
+        // echo '<pre />';
+        // print_r($res2);
         $this->assign([
             'msg'=>'这里是首页', 
             'check'=>$check,
             'data'=>$res,
-            'show'=>$show
+            'show'=>$show,
+            'friendList'=>$res2
             ]);
         //print_r($res);
     	return $this->fetch();
@@ -60,12 +65,21 @@ class Index extends Controller
     }
     public function deleteRecord($id)
     {
-        $flag = $this->e->deleteByUser($this->user_id,$id);
+        $flag = $this->e->delete($id);
         if($flag)
             $this->success('删除成功','user/index');
         else
             $this->error('删除失败');
     }
+
+
+
+    private function getFriends($user_id){
+        $friend = model('index/user/Friend');
+        $res = $friend->getFriends($user_id);
+        return $res;
+    }
+
 	public function logout(){
         Session::delete('user');
 		Session::delete('user_id');

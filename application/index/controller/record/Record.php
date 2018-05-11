@@ -4,9 +4,9 @@ use think\Controller;
 use think\Db;
 /**
  * @Author: Administrator
- * @Date:   2018-05-09 21:46:03
+ * @Date:   2018-05-09 21:46:03 
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-11 22:05:18
+ * @Last Modified time: 2018-05-11 22:16:54
  * 分层控制器  主要提供其他控制器数据集
  */
 
@@ -71,10 +71,9 @@ class Record extends Controller{
 	 * @param [type] $user_id   [description]
 	 * @param [type] $record_id [description]
 	 */
-	public function deleteByUser($user_id,$record_id)
+	public function delete($record_id)
 	{
 		$flag = $this->table
-			->where('user_id',$user_id)
 			->delete($record_id);
 		return $flag?1:0;
 	}
