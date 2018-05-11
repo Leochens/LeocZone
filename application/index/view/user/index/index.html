@@ -8,6 +8,27 @@
 	
 <h1>{$msg}</h1>
 <h2>{$check}</h2>
+<hr>
+<h2>添加记事</h2>
+<form action="login/login" method="post">
+	username: <input type="text" name="name"><br>
+	password: <input type="password" name="password" id=""><br>
+	<input type="submit" value="Login Now">	
+</form>
+<hr>
+<h2>我的记事</h2>
+<ul>
+	{volist name='data' id='item'}
+	<li>
+		<ul>
+			<li><span>标题</span> {$item.title}</li>
+			<li><span>内容</span> {$item.content}</li>
+			<li><span>作者</span> {$item.author}</li>
+			<li><span>时间</span> {$item.create_time}</li>
+		</ul>
+	</li>
+	{/volist}
+</ul>
 
 <a href="index/logout">注销</a>
 </body>

@@ -8,7 +8,7 @@ use think\Session;
  * @Author: Administrator
  * @Date:   2018-05-10 08:59:08
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-10 13:11:35
+ * @Last Modified time: 2018-05-11 16:24:29
  */
 
 //登陆程序
@@ -35,11 +35,12 @@ class Login extends Controller{
     {
     	$req=Request::instance();
     	$data=$req->param();
-    	if($this->isUser($data))
+    	$check_id = $this->isUser($data);
+    	if($check_id)
     	{
-    		//echo "<br>用户".$data['name']."登录成功";
-    	
     		Session::set('user',$data['name']);
+    		Session::set('user_id',$check_id);
+
     		$this->success("<br>用户".$data['name']."登录成功",'user/index');
     		return 1;
     	}else{
@@ -51,7 +52,7 @@ class Login extends Controller{
 	/**
 	 * 判断数据库内是否有这个管理员
 	 * @param  [type]  $e [获得的参数]
-	 * @return boolean    [1 是管理员 0 未找到管理员]
+	 * @return boolean    [返回id是管理员 0 未找到管理员]
 	 */
 	private function isUser($e){
 		$res = Db::table('users')
@@ -60,7 +61,7 @@ class Login extends Controller{
 			->find();
 		//print_r($res);
 		if($res)
-			return 1;
+			return $res['id'];
 		else
 			return 0;
 	}

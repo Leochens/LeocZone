@@ -6,18 +6,19 @@ use think\Db;
  * @Author: Administrator
  * @Date:   2018-05-09 21:46:03
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-10 08:56:09
+ * @Last Modified time: 2018-05-11 16:43:55
  * 分层控制器  主要提供其他控制器数据集
  */
 
 class Record extends Controller{
 
 
-	private $table ;
+	private $user_table ;
 
 	public function _initialize()
 	{
-		$this->table = Db::table('records');
+		//$this->table = Db::table('records');
+		$this->table = Db::table('single_user_records');
 	}
 	public function index(){
 
@@ -38,7 +39,6 @@ class Record extends Controller{
 	{
 		$res = $this->table
 				->where('user_id',$user_id)
-				->where('type',1)
 				->select();
 		return $res?$res:-1;
 	}
@@ -56,13 +56,13 @@ class Record extends Controller{
 
 		return $flag?1:0;
 	}
-	public function InsertByAdmin($user_id,$data)
-	{
-		$data['user_id']=$user_id;
-		$data['type']=2;
-		$flag = $this->table
-				->insert($data);
-	}
+	// public function InsertByAdmin($user_id,$data)
+	// {
+	// 	$data['user_id']=$user_id;
+	// 	$data['type']=2;
+	// 	$flag = $this->table
+	// 			->insert($data);
+	// }
 	/**
 	 * 根据用户删除记录
 	 * @param [type] $user_id   [description]
