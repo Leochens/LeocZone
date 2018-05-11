@@ -14,11 +14,35 @@ class Admin extends Controller
     	}else{
     		 $this->error('管理员未登陆,跳转至登陆页面',"index/admin.Login/index");
     	}
+        $userList = $this->getAllUser();
+        // echo "<pre/>";
+        // print_r($userList);
+       
     	$this->assign([
-    			'msg'=>$msg
+    			'msg'=>$msg,
+                'userList'=>$userList
     			]);
     	return $this->fetch();
     }
+
+
+    private function getAllUser()
+    {
+        $userControl = model('index/admin/UserControl');
+        //$userControl = new UserControl();
+        $res = $userControl->getAllUser();
+        return $res;
+    }
+
+
+
+
+
+
+
+
+
+
     private function check()
     {
     	if(Session::has('admin'))

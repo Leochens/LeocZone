@@ -27,7 +27,7 @@ class Index extends Controller
         if($res==-1)
             $show=0;
         $this->assign([
-            'msg'=>'这里是首页',
+            'msg'=>'这里是首页', 
             'check'=>$check,
             'data'=>$res,
             'show'=>$show

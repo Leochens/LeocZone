@@ -7,6 +7,15 @@
 <body>
 	<h1>这里是管理员界面</h1>
 	<h2>{$msg}</h2>
+
+	<h2>用户列表</h2>
+	<ul>
+	{volist name='userList' id='item' }
+		<h3>用户{$item.id}</h3>
+		<li>用户名 {$item.name}</li>
+		<li>密码 {$item.password}</li>
+	{/volist}
+	</ul>
 <a href="admin/logout">注销</a>
 </body>
 </html>
