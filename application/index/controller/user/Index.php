@@ -17,11 +17,8 @@ class Index extends Controller
     public function index()
     {
     	
-    	if($this->check())
-    		$check = "用户".$this->user_name."已登录,id为：".$this->user_id;
-        else
-            $this->error('用户未登陆,请登陆一下.',"index/user.login/index",'',$wait=1);
-
+        $this->check();
+    	$check = "用户".$this->user_name."已登录,id为：".$this->user_id;
         $show=1;
         $recordList = $this->getRecord();
 
@@ -44,17 +41,27 @@ class Index extends Controller
     	if(Session::has('user'))
     		return 1;
     	else 
-    		return 0;
+    		$this->error('用户未登陆,请登陆一下.',"index/user.login/index",'',$wait=1);
     }
-
+    private function accessCheck()
+    {
+        $res =  Db::table('users')
+            ->where('id',$this->user_id)
+            ->value('is_forbidden');
+        if($res)
+            $this->error('您已被禁言，无法发表言论，如需解除请联系管理员。');
+        else
+            return 1;
+    }
 
     // 用户对记录的操作
     private function getRecord(){
         $res = $this->e->getByUser($this->user_id);
         return $res;
     }
-    public function insertRecord()
+    public function addRecord()
     {   
+        $this->accessCheck();
         $req = Request::instance();
         $data = $req->param();
         $flag = $this->e->insertByUser($this->user_id,$data);
@@ -91,7 +98,9 @@ class Index extends Controller
     //用户对好友的操作
     private function getFriends(){
         $friend = model('index/user/Friend');
+
         $res = $friend->getFriends($this->user_id);
+
         return $res;
     }
     public function addFriend()
@@ -110,8 +119,6 @@ class Index extends Controller
         return Db::table('users')->where('name',$user_name)
         ->find();
     }
-
-
     public function deleteFriend()
     {
         $friend_id=$this->getParam('friend_id');
