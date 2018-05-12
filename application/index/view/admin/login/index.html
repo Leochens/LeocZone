@@ -2,15 +2,23 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>管理员登陆</title>
+	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ 	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-	<h1>这是管理员登陆的界面</h1>
 
-	<form action="login/login" method="post">
-		username: <input type="text" name="name"><br>
-		password: <input type="password" name="password" id=""><br>
-		<input type="submit" value="Login Now">	
+	<div class="container col-lg-4 col-lg-offset-4 text-center">
+	<h3>登陆Leoc——管理员登陆</h3>
+	</div>
+	<form class="form-group col-lg-4 col-lg-offset-4" action="login/login" method="post">
+		<input class="input form-control" type="text" name="name" placeholder="用户名" ><br>
+		<input class="input form-control" type="password" name="password" placeholder="密码" id=""><br>
+		<input class="form-control btn btn-success" type="submit" value="Login Now">	
 	</form>
 </body>
 </html>

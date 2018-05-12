@@ -24,8 +24,6 @@ class Admin extends Controller
     			]);
     	return $this->fetch();
     }
-
-
     private function getAllUser()
     {
         $userControl = model('index/admin/UserControl');
@@ -48,14 +46,6 @@ class Admin extends Controller
         $res = $record->getAllRecords();
         return $res;
     }
-
-
-
-
-
-
-
-
     private function check()
     {
     	if(Session::has('admin'))

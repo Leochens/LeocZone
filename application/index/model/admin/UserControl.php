@@ -6,7 +6,7 @@ use think\Db;
  * @Author: Administrator
  * @Date:   2018-05-11 17:38:45
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-12 15:40:01
+ * @Last Modified time: 2018-05-12 15:45:23
  */
 class UserControl extends Model{
 
