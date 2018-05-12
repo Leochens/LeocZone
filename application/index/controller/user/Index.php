@@ -83,8 +83,15 @@ class Index extends Controller
             $this->error('删除失败');
     }
     public function updateRecord(){
+
+
         $content = $this->getParam('content','','post');
         $record_id = $this->getParam('id','','post');
+        $user_id = $this->getParam('user_id','','post');
+        if($user_id!=$this->user_id)
+            $this->error("你可不能编辑别人的记录哦！");
+
+        
         $res=$this->e->update($record_id,['content'=>$content]);
         if($res)
             $this->success('编辑成功','user/index');

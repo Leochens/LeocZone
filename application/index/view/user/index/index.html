@@ -131,6 +131,7 @@
 	        <label for="">请修改原来的记事</label>
 	        <input id="old_record" name="content" type="text" class="form-control"  placeholder="">
 	        <input type="hidden" name="id" id="old_record_id" >
+	        <input type="hidden" name="user_id" id="user_id" >
 	    </div>
 	    <button type="submit"  class="btn btn-primary">保存</button>
 		</form>        
@@ -168,6 +169,7 @@
 			console.log(data);
 			$('#old_record').val(data.content);
 			$('#old_record_id').val(data.id);
+			$('#user_id').val(data.user_id);
 		})
 		.fail(function() {
 			console.log("error");
