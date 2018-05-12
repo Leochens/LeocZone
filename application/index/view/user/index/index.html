@@ -17,9 +17,11 @@
 </form>
 <hr>
 <h2>我的记事</h2>
-{if condition="($show == 1 )"}
+
+{if condition="!empty($recordList)"}
+
 <ul>
-	{volist name='data' id='item'}
+	{volist name='recordList' id='item'}
 	<li>
 		<ul>
 
@@ -36,6 +38,28 @@
 <h1>获取用户记事列表失败</h1>
 {/if}
 
+
+<h2>好友记事</h2>
+{if condition="!empty($friendsRecordList)"}
+<ul>
+	{volist name='friendsRecordList' id='item'}
+	<li>
+		<ul>
+
+			<li><span>标题</span> {$item.title}</li>
+			<li><span>内容</span> {$item.content}</li>
+			<li><span>作者</span> {$item.author}</li>
+			<li><span>时间</span> {$item.create_time}</li>
+			<li><a href="index/deleteRecord?id={$item.id}">删除</a></li>
+		</ul>
+	</li>
+	{/volist}
+</ul>
+{else/}
+<h1>获取用户记事列表失败</h1>
+{/if}
+
+
 <h2>添加好友</h2>
 <form action="index/addFriend" method="get">
 	name:<input type="text" name="user_name"><br>
@@ -44,7 +68,7 @@
 	<h2>关注列表</h2>
 	<ul>
 	{volist name='friendList' id='item' }
-		<li>{$item.friend_name}</li>
+		<li>{$item.friend_name} <a href="index/deleteFriend?friend_id={$item.friend_id}">删除</a></li>
 	{/volist}
 	</ul>
 <a href="index/logout">注销</a>
