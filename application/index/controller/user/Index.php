@@ -64,6 +64,10 @@ class Index extends Controller
         $this->accessCheck();
         $req = Request::instance();
         $data = $req->param();
+        if($data['title']=="")
+            $data['title']="无标题";
+        if($data['content']=="")
+            $this->error("你总得说点什么吧老铁~~");
         $flag = $this->e->insertByUser($this->user_id,$data);
         if($flag)
             $this->success('添加成功','user/index');
@@ -91,7 +95,7 @@ class Index extends Controller
         if($user_id!=$this->user_id)
             $this->error("你可不能编辑别人的记录哦！");
 
-        
+
         $res=$this->e->update($record_id,['content'=>$content]);
         if($res)
             $this->success('编辑成功','user/index');
@@ -125,7 +129,13 @@ class Index extends Controller
     public function addFriend()
     {
         $user_name=$this->getParam('user_name','请输入要加的好友的名字');
+        if($user_name=="")
+            $this->error('你还没有输入好友的用户名');
         $friend_id = $this->findUserId($user_name);
+        if(!$friend_id)
+        {
+            $this->error("该好友不存在！");
+        }
         $data = ['user_id' => $this->user_id,'friend_id'=>$friend_id['id']];
         $res = Db::table('friends')->insert($data);
         if($res)
@@ -135,8 +145,12 @@ class Index extends Controller
     }
     private function findUserId($user_name)
     {
-        return Db::table('users')->where('name',$user_name)
+        $res = Db::table('users')->where('name',$user_name)
         ->find();
+        if($res)
+            return $res;
+        else
+            return 0;
     }
     public function deleteFriend()
     {

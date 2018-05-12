@@ -41,6 +41,16 @@ class Admin extends Controller
         else
             $this->error('禁言失败');
     }
+    public function unForbiddenUser()
+    {
+        $userControl = model('index/admin/UserControl');
+        $user_id = $this->getParam('user_id','请输入被要解禁者的id');
+        $res = $userControl -> unForbiddenUser($user_id);
+        if($res)
+            $this->success('解禁成功');
+        else
+            $this->error('解禁失败');
+    }
     private function getAllRecords(){
         $record = controller('index/record/Record');
         $res = $record->getAllRecords();

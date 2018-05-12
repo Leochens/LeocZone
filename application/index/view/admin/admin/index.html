@@ -17,7 +17,8 @@
 	<h2>用户列表</h2>
 	<ul>
 	{volist name='userList' id='item' }
-		<h3>用户{$item.id} <a href="admin/forbiddenUser?user_id={$item.id}">禁言</a></h3>
+		<h3>用户{$item.id} <a href="admin/forbiddenUser?user_id={$item.id}">禁言</a>
+							<a href="admin/unForbiddenUser?user_id={$item.id}">解禁</a></h3>
 		<li>用户名 {$item.name}</li>
 		<li>密码 {$item.password}</li>
 		<li>是否禁言 {$item.is_forbidden}</li>
