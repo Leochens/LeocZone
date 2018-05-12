@@ -80,6 +80,28 @@ class Index extends Controller
         return $res;
     }
 
+    public function addFriend()
+    {
+        $req = Request::instance();
+        if($req->has('user_name','get'))
+            $user_name=$req->param('user_name');
+        else
+            $this->error("请输入要加的好友的名字");
+        $friend_id = $this->findUserId($user_name);
+        $data = ['user_id' => $this->user_id,'friend_id'=>$friend_id['id']];
+        //print_r($data);
+        $res = Db::table('friends')->insert($data);
+        if($res)
+            $this->success('添加成功');
+        else
+            $this->error('添加失败');
+    }
+
+    private function findUserId($user_name)
+    {
+        return Db::table('users')->where('name',$user_name)
+        ->find();
+    }
 	public function logout(){
         Session::delete('user');
 		Session::delete('user_id');

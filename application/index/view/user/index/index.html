@@ -36,7 +36,11 @@
 <h1>获取用户记事列表失败</h1>
 {/if}
 
-
+<h2>添加好友</h2>
+<form action="index/addFriend" method="get">
+	name:<input type="text" name="user_name"><br>
+	<input type="submit" value="add">	
+</form>
 	<h2>关注列表</h2>
 	<ul>
 	{volist name='friendList' id='item' }
