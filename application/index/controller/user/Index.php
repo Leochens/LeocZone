@@ -71,8 +71,11 @@ class Index extends Controller
             $this->error('添加失败');
 
     }
-    public function deleteRecord($id)
+    public function deleteRecord($user_id,$id)
     {
+        //防止别人删除别人的记录
+        if($user_id!=$this->user_id)
+            $this->error("你可不能删除别人的记录哦！");
         $flag = $this->e->delete($id);
         if($flag)
             $this->success('删除成功','user/index');
