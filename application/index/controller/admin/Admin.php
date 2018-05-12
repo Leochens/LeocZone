@@ -16,9 +16,7 @@ class Admin extends Controller
     	}
         $userList = $this->getAllUser();
         $recordList = $this->getAllRecords();
-        // echo "<pre/>";
-        // print_r($userList);
-       //print_r($recordList);
+
     	$this->assign([
     			'msg'=>$msg,
                 'userList'=>$userList,
@@ -35,7 +33,16 @@ class Admin extends Controller
         $res = $userControl->getAllUser();
         return $res;
     }
-
+    public function forbiddenUser()
+    {
+        $userControl = model('index/admin/UserControl');
+        $user_id = $this->getParam('user_id','请输入被禁言者的id');
+        $res = $userControl -> forbiddenUser($user_id);
+        if($res)
+            $this->success('禁言成功');
+        else
+            $this->error('禁言失败');
+    }
     private function getAllRecords(){
         $record = controller('index/record/Record');
         $res = $record->getAllRecords();
@@ -62,5 +69,13 @@ class Admin extends Controller
         
         }
 
-
+    private function getParam($field,$errorMsg='出现错误',$method='get')
+    {
+        $req = Request::instance();
+        if($req->has($field,$method))
+            $res=$req->param($field);
+        else
+            $this->error($errorMsg);
+        return $res;
+    }
 }

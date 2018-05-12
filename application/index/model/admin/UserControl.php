@@ -6,7 +6,7 @@ use think\Db;
  * @Author: Administrator
  * @Date:   2018-05-11 17:38:45
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-11 18:11:38
+ * @Last Modified time: 2018-05-12 15:40:01
  */
 class UserControl extends Model{
 
@@ -19,6 +19,11 @@ class UserControl extends Model{
     }
     public function getAllUser()
     {
-    	return Db::table($this->table)->select();
+    	return $this->select();
+    }
+    public function forbiddenUser($user_id)
+    {
+        return $this->where('id',$user_id)
+                ->update(['is_forbidden'=>1]);
     }
 }
