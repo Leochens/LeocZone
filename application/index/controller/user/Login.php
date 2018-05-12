@@ -8,7 +8,7 @@ use think\Session;
  * @Author: Administrator
  * @Date:   2018-05-10 08:59:08
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-11 16:24:29
+ * @Last Modified time: 2018-05-12 21:11:08
  */
 
 //登陆程序
@@ -23,8 +23,6 @@ class Login extends Controller{
 		
 		return $this->fetch();
 	}
-
-
 
     /**
      * 登录
@@ -55,6 +53,9 @@ class Login extends Controller{
 	 * @return boolean    [返回id是管理员 0 未找到管理员]
 	 */
 	private function isUser($e){
+
+		$e['password']=md5($e['password']);
+
 		$res = Db::table('users')
 			->where('name',$e['name'])
 			->where('password',$e['password'])

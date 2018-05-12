@@ -8,7 +8,7 @@ use think\Session;
  * @Author: Administrator
  * @Date:   2018-05-10 08:59:08
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-11 16:04:58
+ * @Last Modified time: 2018-05-12 21:12:35
  */
 
 //登陆程序
@@ -48,6 +48,7 @@ class Login extends Controller{
 	 * @return boolean    [1 是管理员 0 未找到管理员]
 	 */
 	private function isAdmin($e){
+		$e['password']=md5($e['password']);
 		$res = Db::table('admins')
 			->where('name',$e['name'])
 			->where('password',$e['password'])

@@ -134,7 +134,7 @@ class Index extends Controller
         $friend_id = $this->findUserId($user_name);
         if(!$friend_id)
         {
-            $this->error("该好友不存在！");
+            $this->error("该好友不存在！请检查你的输入。");
         }
         $data = ['user_id' => $this->user_id,'friend_id'=>$friend_id['id']];
         $res = Db::table('friends')->insert($data);
