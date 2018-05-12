@@ -79,6 +79,15 @@ class Index extends Controller
         else
             $this->error('删除失败');
     }
+    public function updateRecord(){
+        $content = $this->getParam('content','','post');
+        $record_id = $this->getParam('id','','post');
+        $res=$this->e->update($record_id,['content'=>$content]);
+        if($res)
+            $this->success('编辑成功','user/index');
+        else
+            $this->error('编辑失败');
+    }
     //
     public function getFriendsRecord()
     {

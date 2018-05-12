@@ -2,11 +2,12 @@
 namespace app\index\controller\record;
 use think\Controller;
 use think\Db;
+use think\Request;
 /**
  * @Author: Administrator
  * @Date:   2018-05-09 21:46:03 
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-11 22:16:54
+ * @Last Modified time: 2018-05-12 17:30:50
  * 分层控制器  主要提供其他控制器数据集
  */
 
@@ -83,7 +84,7 @@ class Record extends Controller{
 	 * @param [type] $user_id   [description]
 	 * @param [type] $record_id [description]
 	 */
-	public function updateByUser($record_id,$data)
+	public function update($record_id,$data)
 	{
 		//$data['user_id']=$user_id;
 		$flag = $this->table
@@ -92,7 +93,18 @@ class Record extends Controller{
 		return $flag?1:0;
 
 	}
-	
+
+	//ajax请求
+	public function getSingleRecord()
+	{
+		$record_id = Request::instance()->param('id');
+		$res = $this->table
+				->where('id',$record_id)
+				->find();
+		//echo "string";
+
+		return json($res);
+	}
 
 
 } 
