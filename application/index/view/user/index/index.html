@@ -3,16 +3,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>首页</title>
-	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
- 	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+	{include file="common/header" /}
+
 	<style>
 		ul,li{
 			list-style: none;
 			margin: 0;
+			padding: 0;
 		}
 		.control{
 			visibility: hidden;;
@@ -30,19 +29,20 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#my_records" aria-controls="home" role="tab" data-toggle="tab">my_records</a></li>
-    <li role="presentation"><a href="#add_record" aria-controls="add_record" role="tab" data-toggle="tab">add_record</a></li>
-    <li role="presentation"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">friends_records</a></li>
-    <li role="presentation"><a href="#friends_list" aria-controls="friends_list" role="tab" data-toggle="tab">friends_list</a></li>
-    <li role="presentation"><a href="#add_friend" aria-controls="add_friend" role="tab" data-toggle="tab">add_friend</a></li>
-    <li role="presentation"><a href="#logout" aria-controls="logout" role="tab" data-toggle="tab">logout</a></li>
+    <li role="presentation" class="active"><a href="#my_records" aria-controls="home" role="tab" data-toggle="tab">我的说说</a></li>
+    <li role="presentation"><a href="#add_record" aria-controls="add_record" role="tab" data-toggle="tab">添加说说</a></li>
+    <li role="presentation"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">好友说说</a></li>
+    <li role="presentation"><a href="#friends_list" aria-controls="friends_list" role="tab" data-toggle="tab">好友列表</a></li>
+    <li role="presentation"><a href="#add_friend" aria-controls="add_friend" role="tab" data-toggle="tab">添加好友</a></li>
+    <li role="presentation"><a href="#logout" aria-controls="logout" role="tab" data-toggle="tab">注销登录</a></li>
   </ul>
  <!-- Tab panes -->
 	<div class="tab-content">
 	  <div role="tabpanel" class="tab-pane fade in active" id="my_records">
-		<h2>我的记事</h2>
+	  	<br>
+	  	<br>
 		{if condition="!empty($recordList)"}
-		<ul class="list">
+		<ul>
 			{volist name='recordList' id='item'}
 			<li>
 			<div class="panel panel-default">
@@ -67,7 +67,8 @@
 		{/if}
 	  </div>
 	  <div role="tabpanel" class="tab-pane fade" id="add_record">
-	  	<h2>添加记事</h2>
+		<br>
+	  	<br>
 		<form class="form-group" action="index/addRecord" method="post">
 			title:<input class="form-control" type="text" name="title"><br>
 			content: <textarea class="form-control" name="content"  cols="30" rows="10"></textarea>
@@ -75,7 +76,8 @@
 		</form>
 	  </div>
 	  <div role="tabpanel" class="tab-pane fade" id="friends_records">
-	  	<h2>好友记事</h2>
+  		<br>
+	  	<br>
 		{if condition="!empty($friendsRecordList)"}
 		<ul class="list">
 			{volist name='friendsRecordList' id='item'}
@@ -98,7 +100,8 @@
 		{/if}
 	  </div>
 	  <div role="tabpanel" class="tab-pane fade" id="friends_list">
-	  	<h2>关注列表</h2>
+		<br>
+	  	<br>
 		<ul class="list">
 		{volist name='friendList' id='item' }
 			<li>{$item.friend_name} 
@@ -108,13 +111,16 @@
 		</ul>
 	  </div>
 	  <div role="tabpanel" class="tab-pane fade" id="add_friend">
-	  	<h2>添加好友</h2>
+		<br>
+	  	<br>
 		<form class="form-group" action="index/addFriend" method="get">
 			name:<input class="form-control" type="text" name="user_name"><br>
 			<input class="form-control" type="submit" value="add">	
 		</form>
 	  </div>
 	  <div role="tabpanel" class="tab-pane fade" id="logout">
+	    <br>
+	  	<br>
 		<a href="index/logout">注销</a>
 	  </div>
 	</div>
