@@ -43,7 +43,7 @@ class Index extends Controller
     	if(Session::has('user'))
     		return 1;
     	else 
-    		$this->error('用户未登陆,请登陆一下.',config('INDEX')."/user_login/index",'',$wait=1);
+    		$this->error(APP_PATH.'用户未登陆,请登陆一下.',config('INDEX')."/user_login/index",'',$wait=1);
     }
     private function accessCheck()
     {
