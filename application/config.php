@@ -58,7 +58,7 @@ return [
     // 禁止访问模块
     'deny_module_list'       => ['common'],
     // 默认控制器名
-    'default_controller'     => 'user.Index',
+    'default_controller'     => 'user/Index',
     // 默认操作名
     'default_action'         => 'index',
     // 默认验证器
@@ -114,6 +114,8 @@ return [
     'request_cache_expire'   => null,
     // 全局请求缓存排除规则
     'request_cache_except'   => [],
+    //入口文件
+    'INDEX'=>'/index.php',
 
     // +----------------------------------------------------------------------
     // | 模板设置

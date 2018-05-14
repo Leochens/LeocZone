@@ -42,7 +42,7 @@ class Index extends Controller
     	if(Session::has('user'))
     		return 1;
     	else 
-    		$this->error('用户未登陆,请登陆一下.',"index/user.login/index",'',$wait=1);
+    		$this->error('用户未登陆,请登陆一下.',config('INDEX')."/user_login/index",'',$wait=1);
     }
     private function accessCheck()
     {
@@ -71,7 +71,7 @@ class Index extends Controller
             $this->error("你总得说点什么吧老铁~~");
         $flag = $this->e->insertByUser($this->user_id,$data);
         if($flag)
-            $this->success('添加成功','user/index');
+            $this->success('添加成功');
         else
             $this->error('添加失败');
 
@@ -83,7 +83,7 @@ class Index extends Controller
             $this->error("你可不能删除别人的记录哦！");
         $flag = $this->e->delete($id);
         if($flag)
-            $this->success('删除成功','user/index');
+            $this->success('删除成功');
         else
             $this->error('删除失败');
     }
@@ -99,7 +99,7 @@ class Index extends Controller
 
         $res=$this->e->update($record_id,['content'=>$content]);
         if($res)
-            $this->success('编辑成功','user/index');
+            $this->success('编辑成功');
         else
             $this->error('编辑失败');
     }
@@ -170,7 +170,7 @@ class Index extends Controller
 	public function logout(){
         Session::delete('user');
 		Session::delete('user_id');
-		$this->success('删除session成功','index/user/login');    //
+		$this->success('删除session成功',config('INDEX').'/user_login/index');    //
         
         }
 }

@@ -10,15 +10,26 @@
 // +----------------------------------------------------------------------
 use think\Route;
 
-\think\Route::rule('user_login','index/user.Index/login');
+
+\think\Route::rule('','index.php');
+\think\Route::rule('','index/user.Index/index');
+\think\Route::rule('user_login/index','index/user.Login/index');
+\think\Route::rule('user_login/login','index/user.Login/login');
+\think\Route::rule('user_regist/index','index/user.Regist/index');
+\think\Route::rule('user_regist/regist','index/user.Regist/regist');
+\think\Route::rule('user_logout','index/user.Index/logout');
+
+
 \think\Route::rule('user_r_add','index/user.Index/addRecord');
 \think\Route::rule('user_r_update','index/user.Index/updateRecord');
 \think\Route::rule('user_r_delete','index/user.Index/deleteRecord');
+\think\Route::rule('user_f_add','index/user.Index/addFriend');
+\think\Route::rule('user_f_delete','index/user.Index/deleteFriend');
 
 
 \think\Route::rule('admin_page','index/admin.Admin/index');
 \think\Route::rule('admin_logout','index/admin.Admin/logout');
-\think\Route::rule('admin_login','index/admin.Admin/login');
+\think\Route::rule('admin_login','index/admin.Login/login');
 \think\Route::rule('admin_f_user','index/admin.Admin/forbiddenUser');
 \think\Route::rule('admin_uf_user','index/admin.Admin/unForbiddenUser');
 

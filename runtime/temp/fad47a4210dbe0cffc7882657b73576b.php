@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526268804;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,20 @@
 	<title>首页</title>
 
 
-	{include file="common/header" /}
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+ 	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<style>
 		ul,li{
@@ -21,7 +35,7 @@
 <body>
 <header>
 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
-	<h4>{$check}</h4>
+	<h4><?php echo $check; ?></h4>
 	<button onclick="Control()">编辑</button>
 </header>
 <content>
@@ -41,35 +55,35 @@
 	  <div role="tabpanel" class="tab-pane fade in active" id="my_records">
 	  	<br>
 	  	<br>
-		{if condition="!empty($recordList)"}
+		<?php if(!empty($recordList)): ?>
 		<ul>
-			{volist name='recordList' id='item'}
+			<?php if(is_array($recordList) || $recordList instanceof \think\Collection || $recordList instanceof \think\Paginator): $i = 0; $__LIST__ = $recordList;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?>
 			<li>
 			<div class="panel panel-default">
 			  <div class="panel-heading">
-			  <span class="h3">{$item.title}</span>
-			 <!--  <span class="h3 small pull-right">作者:{$item.author}</span> -->
-			  <span class="h3 small pull-right">添加时间:{$item.create_time}</span>
+			  <span class="h3"><?php echo $item['title']; ?></span>
+			 <!--  <span class="h3 small pull-right">作者:<?php echo $item['author']; ?></span> -->
+			  <span class="h3 small pull-right">添加时间:<?php echo $item['create_time']; ?></span>
 			  </div>
 			  <div class="panel-body">
-			    {$item.content}
+			    <?php echo $item['content']; ?>
 			    <div class="control">
-				    <a class="btn btn-danger" href="{$Think.config.INDEX}/user_r_delete?user_id={$item.user_id}&id={$item.id}" >删除</a>
-					<button type="button" class="btn btn-warning" onclick="Load({$item.id})" data-toggle="modal" data-target="#update_record">编辑</button>
+				    <a class="btn btn-danger" href="<?php echo \think\Config::get('INDEX'); ?>/user_r_delete?user_id=<?php echo $item['user_id']; ?>&id=<?php echo $item['id']; ?>" >删除</a>
+					<button type="button" class="btn btn-warning" onclick="Load(<?php echo $item['id']; ?>)" data-toggle="modal" data-target="#update_record">编辑</button>
 				</div>
 			  </div>
 			</div>
 			</li>
-			{/volist}
+			<?php endforeach; endif; else: echo "" ;endif; ?>
 		</ul>
-		{else/}
+		<?php else: ?>
 		<h1>获取用户记事列表失败</h1>
-		{/if}
+		<?php endif; ?>
 	  </div>
 	  <div role="tabpanel" class="tab-pane fade" id="add_record">
 		<br>
 	  	<br>
-		<form class="form-group" action="{$Think.config.INDEX}/user_r_add" method="post">
+		<form class="form-group" action="<?php echo \think\Config::get('INDEX'); ?>/user_r_add" method="post">
 			title:<input class="form-control" type="text" name="title"><br>
 			content: <textarea class="form-control" name="content"  cols="30" rows="10"></textarea>
 			<input class="form-control" type="submit" value="add">	
@@ -78,42 +92,42 @@
 	  <div role="tabpanel" class="tab-pane fade" id="friends_records">
   		<br>
 	  	<br>
-		{if condition="!empty($friendsRecordList)"}
+		<?php if(!empty($friendsRecordList)): ?>
 		<ul class="list">
-			{volist name='friendsRecordList' id='item'}
+			<?php if(is_array($friendsRecordList) || $friendsRecordList instanceof \think\Collection || $friendsRecordList instanceof \think\Paginator): $i = 0; $__LIST__ = $friendsRecordList;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?>
 			<li>
 			<div class="panel panel-default">
 			  <div class="panel-heading">
-			  <span class="h3">{$item.title}</span>
-			  <span class="h3 small pull-right">作者:{$item.author}</span>
-			  <span class="h3 small pull-right">添加时间:{$item.create_time}</span>
+			  <span class="h3"><?php echo $item['title']; ?></span>
+			  <span class="h3 small pull-right">作者:<?php echo $item['author']; ?></span>
+			  <span class="h3 small pull-right">添加时间:<?php echo $item['create_time']; ?></span>
 			  </div>
 			  <div class="panel-body">
-			    {$item.content}
+			    <?php echo $item['content']; ?>
 			  </div>
 			</div>
 			</li>
-			{/volist}
+			<?php endforeach; endif; else: echo "" ;endif; ?>
 		</ul>
-		{else/}
+		<?php else: ?>
 		<h1>获取好友记事列表失败，因为你还没有好友或好友并未发表说说。</h1>
-		{/if}
+		<?php endif; ?>
 	  </div>
 	  <div role="tabpanel" class="tab-pane fade" id="friends_list">
 		<br>
 	  	<br>
 		<ul class="list">
-		{volist name='friendList' id='item' }
-			<li>{$item.friend_name} 
-			<a href="{$Think.config.INDEX}/user_f_delete?friend_id={$item.friend_id}">删除</a>
+		<?php if(is_array($friendList) || $friendList instanceof \think\Collection || $friendList instanceof \think\Paginator): $i = 0; $__LIST__ = $friendList;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?>
+			<li><?php echo $item['friend_name']; ?> 
+			<a href="<?php echo \think\Config::get('INDEX'); ?>/user_f_delete?friend_id=<?php echo $item['friend_id']; ?>">删除</a>
 			</li>
-		{/volist}
+		<?php endforeach; endif; else: echo "" ;endif; ?>
 		</ul>
 	  </div>
 	  <div role="tabpanel" class="tab-pane fade" id="add_friend">
 		<br>
 	  	<br>
-		<form class="form-group" action="{$Think.config.INDEX}/user_f_add" method="get">
+		<form class="form-group" action="<?php echo \think\Config::get('INDEX'); ?>/user_f_add" method="get">
 			name:<input class="form-control" type="text" name="user_name"><br>
 			<input class="form-control" type="submit" value="add">	
 		</form>
@@ -121,7 +135,7 @@
 	  <div role="tabpanel" class="tab-pane fade" id="logout">
 	    <br>
 	  	<br>
-		<a href="{$Think.config.INDEX}/user_logout">注销</a>
+		<a href="<?php echo \think\Config::get('INDEX'); ?>/user_logout">注销</a>
 	  </div>
 	</div>
 </div>
@@ -135,7 +149,7 @@
         <h4 class="modal-title">编辑记事</h4>
       </div>
       <div class="modal-body">
-		<form action="{$Think.config.INDEX}/user_r_update" method="POST" role="form">
+		<form action="<?php echo \think\Config::get('INDEX'); ?>/user_r_update" method="POST" role="form">
 	    <legend></legend>
 	
 	    <div class="form-group">
