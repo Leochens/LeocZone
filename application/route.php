@@ -13,20 +13,22 @@ use think\Route;
 
 \think\Route::rule('','index.php');
 \think\Route::rule('','index/user.Index/index');
+
+//用户登录项
 \think\Route::rule('user_login/index','index/user.Login/index');
 \think\Route::rule('user_login/login','index/user.Login/login');
 \think\Route::rule('user_regist/index','index/user.Regist/index');
 \think\Route::rule('user_regist/regist','index/user.Regist/regist');
 \think\Route::rule('user_logout','index/user.Index/logout');
 
-
+//用户操作项
 \think\Route::rule('user_r_add','index/user.Index/addRecord');
 \think\Route::rule('user_r_update','index/user.Index/updateRecord');
 \think\Route::rule('user_r_delete','index/user.Index/deleteRecord');
 \think\Route::rule('user_f_add','index/user.Index/addFriend');
 \think\Route::rule('user_f_delete','index/user.Index/deleteFriend');
 
-
+//管理员
 \think\Route::rule('admin_page','index/admin.Admin/index');
 \think\Route::rule('admin_logout','index/admin.Admin/logout');
 \think\Route::rule('admin_login','index/admin.Login/login');

@@ -28,6 +28,7 @@ class Index extends Controller
         // echo '<pre />';
         // print_r($res2);
         $friendsRecordList=$this->getFriendsRecord();
+        echo APP_PATH;
         $this->assign([
             'msg'=>'这里是首页', 
             'check'=>$check,
