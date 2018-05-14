@@ -10,3 +10,16 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+function getParam($field,$errorMsg='出现错误',$method='get')
+    {
+    	\think\Request::instance()->filter(['strip_tags','htmlspecialchars']);
+        $req = \think\Request::instance();
+        if($req->has($field,$method))
+            $res=$req->param($field);
+        else
+        {
+            $c = new \think\Controller();
+            $c->error($errorMsg);
+        }
+        return $res;
+    }

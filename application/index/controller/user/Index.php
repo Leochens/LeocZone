@@ -4,6 +4,7 @@ use think\Controller;
 use think\Request;
 use think\Db;
 use think\Session;
+
 class Index extends Controller
 {
 	private $e;
@@ -89,9 +90,9 @@ class Index extends Controller
     public function updateRecord(){
 
 
-        $content = $this->getParam('content','','post');
-        $record_id = $this->getParam('id','','post');
-        $user_id = $this->getParam('user_id','','post');
+        $content = getParam('content','','post');
+        $record_id = getParam('id','','post');
+        $user_id = getParam('user_id','','post');
         if($user_id!=$this->user_id)
             $this->error("你可不能编辑别人的记录哦！");
 
@@ -116,8 +117,6 @@ class Index extends Controller
             ->select();
         return $res;
     }
-
-
     //用户对好友的操作
     private function getFriends(){
         $friend = model('index/user/Friend');
@@ -128,7 +127,7 @@ class Index extends Controller
     }
     public function addFriend()
     {
-        $user_name=$this->getParam('user_name','请输入要加的好友的名字');
+        $user_name=getParam('user_name','请输入要加的好友的名字');
         if($user_name=="")
             $this->error('你还没有输入好友的用户名');
         $friend_id = $this->findUserId($user_name);
@@ -154,7 +153,7 @@ class Index extends Controller
     }
     public function deleteFriend()
     {
-        $friend_id=$this->getParam('friend_id');
+        $friend_id=getParam('friend_id');
         $res = Db::table('friends')
         ->where('user_id',$this->user_id)
         ->where('friend_id',$friend_id)
@@ -164,9 +163,6 @@ class Index extends Controller
         else
             $this->error('删除失败');
     }
-
-
-
     /**
      * 注销登录
      * @return [type] [description]
@@ -177,23 +173,4 @@ class Index extends Controller
 		$this->success('删除session成功','index/user/login');    //
         
         }
-
-
-    /**
-     * [获得 请求变量]
-     * @param  [type] $field  [变量名]
-     * @param  [type] $errorMsg  [出现错误时的返回字符串]
-     * @param  string $method [方法 get|post]
-     * @return [type]         [返回变量值]
-     */
-    private function getParam($field,$errorMsg='出现错误',$method='get')
-    {
-        $req = Request::instance();
-        if($req->has($field,$method))
-            $res=$req->param($field);
-        else
-            $this->error($errorMsg);
-        return $res;
-    }
-
 }

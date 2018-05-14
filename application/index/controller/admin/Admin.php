@@ -34,7 +34,7 @@ class Admin extends Controller
     public function forbiddenUser()
     {
         $userControl = model('index/admin/UserControl');
-        $user_id = $this->getParam('user_id','请输入被禁言者的id');
+        $user_id = getParam('user_id','请输入被禁言者的id');
         $res = $userControl -> forbiddenUser($user_id);
         if($res)
             $this->success('禁言成功');
@@ -44,7 +44,7 @@ class Admin extends Controller
     public function unForbiddenUser()
     {
         $userControl = model('index/admin/UserControl');
-        $user_id = $this->getParam('user_id','请输入被要解禁者的id');
+        $user_id = getParam('user_id','请输入被要解禁者的id');
         $res = $userControl -> unForbiddenUser($user_id);
         if($res)
             $this->success('解禁成功');
@@ -69,13 +69,5 @@ class Admin extends Controller
         
         }
 
-    private function getParam($field,$errorMsg='出现错误',$method='get')
-    {
-        $req = Request::instance();
-        if($req->has($field,$method))
-            $res=$req->param($field);
-        else
-            $this->error($errorMsg);
-        return $res;
-    }
+    
 }
