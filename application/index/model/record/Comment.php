@@ -7,7 +7,7 @@ use think\Db;
  * @Author: Administrator
  * @Date:   2018-05-14 21:12:48
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-15 13:03:02
+ * @Last Modified time: 2018-05-15 13:37:31
  */
 class Comment extends Model{
 	protected $view;
@@ -19,7 +19,7 @@ class Comment extends Model{
 	}
 	public function getComment($id)
 	{
-		$res = Db::table($this->table)->where('record_id',$id)->select();
+		$res = Db::table('record_comment')->where('record_id',$id)->select();
 		return $res?$res:0;
 	}
 

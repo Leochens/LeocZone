@@ -27,7 +27,7 @@
 	{volist name='test' id='record_item' }
 	<h3>说说内容：{$record_item['content']}</h3>
 		{volist name='record_item.comment' id='c_item'}
-		<li>{$c_item['content']}</li>
+		<li>{$c_item.comment_author}对{$c_item.author_name}说：{$c_item['content']}</li>
 		{/volist}
 	{/volist}
 	</ul>
