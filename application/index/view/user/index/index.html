@@ -23,7 +23,14 @@
 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
 	<h4>{$check}</h4>
 	<button onclick="Control()">编辑</button>
-	
+	<ul>
+	{volist name='test' id='record_item' }
+	<h3>说说内容：{$record_item['content']}</h3>
+		{volist name='record_item.comment' id='c_item'}
+		<li>{$c_item['content']}</li>
+		{/volist}
+	{/volist}
+	</ul>
 </header>
 <content>
 <div class="col-lg-8 col-lg-offset-2">
