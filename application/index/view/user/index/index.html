@@ -26,9 +26,14 @@
 	<ul>
 	{volist name='test' id='record_item' }
 	<h3>说说内容：{$record_item['content']}</h3>
-		{volist name='record_item.comment' id='c_item'}
-		<li>{$c_item.comment_author}对{$c_item.author_name}说：{$c_item['content']}</li>
-		{/volist}
+		{if condition='count($record_item.comments)!=0'}
+			{volist name='$record_item.comments' id='c_item'}
+			<li>{$c_item.name}:{$c_item.content}</li>
+				{volist name='c_item.comment_children' id='item'}
+					<li style="padding-left:40px ;">{$item.name}回复{$c_item.name}:{$item.content}</li>
+				{/volist}
+			{/volist}
+		{/if}
 	{/volist}
 	</ul>
 </header>
@@ -49,30 +54,42 @@
 	  <div role="tabpanel" class="tab-pane fade in active" id="my_records">
 	  	<br>
 	  	<br>
-		{if condition="!empty($recordList)"}
+
 		<ul>
-			{volist name='recordList' id='item'}
+			{volist name='test' id='record_item'}
 			<li>
 			<div class="panel panel-default">
 			  <div class="panel-heading">
-			  <span class="h3">{$item.title}</span>
-			 <!--  <span class="h3 small pull-right">作者:{$item.author}</span> -->
-			  <span class="h3 small pull-right">添加时间:{$item.create_time}</span>
+			  <span class="h3">{$record_item.author}</span>
+			 <!--  <span class="h3 small pull-right">作者:{$record_item.author}</span> -->
+			  <span class="h3 small pull-right">添加时间:{$record_item.create_time}</span>
 			  </div>
 			  <div class="panel-body">
-			    {$item.content}
+			    {$record_item.content}
 			    <div class="control">
-				    <a class="btn btn-danger" href="{$Think.config.INDEX}/user_r_delete?user_id={$item.user_id}&id={$item.id}" >删除</a>
-					<button type="button" class="btn btn-warning" onclick="Load({$item.id})" data-toggle="modal" data-target="#update_record">编辑</button>
+				    <a class="btn btn-danger" href="{$Think.config.INDEX}/user_r_delete?user_id={$record_item.user_id}&id={$record_item.id}" >删除</a>
+					<button type="button" class="btn btn-warning" onclick="Load({$record_item.id})" data-toggle="modal" data-target="#update_record">编辑</button>
 				</div>
+				<div class="comment">
+				<form method="post" action='{$Think.config.INDEX}/user_c_add' class="form-group col-lg-12">
+			  	评论：<input type="text" name='content' class="form-control">
+			  	<input type="hidden" name="record_id"  value="{$record_item.id}">
+						<input type="submit" value="提交">
+					{volist name='$record_item.comments' id='c_item'}
+					<li>{$c_item.name}:{$c_item.content}</li>
+						{volist name='c_item.comment_children' id='child_item'}
+							<li style="padding-left:40px ;">{$child_item.name}回复{$c_item.name}:{$child_item.content}</li>
+						{/volist}
+					{/volist}
+				</form>
+
+			  	</div>
 			  </div>
 			</div>
 			</li>
 			{/volist}
 		</ul>
-		{else/}
-		<h1>获取用户记事列表失败</h1>
-		{/if}
+
 	  </div>
 	  <div role="tabpanel" class="tab-pane fade" id="add_record">
 		<br>
@@ -99,6 +116,7 @@
 			  <div class="panel-body">
 			    {$item.content}
 			  </div>
+			  
 			</div>
 			</li>
 			{/volist}

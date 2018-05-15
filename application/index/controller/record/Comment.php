@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-14 21:26:17
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-15 12:37:05
+ * @Last Modified time: 2018-05-15 21:58:13
  */
 class Comment extends Controller{
 	private $commentModel ; 
@@ -19,17 +19,15 @@ class Comment extends Controller{
 	{
 
 	}
-	public function getComment($record_id)
+	public function getComment()
 	{
 
-		//var_dump($this->commentModel);
-		$res = $this->commentModel->getComment($record_id);
-		//TODO：放模版里看看
-		// $this->assign([
-		// 	'data'=>$res
-		// 	]);
-		// return $this->fetch();
-		// 
-		return $res?$res:0;
+		$res = $this->commentModel->getComment();
+		return $res;
+	}
+	public function addComment($data)
+	{
+		$res = $this->commentModel->addComment($data);
+		return $res;
 	}
 }

@@ -11,7 +11,7 @@
 
 // 应用公共文件
 // 
-$INDEX='index.php/';
+
 
 
 function getParam($field,$errorMsg='出现错误',$method='get')
