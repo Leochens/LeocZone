@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-14 21:26:17
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-16 13:39:24
+ * @Last Modified time: 2018-05-16 18:52:52
  */
 class Comment extends Controller{
 	private $commentModel ; 
@@ -51,6 +51,11 @@ class Comment extends Controller{
                     }
                     else continue;
                 }
+               //如果某一条说说没有评论 那么评论数组为空
+               if(!array_key_exists('comments', $r_item))
+               {
+               		$r_item['comments']=[];
+               }
               $record_with_comment[]=$r_item; 
         }
         //print_r($record_with_comment);

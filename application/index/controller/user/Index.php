@@ -23,24 +23,23 @@ class Index extends Controller
         $this->check();
     	$check = "用户".$this->user_name."已登录,id为：".$this->user_id;
         $show=1;
-        $recordList = $this->getRecord();
+        $record_with_comment_list = $this->getRecord();
         $friendList= $this->getFriends();
         $friendsRecordList=$this->getFriendsRecord();
         //$commentList = $this->getComment();
        // $tmp=[];
         //$commentList = $this->getComment(null,$tmp);
         
-        echo '<pre>';
-        print_r($recordList);
-        echo '</pre>';
-        echo APP_PATH;
+        // echo '<pre>';
+        // print_r($record_with_comment_list);
+        // echo '</pre>';
+        //echo APP_PATH;
         $this->assign([
             'msg'=>'这里是首页', 
             'check'=>$check,
-            'recordList'=>$recordList,
+            'recordList'=>$record_with_comment_list,
             'friendList'=>$friendList,
-            'friendsRecordList'=>$friendsRecordList,
-            'test'=>$record_with_comment,
+            'friendsRecordList'=>$friendsRecordList
             ]);
  
     	return $this->fetch();  	

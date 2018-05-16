@@ -1,0 +1,11 @@
+	{volist name='recordList' id='record_item' }
+	<h3>说说内容：{$record_item['content']}</h3>
+		{if condition='count($record_item.comments)!=0'}
+			{volist name='$record_item.comments' id='c_item'}
+			<li>{$c_item.name}:{$c_item.content}</li>
+				{volist name='c_item.comment_children' id='item'}
+					<li style="padding-left:40px ;">{$item.name}回复{$c_item.name}:{$item.content}</li>
+				{/volist}
+			{/volist}
+		{/if}
+	{/volist}
