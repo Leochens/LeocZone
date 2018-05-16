@@ -67,7 +67,7 @@
 					{volist name='$record_item.comments' id='c_item'}
 					<li>{$c_item.name}:{$c_item.content}</li>
 						{volist name='c_item.comment_children' id='child_item'}
-							<li style="padding-left:40px ;">{$child_item.name}回复{$c_item.name}:{$child_item.content}</li>
+							<li style="padding-left:40px;">{$child_item.name}回复{$c_item.name}:{$child_item.content}</li>
 						{/volist}
 					{/volist}
 				</form>

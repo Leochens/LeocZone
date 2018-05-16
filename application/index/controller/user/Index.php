@@ -26,14 +26,7 @@ class Index extends Controller
         $record_with_comment_list = $this->getRecord();
         $friendList= $this->getFriends();
         $friendsRecordList=$this->getFriendsRecord();
-        //$commentList = $this->getComment();
-       // $tmp=[];
-        //$commentList = $this->getComment(null,$tmp);
-        //test($friendsRecordList);
-        // echo '<pre>';
-        // print_r($record_with_comment_list);
-        // echo '</pre>';
-        //echo APP_PATH;
+
         $this->assign([
             'msg'=>'这里是首页', 
             'check'=>$check,

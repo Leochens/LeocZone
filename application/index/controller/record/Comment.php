@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-14 21:26:17
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-16 22:22:18
+ * @Last Modified time: 2018-05-16 22:38:16
  */
 class Comment extends Controller{
 	private $commentModel ; 
@@ -34,7 +34,10 @@ class Comment extends Controller{
 		$recordIds=Db::table('single_user_records')
 				->where('user_id in ('.$user_id.')')
 				->column('id');
-
+		//该用户没有发表过说说
+		if(empty($recordIds))
+			return [];
+		
 		//test($recordIds);
 
 		$commentList = $this->commentModel->getComment(implode(",",$recordIds));
