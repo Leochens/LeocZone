@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526469491;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526480294;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,8 +117,20 @@
 			  </div>
 			  <div class="panel-body">
 			    <?php echo $item['content']; ?>
+			      <div class="comment">
+					<form method="post" action='<?php echo \think\Config::get('INDEX'); ?>/user_c_add' class="form-group col-lg-12">
+				  	评论：<input type="text" name='content' class="form-control">
+				  	<input type="hidden" name="record_id"  value="<?php echo $item['id']; ?>">
+							<input type="submit" value="提交">
+						<?php if(is_array($item['comments']) || $item['comments'] instanceof \think\Collection || $item['comments'] instanceof \think\Paginator): $i = 0; $__LIST__ = $item['comments'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$c_item): $mod = ($i % 2 );++$i;?>
+						<li><?php echo $c_item['name']; ?>:<?php echo $c_item['content']; ?></li>
+							<?php if(is_array($c_item['comment_children']) || $c_item['comment_children'] instanceof \think\Collection || $c_item['comment_children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $c_item['comment_children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child_item): $mod = ($i % 2 );++$i;?>
+								<li style="padding-left:40px ;"><?php echo $child_item['name']; ?>回复<?php echo $c_item['name']; ?>:<?php echo $child_item['content']; ?></li>
+							<?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
+					</form>
+			  	</div>
 			  </div>
-			  
+			
 			</div>
 			</li>
 			<?php endforeach; endif; else: echo "" ;endif; ?>

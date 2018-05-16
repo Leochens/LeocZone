@@ -29,7 +29,7 @@ class Index extends Controller
         //$commentList = $this->getComment();
        // $tmp=[];
         //$commentList = $this->getComment(null,$tmp);
-        
+        test($friendsRecordList);
         // echo '<pre>';
         // print_r($record_with_comment_list);
         // echo '</pre>';
@@ -63,9 +63,9 @@ class Index extends Controller
 
     // 用户对记录的操作
     private function getRecord(){
-        echo "当前用户的带评论说说数据 begin";
+        //echo "当前用户的带评论说说数据 begin";
         $res = $this->e->getByUser($this->user_id);
-        echo "当前用户的带评论说说数据 end";
+        //echo "当前用户的带评论说说数据 end";
         return $res;
     }
     public function addRecord()
@@ -119,10 +119,7 @@ class Index extends Controller
         foreach ($friends as $friend) {
             $friendsIdList[]=$friend['friend_id'];
         }
-        //test($friendsIdList);
-        $friend_record_with_comment=[];
-
-        $res = $this->e->getByUser(implode(',',$friendsIdList));
+        $friend_record_with_comment = $this->e->getByUser(implode(',',$friendsIdList));
 
         return $friend_record_with_comment;
     }

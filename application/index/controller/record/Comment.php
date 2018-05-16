@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-14 21:26:17
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-16 22:03:44
+ * @Last Modified time: 2018-05-16 22:12:23
  */
 class Comment extends Controller{
 	private $commentModel ; 
@@ -20,16 +20,14 @@ class Comment extends Controller{
 
 	}
 	/**
-	 * 获得当前用户的每条说说的评论
-	 * @param  [type] $user_id [description]
-	 * @return [type]          [description]
+	 * 获得带评论的说说的集合
+	 * @param  [int|array] $user_id [单一id或id的数组]
+	 * @return [type]          [带评论的说说的集合]
 	 */
 	public function getRecordWithComment($user_id)
 	{
 
 		//获取说说id集合
-		$recordListSql = 'SELECT id FROM '.'single_user_records'.
-							' WHERE user_id in ('.$user_id.')';
 		$recordIds=Db::table('single_user_records')
 				->where('user_id in ('.$user_id.')')
 				->column('id');
@@ -37,13 +35,10 @@ class Comment extends Controller{
 		//test($recordIds);
 
 		$commentList = $this->commentModel->getComment(implode(",",$recordIds));
-		// echo "<pre>";
-		// echo implode(",",$recordIds);
-		// echo "</pre>";
-		//test($commentList);
-		//指定用户说说列表
+
+		//指定所有好友用户说说列表
 		$recordList = Db::table('single_user_records')
-			->where('user_id',$user_id)
+			->where('user_id in ('.$user_id.')')
 			->select();
 
 		//组合 使每一条说说都增加自己的评论字段 保存在$record_with_comment中
