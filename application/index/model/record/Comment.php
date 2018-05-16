@@ -7,7 +7,7 @@ use think\Db;
  * @Author: Administrator
  * @Date:   2018-05-14 21:12:48
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-15 22:02:49
+ * @Last Modified time: 2018-05-16 12:28:36
  */
 class Comment extends Model{
 	//protected $view;

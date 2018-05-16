@@ -7,11 +7,13 @@ use think\Session;
 
 class Index extends Controller
 {
-	private $e;
+    private $e;
+	private $c;
     private $user_name;
     private $user_id;
 	public function _initialize(){
-    	$this->e = controller('index/record/Record');
+        $this->e = controller('index/record/Record');
+    	$this->c = controller('index/record/Comment');
         $this->user_name=Session::get('name');
         $this->user_id=Session::get('user_id');
 	}
@@ -22,21 +24,37 @@ class Index extends Controller
     	$check = "用户".$this->user_name."已登录,id为：".$this->user_id;
         $show=1;
         $recordList = $this->getRecord();
-
-
         $friendList= $this->getFriends();
-        // echo '<pre />';
-        // print_r($res2);
         $friendsRecordList=$this->getFriendsRecord();
+        //$commentList = $this->getComment();
+       // $tmp=[];
+        //$commentList = $this->getComment(null,$tmp);
+        
+        echo '<pre>';
+
+        // $record_with_comment=[];
+        // foreach ($recordList as $r_item) {
+        //         foreach ($commentList as $c_item) {
+        //             if($c_item['record_id']==$r_item['id'])
+        //             {
+        //                 $r_item['comments'][]=$c_item;
+        //             }
+        //             else continue;
+        //         }
+        //       $record_with_comment[]=$r_item; 
+        // }
+        print_r($recordList);
+        echo '</pre>';
         echo APP_PATH;
         $this->assign([
             'msg'=>'这里是首页', 
             'check'=>$check,
             'recordList'=>$recordList,
             'friendList'=>$friendList,
-            'friendsRecordList'=>$friendsRecordList
+            'friendsRecordList'=>$friendsRecordList,
+            'test'=>$record_with_comment,
             ]);
-        //print_r($res);
+ 
     	return $this->fetch();  	
     }
     private function check(){
@@ -164,6 +182,29 @@ class Index extends Controller
         else
             $this->error('删除失败');
     }
+
+    public function getComment(){
+        $res = $this->c->getComment();
+        return $res?$res:0;
+    }
+    public function addComment(){
+        $content = getParam('content','content lost','post');
+        $record_id = getParam('record_id','record_id lost','post');
+        $comment_author_id = $this->user_id;
+        $data=[
+            'record_id'=>$record_id,
+            'content'=>$content,
+            'create_time'=>date('Y-m-d h-i-s'),
+            'parent_id'=>null,
+            'comment_author_id'=>$comment_author_id
+        ];
+        $res = $this->c->addComment($data);
+        return $res?$this->success('评论成功！'):0;
+    }
+    
+
+
+
     /**
      * 注销登录
      * @return [type] [description]

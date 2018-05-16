@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-09 21:46:03 
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-12 17:30:50
+ * @Last Modified time: 2018-05-16 13:01:48
  * 分层控制器  主要提供其他控制器数据集
  */
 
@@ -37,13 +37,43 @@ class Record extends Controller{
 	}
 	/*
 		获取对应用户的记录数据
+		包括说说的内容和评论 
 	 */
 	public function getByUser($user_id)
 	{
-		$res = $this->single_user_records
+		$recordList = $this->single_user_records
 				->where('user_id',$user_id)
 				->select();
-		return $res?$res:-1;
+		//子查询：对应用户的说说列表
+		// $recordListSql = $this->single_user_records
+		// 		->where('user_id',$user_id)
+		// 		->fetchSql(true)
+		// 		->column('id');
+		$sql = 'SELECT id FROM '.'single_user_records'.' WHERE user_id='.$user_id;
+		$res = Db::table('record_comment')
+			->where('record_id in ('.$sql.')')
+			->select();
+
+		//$c= controller('index/record/Comment');
+		//$commentList = $c->getComment();
+		echo "<pre />";
+		var_dump($sql);
+		var_dump($recordList);
+		echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+		print_r($res);
+		$record_with_comment=[];
+        // foreach ($recordList as $r_item) {
+        //         foreach ($commentList as $c_item) {
+        //             if($c_item['record_id']==$r_item['id'])
+        //             {
+        //                 $r_item['comments'][]=$c_item;
+        //             }
+        //             else continue;
+        //         }
+        //       $record_with_comment[]=$r_item; 
+        // }
+        
+		return $record_with_comment;
 	}
 
 	/**
