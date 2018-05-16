@@ -63,7 +63,9 @@ class Index extends Controller
 
     // 用户对记录的操作
     private function getRecord(){
+        echo "当前用户的带评论说说数据 begin";
         $res = $this->e->getByUser($this->user_id);
+        echo "当前用户的带评论说说数据 end";
         return $res;
     }
     public function addRecord()
@@ -109,19 +111,20 @@ class Index extends Controller
         else
             $this->error('编辑失败');
     }
-    //
+    //根据friend的id集 来聚合说说带评论
     public function getFriendsRecord()
     {
         $friends = $this->getFriends();
         $friendsIdList = [];
-
         foreach ($friends as $friend) {
             $friendsIdList[]=$friend['friend_id'];
         }
-        $res = Db::table('single_user_records')
-            ->where('user_id','in',$friendsIdList)
-            ->select();
-        return $res;
+        //test($friendsIdList);
+        $friend_record_with_comment=[];
+
+        $res = $this->e->getByUser(implode(',',$friendsIdList));
+
+        return $friend_record_with_comment;
     }
     //用户对好友的操作
     private function getFriends(){

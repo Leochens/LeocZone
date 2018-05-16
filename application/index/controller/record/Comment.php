@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-14 21:26:17
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-16 18:52:52
+ * @Last Modified time: 2018-05-16 22:03:44
  */
 class Comment extends Controller{
 	private $commentModel ; 
@@ -26,16 +26,21 @@ class Comment extends Controller{
 	 */
 	public function getRecordWithComment($user_id)
 	{
-		$recordListSql = 'SELECT id FROM '.'single_user_records'.' WHERE record_author_id='.$user_id;
-		$ids = Db::table('record_comment')
-			->where('record_id in ('.$recordListSql.')')
-			->column('record_id');
 
-		$commentList = $this->commentModel->getComment(implode(",",$ids));
-		// echo "<pre/>";
-		// echo implode(",",$ids);
-		// print_r($commentList);
+		//获取说说id集合
+		$recordListSql = 'SELECT id FROM '.'single_user_records'.
+							' WHERE user_id in ('.$user_id.')';
+		$recordIds=Db::table('single_user_records')
+				->where('user_id in ('.$user_id.')')
+				->column('id');
 
+		//test($recordIds);
+
+		$commentList = $this->commentModel->getComment(implode(",",$recordIds));
+		// echo "<pre>";
+		// echo implode(",",$recordIds);
+		// echo "</pre>";
+		//test($commentList);
 		//指定用户说说列表
 		$recordList = Db::table('single_user_records')
 			->where('user_id',$user_id)
@@ -59,6 +64,7 @@ class Comment extends Controller{
               $record_with_comment[]=$r_item; 
         }
         //print_r($record_with_comment);
+   
 		return $record_with_comment;
 	}
 	public function addComment($data)

@@ -7,7 +7,7 @@ use think\Db;
  * @Author: Administrator
  * @Date:   2018-05-14 21:12:48
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-16 13:33:05
+ * @Last Modified time: 2018-05-16 22:03:35
  */
 class Comment extends Model{
 	//protected $view;
@@ -27,9 +27,6 @@ class Comment extends Model{
 	 */
 	public function getComment($where,$parent_id = null,&$result = array())
 	{
-
-	
-
 		$arr = Db::table('record_comment')
 		->where('parent_id',$parent_id)
 		->where('record_id in ('.$where.')')

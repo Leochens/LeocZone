@@ -23,9 +23,7 @@
 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
 	<h4>{$check}</h4>
 	<button onclick="Control()">编辑</button>
-	<ul>
 
-	</ul>
 </header>
 <content>
 <div class="col-lg-8 col-lg-offset-2">
@@ -51,15 +49,16 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading">
 			  <span class="h3">{$record_item.author}</span>
-			 <!--  <span class="h3 small pull-right">作者:{$record_item.author}</span> -->
-			  <span class="h3 small pull-right">添加时间:{$record_item.create_time}</span>
-			  </div>
-			  <div class="panel-body">
-			    {$record_item.content}
-			    <div class="control">
+			  <div class="control pull-right">
 				    <a class="btn btn-danger" href="{$Think.config.INDEX}/user_r_delete?user_id={$record_item.user_id}&id={$record_item.id}" >删除</a>
 					<button type="button" class="btn btn-warning" onclick="Load({$record_item.id})" data-toggle="modal" data-target="#update_record">编辑</button>
 				</div>
+			 <!--  <span class="h3 small pull-right">作者:{$record_item.author}</span> -->
+			  <span class="h3 small">添加时间:{$record_item.create_time}</span>
+			  </div>
+			  <div class="panel-body">
+			    {$record_item.content}
+			    
 				<div class="comment">
 				<form method="post" action='{$Think.config.INDEX}/user_c_add' class="form-group col-lg-12">
 			  	评论：<input type="text" name='content' class="form-control">

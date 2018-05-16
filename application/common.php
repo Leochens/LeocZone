@@ -27,3 +27,9 @@ function getParam($field,$errorMsg='出现错误',$method='get')
         }
         return $res;
     }
+function test($T)
+{
+        echo "<pre>";
+        print_r($T);
+        echo "</pre>";
+}

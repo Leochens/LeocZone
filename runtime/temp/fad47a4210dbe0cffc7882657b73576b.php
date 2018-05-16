@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526467368;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526469491;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,15 +37,7 @@
 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
 	<h4><?php echo $check; ?></h4>
 	<button onclick="Control()">编辑</button>
-	<ul>
-	<?php if(is_array($recordList) || $recordList instanceof \think\Collection || $recordList instanceof \think\Paginator): $i = 0; $__LIST__ = $recordList;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$record_item): $mod = ($i % 2 );++$i;?>
-	<h3>说说内容：<?php echo $record_item['content']; ?></h3>
-		<?php if(count($record_item['comments'])!=0): if(is_array($record_item['comments']) || $record_item['comments'] instanceof \think\Collection || $record_item['comments'] instanceof \think\Paginator): $i = 0; $__LIST__ = $record_item['comments'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$c_item): $mod = ($i % 2 );++$i;?>
-			<li><?php echo $c_item['name']; ?>:<?php echo $c_item['content']; ?></li>
-				<?php if(is_array($c_item['comment_children']) || $c_item['comment_children'] instanceof \think\Collection || $c_item['comment_children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $c_item['comment_children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?>
-					<li style="padding-left:40px ;"><?php echo $item['name']; ?>回复<?php echo $c_item['name']; ?>:<?php echo $item['content']; ?></li>
-				<?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; endif; endforeach; endif; else: echo "" ;endif; ?>
-	</ul>
+
 </header>
 <content>
 <div class="col-lg-8 col-lg-offset-2">
@@ -71,15 +63,16 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading">
 			  <span class="h3"><?php echo $record_item['author']; ?></span>
-			 <!--  <span class="h3 small pull-right">作者:<?php echo $record_item['author']; ?></span> -->
-			  <span class="h3 small pull-right">添加时间:<?php echo $record_item['create_time']; ?></span>
-			  </div>
-			  <div class="panel-body">
-			    <?php echo $record_item['content']; ?>
-			    <div class="control">
+			  <div class="control pull-right">
 				    <a class="btn btn-danger" href="<?php echo \think\Config::get('INDEX'); ?>/user_r_delete?user_id=<?php echo $record_item['user_id']; ?>&id=<?php echo $record_item['id']; ?>" >删除</a>
 					<button type="button" class="btn btn-warning" onclick="Load(<?php echo $record_item['id']; ?>)" data-toggle="modal" data-target="#update_record">编辑</button>
 				</div>
+			 <!--  <span class="h3 small pull-right">作者:<?php echo $record_item['author']; ?></span> -->
+			  <span class="h3 small">添加时间:<?php echo $record_item['create_time']; ?></span>
+			  </div>
+			  <div class="panel-body">
+			    <?php echo $record_item['content']; ?>
+			    
 				<div class="comment">
 				<form method="post" action='<?php echo \think\Config::get('INDEX'); ?>/user_c_add' class="form-group col-lg-12">
 			  	评论：<input type="text" name='content' class="form-control">

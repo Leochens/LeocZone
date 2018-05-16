@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-09 21:46:03 
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-16 13:39:09
+ * @Last Modified time: 2018-05-16 22:01:46
  * 分层控制器  主要提供其他控制器数据集
  */
 
@@ -44,9 +44,7 @@ class Record extends Controller{
 
 		$c= controller('index/record/Comment');
 		$record_with_comment = $c->getRecordWithComment($user_id);
-
-		// echo "<pre />";
-		// print_r($record_with_comment);
+		//test($record_with_comment);
 		return $record_with_comment;
 	}
 
