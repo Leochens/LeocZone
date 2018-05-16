@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-14 21:26:17
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-16 22:12:23
+ * @Last Modified time: 2018-05-16 22:22:18
  */
 class Comment extends Controller{
 	private $commentModel ; 
@@ -26,6 +26,9 @@ class Comment extends Controller{
 	 */
 	public function getRecordWithComment($user_id)
 	{
+		//如果该用户没有好友 就返回一个空的数组
+		if($user_id=="")
+			return [];
 
 		//获取说说id集合
 		$recordIds=Db::table('single_user_records')

@@ -29,7 +29,7 @@ class Index extends Controller
         //$commentList = $this->getComment();
        // $tmp=[];
         //$commentList = $this->getComment(null,$tmp);
-        test($friendsRecordList);
+        //test($friendsRecordList);
         // echo '<pre>';
         // print_r($record_with_comment_list);
         // echo '</pre>';
