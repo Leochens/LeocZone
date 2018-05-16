@@ -31,18 +31,6 @@ class Index extends Controller
         //$commentList = $this->getComment(null,$tmp);
         
         echo '<pre>';
-
-        // $record_with_comment=[];
-        // foreach ($recordList as $r_item) {
-        //         foreach ($commentList as $c_item) {
-        //             if($c_item['record_id']==$r_item['id'])
-        //             {
-        //                 $r_item['comments'][]=$c_item;
-        //             }
-        //             else continue;
-        //         }
-        //       $record_with_comment[]=$r_item; 
-        // }
         print_r($recordList);
         echo '</pre>';
         echo APP_PATH;

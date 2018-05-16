@@ -7,7 +7,7 @@ use think\Db;
  * @Author: Administrator
  * @Date:   2018-05-14 21:12:48
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-16 12:28:36
+ * @Last Modified time: 2018-05-16 13:33:05
  */
 class Comment extends Model{
 	//protected $view;
@@ -20,20 +20,27 @@ class Comment extends Model{
 
 	/**
 	 * 递归获得评论列表 包含子评论
+	 * @param  [type] $where [某一用户的说说的id集合]
 	 * @param  [type] $parent_id [description]
 	 * @param  array  &$result   [description]
-	 * @return [type]            [description]
+	 * @return [type]            [返回$where集合中每一个说说的评论]
 	 */
-	public function getComment($parent_id = null,&$result = array())
+	public function getComment($where,$parent_id = null,&$result = array())
 	{
+
+	
+
 		$arr = Db::table('record_comment')
-		->where('parent_id',$parent_id)->select();
+		->where('parent_id',$parent_id)
+		->where('record_id in ('.$where.')')
+		->select();
+
 		if(empty($arr)){
         	return array();
     	}
 		foreach ($arr as $cm) {  
 	        $thisArr=&$result[];
-	        $cm["comment_children"] = $this->getComment($cm["id"],$thisArr);    
+	        $cm["comment_children"] = $this->getComment($where,$cm["id"],$thisArr);    
 	        $thisArr = $cm;                               
 	    }
 		return $result;
