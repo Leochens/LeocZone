@@ -168,7 +168,8 @@ class Index extends Controller
         return $res?$res:0;
     }
     public function addComment(){
-        $content = getParam('content','content lost','post');
+        $content = trim(getParam('content','content lost','post'));
+        if(empty($content)) $this->error('评论内容不能为空！');
         $record_id = getParam('record_id','record_id lost','post');
         $comment_author_id = $this->user_id;
         $data=[
@@ -182,7 +183,12 @@ class Index extends Controller
         return $res?$this->success('评论成功！'):0;
     }
     
-
+    public function delComment()
+    {
+        $c_id = getParam('id','获取评论id失败');
+        $this->check();
+        $res = 
+    }
 
 
     /**

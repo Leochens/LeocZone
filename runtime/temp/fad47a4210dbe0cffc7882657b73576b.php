@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526480294;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526532713;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +36,7 @@
 <header>
 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
 	<h4><?php echo $check; ?></h4>
-	<button onclick="Control()">编辑</button>
+	<button class="btn btn-success" onclick="Control()">编辑</button>
 
 </header>
 <content>
@@ -77,11 +77,11 @@
 				<form method="post" action='<?php echo \think\Config::get('INDEX'); ?>/user_c_add' class="form-group col-lg-12">
 			  	评论：<input type="text" name='content' class="form-control">
 			  	<input type="hidden" name="record_id"  value="<?php echo $record_item['id']; ?>">
-						<input type="submit" value="提交">
+						<input class="btn btn-info" type="submit" value="提交">
 					<?php if(is_array($record_item['comments']) || $record_item['comments'] instanceof \think\Collection || $record_item['comments'] instanceof \think\Paginator): $i = 0; $__LIST__ = $record_item['comments'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$c_item): $mod = ($i % 2 );++$i;?>
-					<li><?php echo $c_item['name']; ?>:<?php echo $c_item['content']; ?></li>
+					<li><?php echo $c_item['name']; ?>:<?php echo $c_item['content']; ?> <button onclick="commentDel(<?php echo $c_item['id']; ?>);return false;">删除</button></li>
 						<?php if(is_array($c_item['comment_children']) || $c_item['comment_children'] instanceof \think\Collection || $c_item['comment_children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $c_item['comment_children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child_item): $mod = ($i % 2 );++$i;?>
-							<li style="padding-left:40px ;"><?php echo $child_item['name']; ?>回复<?php echo $c_item['name']; ?>:<?php echo $child_item['content']; ?></li>
+							<li style="padding-left:20px;"><?php echo $child_item['name']; ?>回复<?php echo $c_item['name']; ?>:<?php echo $child_item['content']; ?></li>
 						<?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
 				</form>
 
@@ -111,8 +111,7 @@
 			<li>
 			<div class="panel panel-default">
 			  <div class="panel-heading">
-			  <span class="h3"><?php echo $item['title']; ?></span>
-			  <span class="h3 small pull-right">作者:<?php echo $item['author']; ?></span>
+			  <span class="h3"><?php echo $item['author']; ?></span>
 			  <span class="h3 small pull-right">添加时间:<?php echo $item['create_time']; ?></span>
 			  </div>
 			  <div class="panel-body">
@@ -236,6 +235,10 @@
 			$(".control").css("visibility","visible");
 		else
 			$(".control").css("visibility","hidden");
+	}
+	function commentDel(id)
+	{
+		console.log('删除评论：'+id);
 	}
 </script>	
 </body>
