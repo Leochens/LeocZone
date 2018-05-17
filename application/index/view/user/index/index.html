@@ -40,117 +40,12 @@
   </ul>
  <!-- Tab panes -->
 	<div class="tab-content">
-	  <div role="tabpanel" class="tab-pane fade in active" id="my_records">
-	  	<br>
-	  	<br>
-
-		<ul>
-			{volist name='recordList' id='record_item'}
-			<li>
-			<div class="panel panel-default">
-			  <div class="panel-heading">
-			  <span class="h3">{$record_item.author}</span>
-			  <div class="control pull-right">
-				    <a class="btn btn-danger" href="{$Think.config.INDEX}/user_r_delete?user_id={$record_item.user_id}&id={$record_item.id}" >删除</a>
-					<button type="button" class="btn btn-warning" onclick="Load({$record_item.id})" data-toggle="modal" data-target="#update_record">编辑</button>
-				</div>
-			 <!--  <span class="h3 small pull-right">作者:{$record_item.author}</span> -->
-			  <span class="h3 small">添加时间:{$record_item.create_time}</span>
-			  </div>
-			  <div class="panel-body">
-			    {$record_item.content}
-			    
-				<div class="comment">
-				<form method="post" action='{$Think.config.INDEX}/user_c_add' class="form-group col-lg-12">
-			  	评论：<input type="text" name='content' class="form-control">
-			  	<input type="hidden" name="record_id"  value="{$record_item.id}">
-						<input class="btn btn-info" type="submit" value="提交">
-					{volist name='$record_item.comments' id='c_item'}
-					<li  id="c_{$c_item.id}">{$c_item.name}:{$c_item.content} <button onclick="commentDel({$c_item.id});return false;">删除</button></li>
-						{volist name='c_item.comment_children' id='child_item'}
-							<li style="padding-left:20px;">{$child_item.name}回复{$c_item.name}:{$child_item.content}</li>
-						{/volist}
-					{/volist}
-				</form>
-
-			  	</div>
-			  </div>
-			</div>
-			</li>
-			{/volist}
-		</ul>
-
-	  </div>
-	  <div role="tabpanel" class="tab-pane fade" id="add_record">
-		<br>
-	  	<br>
-		<form class="form-group" action="{$Think.config.INDEX}/user_r_add" method="post">
-			title:<input class="form-control" type="text" name="title"><br>
-			content: <textarea class="form-control" name="content"  cols="30" rows="10"></textarea>
-			<input class="form-control" type="submit" value="add">	
-		</form>
-	  </div>
-	  <div role="tabpanel" class="tab-pane fade" id="friends_records">
-  		<br>
-	  	<br>
-		{if condition="!empty($friendsRecordList)"}
-		<ul class="list">
-			{volist name='friendsRecordList' id='item'}
-			<li>
-			<div class="panel panel-default">
-			  <div class="panel-heading">
-			  <span class="h3">{$item.author}</span>
-			  <span class="h3 small pull-right">添加时间:{$item.create_time}</span>
-			  </div>
-			  <div class="panel-body">
-			    {$item.content}
-			      <div class="comment">
-					<form method="post" action='{$Think.config.INDEX}/user_c_add' class="form-group col-lg-12">
-				  	评论：<input type="text" name='content' class="form-control">
-				  	<input type="hidden" name="record_id"  value="{$item.id}">
-							<input type="submit" value="提交">
-						{volist name='$item.comments' id='c_item'}
-						<li>{$c_item.name}:{$c_item.content}</li>
-							{volist name='c_item.comment_children' id='child_item'}
-								<li style="padding-left:40px ;">{$child_item.name}回复{$c_item.name}:{$child_item.content}</li>
-							{/volist}
-						{/volist}
-					</form>
-			  	</div>
-			  </div>
-			
-			</div>
-			</li>
-			{/volist}
-		</ul>
-		{else/}
-		<h1>获取好友记事列表失败，因为你还没有好友或好友并未发表说说。</h1>
-		{/if}
-	  </div>
-	  <div role="tabpanel" class="tab-pane fade" id="friends_list">
-		<br>
-	  	<br>
-		<ul class="list">
-		{volist name='friendList' id='item' }
-			<li>{$item.friend_name} 
-			<a href="{$Think.config.INDEX}/user_f_delete?friend_id={$item.friend_id}">删除</a>
-			</li>
-		{/volist}
-		</ul>
-	  </div>
-	  <div role="tabpanel" class="tab-pane fade" id="add_friend">
-		<br>
-	  	<br>
-		<form class="form-group" action="{$Think.config.INDEX}/user_f_add" method="get">
-			name:<input class="form-control" type="text" name="user_name"><br>
-			<input class="form-control" type="submit" value="add">	
-		</form>
-	  </div>
-	  <div role="tabpanel" class="tab-pane fade" id="logout">
-	    <br>
-	  	<br>
-		<a href="{$Think.config.INDEX}/user_logout">注销</a>
-	  </div>
+		{include file='user/index/myRecords'}
+		{include file='user/index/addRecord'}
+		{include file='user/index/friendRecords'}
+		{include file='user/index/friendList'}
+		{include file='user/index/addFriend'}
+		{include file='user/index/logout'}
 	</div>
 </div>
 </content>
@@ -182,9 +77,6 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
-
 
 <footer>
 	
@@ -225,14 +117,14 @@
 		else
 			$(".control").css("visibility","hidden");
 	}
-	function commentDel(id)
+	function myCommentDel(id,cmt_au_id)
 	{
 		console.log('删除评论：'+id);
 		$.ajax({
 			url: '/index.php/user_c_del',
 			type: 'GET',
 			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-			data: {id:id },
+			data: {id:id,comment_author_id:cmt_au_id},
 
 		})
 		.done(function(data) {

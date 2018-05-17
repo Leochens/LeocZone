@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-14 21:26:17
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-17 13:00:27
+ * @Last Modified time: 2018-05-17 16:45:48
  */
 class Comment extends Controller{
 	private $commentModel ; 
@@ -77,6 +77,11 @@ class Comment extends Controller{
 	{
 		$res = $this->commentModel->delComment($id);
 		return $res;
+	}
+
+	public function getListComment($ids)
+	{
+		
 	}
 
 }

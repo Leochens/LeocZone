@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526534983;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526534693;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526546453;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526534693;s:72:"D:\IT_study\recordthing\application\index\view\user\index\myRecords.html";i:1526551346;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addRecord.html";i:1526545158;s:76:"D:\IT_study\recordthing\application\index\view\user\index\friendRecords.html";i:1526545046;s:73:"D:\IT_study\recordthing\application\index\view\user\index\friendList.html";i:1526544993;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addFriend.html";i:1526545226;s:69:"D:\IT_study\recordthing\application\index\view\user\index\logout.html";i:1526545292;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +83,7 @@
   </ul>
  <!-- Tab panes -->
 	<div class="tab-content">
-	  <div role="tabpanel" class="tab-pane fade in active" id="my_records">
+		 <div role="tabpanel" class="tab-pane fade in active" id="my_records">
 	  	<br>
 	  	<br>
 
@@ -109,10 +109,38 @@
 			  	<input type="hidden" name="record_id"  value="<?php echo $record_item['id']; ?>">
 						<input class="btn btn-info" type="submit" value="提交">
 					<?php if(is_array($record_item['comments']) || $record_item['comments'] instanceof \think\Collection || $record_item['comments'] instanceof \think\Paginator): $i = 0; $__LIST__ = $record_item['comments'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$c_item): $mod = ($i % 2 );++$i;?>
-					<li  id="c_<?php echo $c_item['id']; ?>"><?php echo $c_item['name']; ?>:<?php echo $c_item['content']; ?> <button onclick="commentDel(<?php echo $c_item['id']; ?>);return false;">删除</button></li>
-						<?php if(is_array($c_item['comment_children']) || $c_item['comment_children'] instanceof \think\Collection || $c_item['comment_children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $c_item['comment_children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child_item): $mod = ($i % 2 );++$i;?>
+					<li  id="c_<?php echo $c_item['id']; ?>"><?php echo $c_item['name']; ?>:<?php echo $c_item['content']; ?> <button onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $c_item['comment_author_id']; ?>);return false;">删除</button></li>
+					<?php 
+						//print_r($c_item);
+						$arr1 =array();
+						echo "MMMM";
+						$test =function($data,&$arr=array())use(&$test){
+							if(empty($data['comment_children']))
+							{
+								$arr[]=$data;
+								// echo "<pre> ???";
+								// print_r($arr);
+								// echo "</pre>";
+
+							}else
+							{
+								foreach ($data['comment_children'] as $d_item) {
+									$test($d_item,$arr);
+								}
+							}
+							//return $arr;
+						};
+						$test($c_item,$arr1);
+						echo "<pre>";
+						print_r($arr1);
+						echo "</pre>";
+						$child_comment_list=$test($c_item);
+
+					 if(is_array($c_item['comment_children']) || $c_item['comment_children'] instanceof \think\Collection || $c_item['comment_children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $c_item['comment_children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child_item): $mod = ($i % 2 );++$i;?>
 							<li style="padding-left:20px;"><?php echo $child_item['name']; ?>回复<?php echo $c_item['name']; ?>:<?php echo $child_item['content']; ?></li>
 						<?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
+					
+
 				</form>
 
 			  	</div>
@@ -123,7 +151,7 @@
 		</ul>
 
 	  </div>
-	  <div role="tabpanel" class="tab-pane fade" id="add_record">
+		<div role="tabpanel" class="tab-pane fade" id="add_record">
 		<br>
 	  	<br>
 		<form class="form-group" action="<?php echo \think\Config::get('INDEX'); ?>/user_r_add" method="post">
@@ -131,8 +159,9 @@
 			content: <textarea class="form-control" name="content"  cols="30" rows="10"></textarea>
 			<input class="form-control" type="submit" value="add">	
 		</form>
-	  </div>
-	  <div role="tabpanel" class="tab-pane fade" id="friends_records">
+</div>
+	 
+		 <div role="tabpanel" class="tab-pane fade" id="friends_records">
   		<br>
 	  	<br>
 		<?php if(!empty($friendsRecordList)): ?>
@@ -168,7 +197,7 @@
 		<h1>获取好友记事列表失败，因为你还没有好友或好友并未发表说说。</h1>
 		<?php endif; ?>
 	  </div>
-	  <div role="tabpanel" class="tab-pane fade" id="friends_list">
+		<div role="tabpanel" class="tab-pane fade" id="friends_list">
 		<br>
 	  	<br>
 		<ul class="list">
@@ -179,19 +208,21 @@
 		<?php endforeach; endif; else: echo "" ;endif; ?>
 		</ul>
 	  </div>
-	  <div role="tabpanel" class="tab-pane fade" id="add_friend">
+		<div role="tabpanel" class="tab-pane fade" id="add_friend">
 		<br>
 	  	<br>
 		<form class="form-group" action="<?php echo \think\Config::get('INDEX'); ?>/user_f_add" method="get">
 			name:<input class="form-control" type="text" name="user_name"><br>
 			<input class="form-control" type="submit" value="add">	
 		</form>
-	  </div>
-	  <div role="tabpanel" class="tab-pane fade" id="logout">
-	    <br>
-	  	<br>
-		<a href="<?php echo \think\Config::get('INDEX'); ?>/user_logout">注销</a>
-	  </div>
+</div>
+		
+<div role="tabpanel" class="tab-pane fade" id="logout">
+<br>
+	<br>
+<a href="<?php echo \think\Config::get('INDEX'); ?>/user_logout">注销</a>
+</div>
+
 	</div>
 </div>
 </content>
@@ -223,9 +254,6 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
-
 
 <footer>
 	
@@ -266,14 +294,14 @@
 		else
 			$(".control").css("visibility","hidden");
 	}
-	function commentDel(id)
+	function myCommentDel(id,cmt_au_id)
 	{
 		console.log('删除评论：'+id);
 		$.ajax({
 			url: '/index.php/user_c_del',
 			type: 'GET',
 			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-			data: {id:id },
+			data: {id:id,comment_author_id:cmt_au_id},
 
 		})
 		.done(function(data) {

@@ -1,0 +1,70 @@
+ <div role="tabpanel" class="tab-pane fade in active" id="my_records">
+	  	<br>
+	  	<br>
+
+		<ul>
+			{volist name='recordList' id='record_item'}
+			<li>
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			  <span class="h3">{$record_item.author}</span>
+			  <div class="control pull-right">
+				    <a class="btn btn-danger" href="{$Think.config.INDEX}/user_r_delete?user_id={$record_item.user_id}&id={$record_item.id}" >删除</a>
+					<button type="button" class="btn btn-warning" onclick="Load({$record_item.id})" data-toggle="modal" data-target="#update_record">编辑</button>
+				</div>
+			 <!--  <span class="h3 small pull-right">作者:{$record_item.author}</span> -->
+			  <span class="h3 small">添加时间:{$record_item.create_time}</span>
+			  </div>
+			  <div class="panel-body">
+			    {$record_item.content}
+			    
+				<div class="comment">
+				<form method="post" action='{$Think.config.INDEX}/user_c_add' class="form-group col-lg-12">
+			  	评论：<input type="text" name='content' class="form-control">
+			  	<input type="hidden" name="record_id"  value="{$record_item.id}">
+						<input class="btn btn-info" type="submit" value="提交">
+					{volist name='$record_item.comments' id='c_item'}
+					<li  id="c_{$c_item.id}">{$c_item.name}:{$c_item.content} <button onclick="myCommentDel({$c_item.id},{$c_item.comment_author_id});return false;">删除</button></li>
+					<?php 
+						//print_r($c_item);
+						$arr1 =array();
+						echo "MMMM";
+						$test =function($data,&$arr=array())use(&$test){
+							if(empty($data['comment_children']))
+							{
+								$arr[]=$data;
+								// echo "<pre> ???";
+								// print_r($arr);
+								// echo "</pre>";
+
+							}else
+							{
+								foreach ($data['comment_children'] as $d_item) {
+									$test($d_item,$arr);
+								}
+							}
+							//return $arr;
+						};
+						$test($c_item,$arr1);
+						echo "<pre>";
+						print_r($arr1);
+						echo "</pre>";
+						$child_comment_list=$test($c_item);
+
+					 ?>
+						{volist name='c_item.comment_children' id='child_item'}
+							<li style="padding-left:20px;">{$child_item.name}回复{$c_item.name}:{$child_item.content}</li>
+						{/volist}
+					{/volist}
+					
+
+				</form>
+
+			  	</div>
+			  </div>
+			</div>
+			</li>
+			{/volist}
+		</ul>
+
+	  </div>

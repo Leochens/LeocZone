@@ -26,7 +26,7 @@ class Index extends Controller
         $record_with_comment_list = $this->getRecord();
         $friendList= $this->getFriends();
         $friendsRecordList=$this->getFriendsRecord();
-
+        test($record_with_comment_list);
         $this->assign([
             'msg'=>'这里是首页', 
             'check'=>$check,
@@ -183,10 +183,17 @@ class Index extends Controller
         return $res?$this->success('评论成功！'):0;
     }
     
+    /**
+     * 删除评论
+     * @return [int] [1 成功 0 失败 -2 删除别人的评论]
+     */
     public function delComment()
     {
-        $c_id = getParam('id','获取评论id失败');
         $this->check();
+        $c_id = getParam('id','获取评论id失败');
+        $comment_author_id = getParam('comment_author_id','获取评论作者id失败');
+        if($comment_author_id!=$this->user_id)
+            return -2;
         $res = $this->c->delComment($c_id);
         return json_encode($res?1:0);
     }

@@ -1,0 +1,11 @@
+<div role="tabpanel" class="tab-pane fade" id="friends_list">
+		<br>
+	  	<br>
+		<ul class="list">
+		{volist name='friendList' id='item' }
+			<li>{$item.friend_name} 
+			<a href="{$Think.config.INDEX}/user_f_delete?friend_id={$item.friend_id}">删除</a>
+			</li>
+		{/volist}
+		</ul>
+	  </div>
