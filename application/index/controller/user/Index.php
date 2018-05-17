@@ -187,7 +187,8 @@ class Index extends Controller
     {
         $c_id = getParam('id','获取评论id失败');
         $this->check();
-        $res = 
+        $res = $this->c->delComment($c_id);
+        return json_encode($res?1:0);
     }
 
 

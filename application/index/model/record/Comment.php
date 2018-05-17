@@ -7,10 +7,10 @@ use think\Db;
  * @Author: Administrator
  * @Date:   2018-05-14 21:12:48
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-16 22:03:35
+ * @Last Modified time: 2018-05-17 13:09:29
  */
 class Comment extends Model{
-	//protected $view;
+	protected $view;
 	protected $table='comments';
 	public function initialize()
 	{
@@ -49,9 +49,10 @@ class Comment extends Model{
 		$res=$this->insert($data);
 		return $res?$res:0;
 	}
-	public function deleteComment($id)
+	public function delComment($id)
 	{
-		$res=$this->view->delete($id);
+		$res=$this->where('id',$id)->delete($id);
+		
 		return $res?$res:0;
 	}
 }

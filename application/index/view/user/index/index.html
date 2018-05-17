@@ -65,7 +65,7 @@
 			  	<input type="hidden" name="record_id"  value="{$record_item.id}">
 						<input class="btn btn-info" type="submit" value="提交">
 					{volist name='$record_item.comments' id='c_item'}
-					<li>{$c_item.name}:{$c_item.content} <button onclick="commentDel({$c_item.id});return false;">删除</button></li>
+					<li  id="c_{$c_item.id}">{$c_item.name}:{$c_item.content} <button onclick="commentDel({$c_item.id});return false;">删除</button></li>
 						{volist name='c_item.comment_children' id='child_item'}
 							<li style="padding-left:20px;">{$child_item.name}回复{$c_item.name}:{$child_item.content}</li>
 						{/volist}
@@ -228,24 +228,22 @@
 	{
 		console.log('删除评论：'+id);
 		$.ajax({
-			url: '/index.php/index/record.Record/getSingleRecord',
+			url: '/index.php/user_c_del',
 			type: 'GET',
 			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-			data: {id:record_id },
+			data: {id:id },
 
 		})
 		.done(function(data) {
-			console.log("success");
-			console.log(data);
-			$('#old_record').val(data.content);
-			$('#old_record_id').val(data.id);
-			$('#user_id').val(data.user_id);
+			console.log("del comment:success");
+			console.log('已删除 返回值： '+data);
+			$('#c_'+id).remove();
 		})
 		.fail(function() {
-			console.log("error");
+			console.log("del comment:error");
 		})
 		.always(function() {
-			console.log("complete");
+			console.log("del comment:complete");
 		});
 	}
 </script>	

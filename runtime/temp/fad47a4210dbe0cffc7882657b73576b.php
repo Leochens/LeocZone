@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526532713;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526534277;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,7 +79,7 @@
 			  	<input type="hidden" name="record_id"  value="<?php echo $record_item['id']; ?>">
 						<input class="btn btn-info" type="submit" value="提交">
 					<?php if(is_array($record_item['comments']) || $record_item['comments'] instanceof \think\Collection || $record_item['comments'] instanceof \think\Paginator): $i = 0; $__LIST__ = $record_item['comments'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$c_item): $mod = ($i % 2 );++$i;?>
-					<li><?php echo $c_item['name']; ?>:<?php echo $c_item['content']; ?> <button onclick="commentDel(<?php echo $c_item['id']; ?>);return false;">删除</button></li>
+					<li  id="c_<?php echo $c_item['id']; ?>"><?php echo $c_item['name']; ?>:<?php echo $c_item['content']; ?> <button onclick="commentDel(<?php echo $c_item['id']; ?>);return false;">删除</button></li>
 						<?php if(is_array($c_item['comment_children']) || $c_item['comment_children'] instanceof \think\Collection || $c_item['comment_children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $c_item['comment_children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child_item): $mod = ($i % 2 );++$i;?>
 							<li style="padding-left:20px;"><?php echo $child_item['name']; ?>回复<?php echo $c_item['name']; ?>:<?php echo $child_item['content']; ?></li>
 						<?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
@@ -239,6 +239,24 @@
 	function commentDel(id)
 	{
 		console.log('删除评论：'+id);
+		$.ajax({
+			url: '/index.php/user_c_del',
+			type: 'GET',
+			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+			data: {id:id },
+
+		})
+		.done(function(data) {
+			console.log("del comment:success");
+			console.log('已删除 返回值： '+data);
+			$('#c_'+id).remove();
+		})
+		.fail(function() {
+			console.log("del comment:error");
+		})
+		.always(function() {
+			console.log("del comment:complete");
+		});
 	}
 </script>	
 </body>

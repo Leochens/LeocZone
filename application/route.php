@@ -28,6 +28,7 @@ use think\Route;
 \think\Route::rule('user_f_add','index/user.Index/addFriend');
 \think\Route::rule('user_f_delete','index/user.Index/deleteFriend');
 \think\Route::rule('user_c_add','index/user.Index/addComment');
+\think\Route::rule('user_c_del','index/user.Index/delComment');
 
 //管理员
 \think\Route::rule('admin_page','index/admin.Admin/index');
