@@ -23,9 +23,10 @@
 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
 	<h4>{$check}</h4>
 	<button class="btn btn-success" onclick="Control()">编辑</button>
-
+	<button data-toggle="modal" data-target="#reply_comment">打开评论回复界面</button>
 </header>
 <content>
+{include file='user/index/reply'}
 <div class="col-lg-8 col-lg-offset-2">
 
   <!-- Nav tabs -->
@@ -237,6 +238,7 @@
 		.done(function(data) {
 			console.log("del comment:success");
 			console.log('已删除 返回值： '+data);
+			//删除Dom节点
 			$('#c_'+id).remove();
 		})
 		.fail(function() {

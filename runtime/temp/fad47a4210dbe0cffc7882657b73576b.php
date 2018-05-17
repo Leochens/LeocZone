@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526534277;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526534983;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526534693;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,9 +37,39 @@
 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
 	<h4><?php echo $check; ?></h4>
 	<button class="btn btn-success" onclick="Control()">编辑</button>
-
+	<button data-toggle="modal" data-target="#reply_comment">打开评论回复界面</button>
 </header>
 <content>
+
+<div id="reply_comment" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">回复评论</h4>
+      </div>
+      <div class="modal-body">
+		<form action="<?php echo \think\Config::get('INDEX'); ?>/user_r_update" method="POST" role="form">
+	    <legend></legend>
+	
+	    <div class="form-group">
+	        <label for="">请输入回复内容</label>
+	        <input id="old_record" name="content" type="text" class="form-control"  placeholder="">
+	        <input type="hidden" name="id" id="old_record_id" >
+	        <input type="hidden" name="user_id" id="user_id" >
+	    </div>
+	    <button type="submit"  class="btn btn-primary">提交</button>
+		</form>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <div class="col-lg-8 col-lg-offset-2">
 
   <!-- Nav tabs -->
@@ -249,6 +279,7 @@
 		.done(function(data) {
 			console.log("del comment:success");
 			console.log('已删除 返回值： '+data);
+			//删除Dom节点
 			$('#c_'+id).remove();
 		})
 		.fail(function() {
