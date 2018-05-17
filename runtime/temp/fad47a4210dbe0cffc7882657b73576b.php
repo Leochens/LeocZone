@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526546453;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526534693;s:72:"D:\IT_study\recordthing\application\index\view\user\index\myRecords.html";i:1526552690;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addRecord.html";i:1526545158;s:76:"D:\IT_study\recordthing\application\index\view\user\index\friendRecords.html";i:1526545046;s:73:"D:\IT_study\recordthing\application\index\view\user\index\friendList.html";i:1526544993;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addFriend.html";i:1526545226;s:69:"D:\IT_study\recordthing\application\index\view\user\index\logout.html";i:1526545292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526546453;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526534693;s:72:"D:\IT_study\recordthing\application\index\view\user\index\myRecords.html";i:1526554124;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addRecord.html";i:1526545158;s:76:"D:\IT_study\recordthing\application\index\view\user\index\friendRecords.html";i:1526545046;s:73:"D:\IT_study\recordthing\application\index\view\user\index\friendList.html";i:1526544993;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addFriend.html";i:1526545226;s:69:"D:\IT_study\recordthing\application\index\view\user\index\logout.html";i:1526545292;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,14 +109,17 @@
 			  	<input type="hidden" name="record_id"  value="<?php echo $record_item['id']; ?>">
 						<input class="btn btn-info" type="submit" value="提交">
 					<?php if(is_array($record_item['comments']) || $record_item['comments'] instanceof \think\Collection || $record_item['comments'] instanceof \think\Paginator): $i = 0; $__LIST__ = $record_item['comments'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$c_item): $mod = ($i % 2 );++$i;?>
-					<li  id="c_<?php echo $c_item['id']; ?>"><?php echo $c_item['name']; ?>:<?php echo $c_item['content']; ?> <button onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $c_item['comment_author_id']; ?>);return false;">删除</button></li>
+					<!-- <li  id="c_<?php echo $c_item['id']; ?>">
+						<button onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $c_item['comment_author_id']; ?>);return false;">删除</button>
+					</li> -->
 					<?php 
 						$arr1 =array();
-						$test =function($data,&$arr=array())use(&$test){
+						$test =function($data,&$arr=array(),$last_comment_author='')use(&$test){
 							if(empty($data['comment_children']))
 							{
 								$d = $data;
 								unset($d['comment_children']);
+								$d['last_comment_author']=$last_comment_author;
 								$arr[]=$d;
 								
 								// echo "<pre>";
@@ -128,20 +131,28 @@
 								foreach ($data['comment_children'] as $d_item) {
 									$d = $data;
 									unset($d['comment_children']);
+									$d['last_comment_author']=$last_comment_author;
 									$arr[]=$d;
-									$test($d_item,$arr);
+									$test($d_item,$arr,$d['name']);
 								}
 							}
 						};
 						$test($c_item,$arr1);
 						$arr1[0]['parent']=1;
-						echo "<pre>";
-						print_r($arr1);
-						echo "</pre>";
+						// echo "<pre>";
+						// print_r($arr1);
+						// echo "</pre>";
 						//$child_comment_list=$test($c_item);
 						
-					 if(is_array($c_item['comment_children']) || $c_item['comment_children'] instanceof \think\Collection || $c_item['comment_children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $c_item['comment_children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child_item): $mod = ($i % 2 );++$i;?>
-							<li style="padding-left:20px;"><?php echo $child_item['name']; ?>回复<?php echo $c_item['name']; ?>:<?php echo $child_item['content']; ?></li>
+					 if(is_array($arr1) || $arr1 instanceof \think\Collection || $arr1 instanceof \think\Paginator): $i = 0; $__LIST__ = $arr1;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child_item): $mod = ($i % 2 );++$i;?>
+							<li id="c_<?php echo $c_item['id']; ?>">
+							<?php if(empty($child_item['last_comment_author'])): ?>
+
+							<?php echo $child_item['name']; ?>:<?php echo $child_item['content']; else: ?>
+
+							<?php echo $child_item['name']; ?>回复<?php echo $child_item['last_comment_author']; ?>:<?php echo $child_item['content']; endif; ?>
+							<button onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $c_item['comment_author_id']; ?>);return false;">删除</button>
+							</li>
 						<?php endforeach; endif; else: echo "" ;endif; $arr1=[]; endforeach; endif; else: echo "" ;endif; ?>
 					
 

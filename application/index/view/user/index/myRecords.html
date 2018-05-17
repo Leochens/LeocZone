@@ -24,14 +24,15 @@
 			  	<input type="hidden" name="record_id"  value="{$record_item.id}">
 						<input class="btn btn-info" type="submit" value="提交">
 					{volist name='$record_item.comments' id='c_item'}
-					<li  id="c_{$c_item.id}">{$c_item.name}:{$c_item.content} <button onclick="myCommentDel({$c_item.id},{$c_item.comment_author_id});return false;">删除</button></li>
+
 					<?php 
 						$arr1 =array();
-						$test =function($data,&$arr=array())use(&$test){
+						$test =function($data,&$arr=array(),$last_comment_author='')use(&$test){
 							if(empty($data['comment_children']))
 							{
 								$d = $data;
 								unset($d['comment_children']);
+								$d['last_comment_author']=$last_comment_author;
 								$arr[]=$d;
 								
 								// echo "<pre>";
@@ -43,21 +44,34 @@
 								foreach ($data['comment_children'] as $d_item) {
 									$d = $data;
 									unset($d['comment_children']);
+									$d['last_comment_author']=$last_comment_author;
 									$arr[]=$d;
-									$test($d_item,$arr);
+									$test($d_item,$arr,$d['name']);
 								}
 							}
 						};
 						$test($c_item,$arr1);
 						$arr1[0]['parent']=1;
-						echo "<pre>";
-						print_r($arr1);
-						echo "</pre>";
+						// echo "<pre>";
+						// print_r($arr1);
+						// echo "</pre>";
 						//$child_comment_list=$test($c_item);
 						
 					 ?>
-						{volist name='c_item.comment_children' id='child_item'}
-							<li style="padding-left:20px;">{$child_item.name}回复{$c_item.name}:{$child_item.content}</li>
+			
+						{volist name='arr1' id='child_item'}
+							<li id="c_{$c_item.id}">
+							{if condition="empty($child_item.last_comment_author)"}
+
+							{$child_item.name}:{$child_item.content}
+
+							{else /}
+
+							{$child_item.name}回复{$child_item.last_comment_author}:{$child_item.content}
+
+							{/if}
+							<button onclick="myCommentDel({$c_item.id},{$c_item.comment_author_id});return false;">删除</button>
+							</li>
 						{/volist}
 						<?php $arr1=[]; ?>
 					{/volist}
