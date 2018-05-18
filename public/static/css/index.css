@@ -1,0 +1,38 @@
+/*
+* @Author: Administrator
+* @Date:   2018-05-18 12:53:27
+* @Last Modified by:   Administrator
+* @Last Modified time: 2018-05-18 13:22:40
+*/
+body{
+	    color: #293233;
+}
+ul,li{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.control{
+	visibility: hidden;
+}
+.com_item{
+
+}
+.com_item .item_control{
+	visibility: hidden;
+	display: inline-block;	
+}
+.com_item:hover > .item_control
+{
+	visibility: visible;
+}
+.main{
+
+}
+.info{
+	width: 288px;
+	height: 48px;
+	padding: 22px 0 20px;
+	    font-family: punctuation,"PingFangSC-Regular","Microsoft Yahei","sans-serif";
+    -webkit-font-smoothing: subpixel-antialiased;
+}

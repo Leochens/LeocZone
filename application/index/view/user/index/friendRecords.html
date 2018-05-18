@@ -18,37 +18,10 @@
 				  	<input type="hidden" name="record_id"  value="{$item.id}">
 							<input type="submit" value="提交">
 						{volist name='$item.comments' id='c_item'}
-		<?php 
+					<?php 
 						$arr1 =array();
-						/**
-						 * 多维评论线性化
-						 * @var [type]
-						 */
-						$test =function($data,&$arr=array(),$last_comment_author='')use(&$test){
-							if(empty($data['comment_children']))
-							{
-								$d = $data;
-								unset($d['comment_children']);
-								$d['last_comment_author']=$last_comment_author;
-								$arr[]=$d;
-							}else
-							{
-								foreach ($data['comment_children'] as $d_item) {
-									$d = $data;
-									unset($d['comment_children']);
-									$d['last_comment_author']=$last_comment_author;
-									$arr[]=$d;
-									$test($d_item,$arr,$d['name']);
-								}
-							}
-						};
 						$test($c_item,$arr1);
 						$arr1[0]['parent']=1;
-						// echo "<pre>";
-						// print_r($arr1);
-						// echo "</pre>";
-						//$child_comment_list=$test($c_item);
-						
 					 ?>
 			
 						{volist name='arr1' id='child_item'}
@@ -62,9 +35,11 @@
 								{$child_item.name}回复{$child_item.last_comment_author}:{$child_item.content}
 
 							{/if}
-							<button type="button" class="btn btn-danger btn-sm" onclick="myCommentDel({$c_item.id},{$c_item.comment_author_id})">删除</button>
+							<div class="item_control">
+				<!-- 			<button type="button" class="btn btn-danger btn-sm" onclick="myCommentDel({$c_item.id},{$c_item.comment_author_id})">删除</button> -->
 							
 							<button type="button" class="btn btn-info btn-sm"  onmouseover="pushData({$child_item.record_id},{$child_item.id},{$child_item.comment_author_id})" data-toggle="modal" data-target="#reply_comment">回复</button>
+							</div>
 							</li>
 						{/volist}
 						

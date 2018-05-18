@@ -1,6 +1,6 @@
  <div role="tabpanel" class="tab-pane fade in active" id="my_records">
 	  	<br>
-	  	<br>
+		<button class="btn btn-success" onclick="Control()">编辑</button>
 
 		<ul>
 			{volist name='recordList' id='record_item'}
@@ -27,39 +27,13 @@
 
 					<?php 
 						$arr1 =array();
-						/**
-						 * 多维评论线性化
-						 * @var [type]
-						 */
-						$test =function($data,&$arr=array(),$last_comment_author='')use(&$test){
-							if(empty($data['comment_children']))
-							{
-								$d = $data;
-								unset($d['comment_children']);
-								$d['last_comment_author']=$last_comment_author;
-								$arr[]=$d;
-							}else
-							{
-								foreach ($data['comment_children'] as $d_item) {
-									$d = $data;
-									unset($d['comment_children']);
-									$d['last_comment_author']=$last_comment_author;
-									$arr[]=$d;
-									$test($d_item,$arr,$d['name']);
-								}
-							}
-						};
 						$test($c_item,$arr1);
 						$arr1[0]['parent']=1;
-						// echo "<pre>";
-						// print_r($arr1);
-						// echo "</pre>";
-						//$child_comment_list=$test($c_item);
-						
 					 ?>
 			
 						{volist name='arr1' id='child_item'}
-							<li id="c_{$c_item.id}">
+						<div class="row">
+							<li class="com_item " id="c_{$c_item.id}">
 							{if condition="empty($child_item.last_comment_author)"}
 
 								{$child_item.name}:{$child_item.content}
@@ -69,10 +43,12 @@
 								{$child_item.name}回复{$child_item.last_comment_author}:{$child_item.content}
 
 							{/if}
-							<button type="button" class="btn btn-danger btn-sm" onclick="myCommentDel({$c_item.id},{$child_item.comment_author_id})">删除</button>
-							
+							<div class="item_control">
+							<button type="button" class="btn btn-danger btn-sm" onclick="myCommentDel({$c_item.id},{$c_item.record_author_id})">删除</button>
 							<button type="button" class="btn btn-info btn-sm"  onmouseover="pushData({$child_item.record_id},{$child_item.id},{$child_item.comment_author_id})" data-toggle="modal" data-target="#reply_comment">回复</button>
+							</div>
 							</li>
+						</div>
 						{/volist}
 						
 					{/volist}

@@ -187,12 +187,13 @@ class Index extends Controller
      * 删除评论
      * @return [int] [1 成功 0 失败 -2 删除别人的评论]
      */
-    public function delComment()
+    public function delMyComment()
     {
         $this->check();
         $c_id = getParam('record_id','获取评论id失败');
-        $comment_author_id = getParam('comment_author_id','获取评论作者id失败');
-        if($comment_author_id!=$this->user_id)
+        //$comment_author_id = getParam('comment_author_id','获取评论作者id失败');
+        $record_author_id = getParam('record_author_id','获取说说作者id失败');
+        if($record_author_id!=$this->user_id)
             return -2;
         $res = $this->c->delComment($c_id);
         return json_encode($res?1:0);

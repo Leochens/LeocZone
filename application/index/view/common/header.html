@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
   {load href="/static/css/bootstrap.min.css" /}
 
 	<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
@@ -17,3 +17,29 @@
 
 	<!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <?php 
+        /**
+             * 多维评论线性化
+             * @var [type]
+             */
+            $test =function($data,&$arr=array(),$last_comment_author='')use(&$test){
+              if(empty($data['comment_children']))
+              {
+                $d = $data;
+                unset($d['comment_children']);
+                $d['last_comment_author']=$last_comment_author;
+                $arr[]=$d;
+              }else
+              {
+                foreach ($data['comment_children'] as $d_item) {
+                  $d = $data;
+                  unset($d['comment_children']);
+                  $d['last_comment_author']=$last_comment_author;
+                  $arr[]=$d;
+                  $test($d_item,$arr,$d['name']);
+                }
+              }
+            };
+
+   ?>
