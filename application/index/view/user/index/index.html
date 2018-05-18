@@ -17,32 +17,41 @@
 <!-- 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
 	<h4>{$check}</h4>	 -->
 </header>
+<header id="header">
+	<h1><a href="#">Future Imperfect</a></h1>
+	<nav class="links">
+		<ul>
+	<!-- 		<li><a href="#">Lorem</a></li>
+			<li><a href="#">Ipsum</a></li>
+			<li><a href="#">Feugiat</a></li>
+			<li><a href="#">Tempus</a></li>
+			<li><a href="#">Adipiscing</a></li> -->
+			<li role="presentation" class="active"><a href="#my_records" aria-controls="home" role="tab" data-toggle="tab">我的说说</a></li>
+		    <li role="presentation"><a href="#add_record" aria-controls="add_record" role="tab" data-toggle="tab">添加说说</a></li>
+		    <li role="presentation"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">好友说说</a></li>
+		    <li role="presentation"><a href="#friends_list" aria-controls="friends_list" role="tab" data-toggle="tab">好友列表</a></li>
+		    <li role="presentation"><a href="#add_friend" aria-controls="add_friend" role="tab" data-toggle="tab">添加好友</a></li>
+		    <li role="presentation"><a href="#logout" aria-controls="logout" role="tab" data-toggle="tab">注销登录</a></li>
+		</ul>
+	</nav>
+	<nav class="main">
+		<ul>
+			<li class="search">
+				<a class="fa-search" href="#search">Search</a>
+				<form id="search" method="get" action="#">
+					<input type="text" name="query" placeholder="Search" />
+				</form>
+			</li>
+			<li class="menu">
+				<a class="fa-bars" href="#menu">Menu</a>
+			</li>
+		</ul>
+	</nav>
+	 <!-- Tab panes -->
+</header>
 <content>
+{include file='user/index/tabContent'}
 {include file='user/index/reply'}
-<div class="row col-lg-offset-2">
-{//include file='user/index/userInfo'}
-<div class="col-lg-5">
-
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#my_records" aria-controls="home" role="tab" data-toggle="tab">我的说说</a></li>
-    <li role="presentation"><a href="#add_record" aria-controls="add_record" role="tab" data-toggle="tab">添加说说</a></li>
-    <li role="presentation"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">好友说说</a></li>
-    <li role="presentation"><a href="#friends_list" aria-controls="friends_list" role="tab" data-toggle="tab">好友列表</a></li>
-    <li role="presentation"><a href="#add_friend" aria-controls="add_friend" role="tab" data-toggle="tab">添加好友</a></li>
-    <li role="presentation"><a href="#logout" aria-controls="logout" role="tab" data-toggle="tab">注销登录</a></li>
-  </ul>
- <!-- Tab panes -->
-	<div class="tab-content">
-		{include file='user/index/myRecords'}
-		{include file='user/index/addRecord'}
-		{include file='user/index/friendRecords'}
-		{include file='user/index/friendList'}
-		{include file='user/index/addFriend'}
-		{include file='user/index/logout'}
-	</div>
-</div>
-</div>
 </content>
 
 <div id="update_record" class="modal fade" tabindex="-1" role="dialog">
@@ -104,31 +113,6 @@
 			<div id="wrapper">
 
 				<!-- Header -->
-					<header id="header">
-						<h1><a href="#">Future Imperfect</a></h1>
-						<nav class="links">
-							<ul>
-								<li><a href="#">Lorem</a></li>
-								<li><a href="#">Ipsum</a></li>
-								<li><a href="#">Feugiat</a></li>
-								<li><a href="#">Tempus</a></li>
-								<li><a href="#">Adipiscing</a></li>
-							</ul>
-						</nav>
-						<nav class="main">
-							<ul>
-								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
-									</form>
-								</li>
-								<li class="menu">
-									<a class="fa-bars" href="#menu">Menu</a>
-								</li>
-							</ul>
-						</nav>
-					</header>
 
 				<!-- Menu -->
 					<section id="menu">
@@ -178,8 +162,7 @@
 							</section>
 
 					</section>
-                    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >企业网站模板</a></div>
-
+         
 				<!-- Main -->
 					<div id="main">
 

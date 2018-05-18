@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526622154;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526622262;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526606083;s:72:"D:\IT_study\recordthing\application\index\view\user\index\myRecords.html";i:1526620066;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addRecord.html";i:1526545158;s:76:"D:\IT_study\recordthing\application\index\view\user\index\friendRecords.html";i:1526619717;s:73:"D:\IT_study\recordthing\application\index\view\user\index\friendList.html";i:1526544993;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addFriend.html";i:1526545226;s:69:"D:\IT_study\recordthing\application\index\view\user\index\logout.html";i:1526545292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:10:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526622922;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526622262;s:73:"D:\IT_study\recordthing\application\index\view\user\index\tabContent.html";i:1526622887;s:72:"D:\IT_study\recordthing\application\index\view\user\index\myRecords.html";i:1526620066;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addRecord.html";i:1526545158;s:76:"D:\IT_study\recordthing\application\index\view\user\index\friendRecords.html";i:1526619717;s:73:"D:\IT_study\recordthing\application\index\view\user\index\friendList.html";i:1526544993;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addFriend.html";i:1526545226;s:69:"D:\IT_study\recordthing\application\index\view\user\index\logout.html";i:1526545292;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526606083;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,51 +62,41 @@
 <!-- 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
 	<h4><?php echo $check; ?></h4>	 -->
 </header>
+<header id="header">
+	<h1><a href="#">Future Imperfect</a></h1>
+	<nav class="links">
+		<ul>
+	<!-- 		<li><a href="#">Lorem</a></li>
+			<li><a href="#">Ipsum</a></li>
+			<li><a href="#">Feugiat</a></li>
+			<li><a href="#">Tempus</a></li>
+			<li><a href="#">Adipiscing</a></li> -->
+			<li role="presentation" class="active"><a href="#my_records" aria-controls="home" role="tab" data-toggle="tab">我的说说</a></li>
+		    <li role="presentation"><a href="#add_record" aria-controls="add_record" role="tab" data-toggle="tab">添加说说</a></li>
+		    <li role="presentation"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">好友说说</a></li>
+		    <li role="presentation"><a href="#friends_list" aria-controls="friends_list" role="tab" data-toggle="tab">好友列表</a></li>
+		    <li role="presentation"><a href="#add_friend" aria-controls="add_friend" role="tab" data-toggle="tab">添加好友</a></li>
+		    <li role="presentation"><a href="#logout" aria-controls="logout" role="tab" data-toggle="tab">注销登录</a></li>
+		</ul>
+	</nav>
+	<nav class="main">
+		<ul>
+			<li class="search">
+				<a class="fa-search" href="#search">Search</a>
+				<form id="search" method="get" action="#">
+					<input type="text" name="query" placeholder="Search" />
+				</form>
+			</li>
+			<li class="menu">
+				<a class="fa-bars" href="#menu">Menu</a>
+			</li>
+		</ul>
+	</nav>
+	 <!-- Tab panes -->
+</header>
 <content>
 
-<div id="reply_comment" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">回复评论</h4>
-      </div>
-      <div class="modal-body">
-		<div>
-	    <legend></legend>
-	
-	    <div class="form-group">
-	        <label for="">请输入回复内容</label>
-	        <input id="reply_content" name="content" type="text" class="form-control"  placeholder="" value="">
-          <input type="button" value="回复" onclick="reply()">
-	    </div>
-	    
-		</div>        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-<div class="row col-lg-offset-2">
-
-<div class="col-lg-5">
-
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#my_records" aria-controls="home" role="tab" data-toggle="tab">我的说说</a></li>
-    <li role="presentation"><a href="#add_record" aria-controls="add_record" role="tab" data-toggle="tab">添加说说</a></li>
-    <li role="presentation"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">好友说说</a></li>
-    <li role="presentation"><a href="#friends_list" aria-controls="friends_list" role="tab" data-toggle="tab">好友列表</a></li>
-    <li role="presentation"><a href="#add_friend" aria-controls="add_friend" role="tab" data-toggle="tab">添加好友</a></li>
-    <li role="presentation"><a href="#logout" aria-controls="logout" role="tab" data-toggle="tab">注销登录</a></li>
-  </ul>
- <!-- Tab panes -->
-	<div class="tab-content">
+<div class="tab-content">
 		 <div role="tabpanel" class="tab-pane fade in active" id="my_records">
 	  	<br>
 		<button class="btn btn-success" onclick="Control()">编辑</button>
@@ -248,9 +238,37 @@
 <a href="<?php echo \think\Config::get('INDEX'); ?>/user_logout">注销</a>
 </div>
 
-	</div>
 </div>
-</div>
+
+<div id="reply_comment" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">回复评论</h4>
+      </div>
+      <div class="modal-body">
+		<div>
+	    <legend></legend>
+	
+	    <div class="form-group">
+	        <label for="">请输入回复内容</label>
+	        <input id="reply_content" name="content" type="text" class="form-control"  placeholder="" value="">
+          <input type="button" value="回复" onclick="reply()">
+	    </div>
+	    
+		</div>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
 </content>
 
 <div id="update_record" class="modal fade" tabindex="-1" role="dialog">
@@ -312,31 +330,6 @@
 			<div id="wrapper">
 
 				<!-- Header -->
-					<header id="header">
-						<h1><a href="#">Future Imperfect</a></h1>
-						<nav class="links">
-							<ul>
-								<li><a href="#">Lorem</a></li>
-								<li><a href="#">Ipsum</a></li>
-								<li><a href="#">Feugiat</a></li>
-								<li><a href="#">Tempus</a></li>
-								<li><a href="#">Adipiscing</a></li>
-							</ul>
-						</nav>
-						<nav class="main">
-							<ul>
-								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
-									</form>
-								</li>
-								<li class="menu">
-									<a class="fa-bars" href="#menu">Menu</a>
-								</li>
-							</ul>
-						</nav>
-					</header>
 
 				<!-- Menu -->
 					<section id="menu">
