@@ -26,7 +26,7 @@ class Index extends Controller
         $record_with_comment_list = $this->getRecord();
         $friendList= $this->getFriends();
         $friendsRecordList=$this->getFriendsRecord();
-        test($record_with_comment_list);
+        //test($record_with_comment_list);
         $this->assign([
             'msg'=>'这里是首页', 
             'check'=>$check,
