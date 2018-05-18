@@ -190,7 +190,7 @@ class Index extends Controller
     public function delComment()
     {
         $this->check();
-        $c_id = getParam('id','获取评论id失败');
+        $c_id = getParam('record_id','获取评论id失败');
         $comment_author_id = getParam('comment_author_id','获取评论作者id失败');
         // if($comment_author_id!=$this->user_id)
         //     return -2;
@@ -198,7 +198,23 @@ class Index extends Controller
         return json_encode($res?1:0);
     }
 
-
+    public function replyComment()
+    {
+        $record_id = getParam('record_id','获取评论id失败','post');
+        $comment_author_id = getParam('comment_author_id','获取评论作者id失败','post');
+        $parent_id = getParam('parent_id','获取父评论id失败','post');
+        //return json_encode([$record_id,$comment_author_id,$parent_id]);
+        $rep_content = getParam('rep_content','获取回复内容失败','post');
+        $data=[
+            'record_id'=>$record_id,
+            'content'=>$rep_content,
+            'create_time'=>date('Y-m-d h-i-s'),
+            'parent_id'=>$parent_id,
+            'comment_author_id'=>$comment_author_id
+        ];
+        $res = $this->c->addComment($data);
+        return $res?$data:0;
+    }
     /**
      * 注销登录
      * @return [type] [description]

@@ -7,17 +7,16 @@
         <h4 class="modal-title">回复评论</h4>
       </div>
       <div class="modal-body">
-		<form action="{$Think.config.INDEX}/user_r_update" method="POST" role="form">
+		<div>
 	    <legend></legend>
 	
 	    <div class="form-group">
 	        <label for="">请输入回复内容</label>
-	        <input id="old_record" name="content" type="text" class="form-control"  placeholder="">
-	        <input type="hidden" name="id" id="old_record_id" >
-	        <input type="hidden" name="user_id" id="user_id" >
+	        <input id="reply_content" name="content" type="text" class="form-control"  placeholder="" value="">
+          <input type="button" value="回复" onclick="reply()">
 	    </div>
-	    <button type="submit"  class="btn btn-primary">提交</button>
-		</form>        
+	    
+		</div>        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

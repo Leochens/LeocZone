@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526546453;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526534693;s:72:"D:\IT_study\recordthing\application\index\view\user\index\myRecords.html";i:1526554124;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addRecord.html";i:1526545158;s:76:"D:\IT_study\recordthing\application\index\view\user\index\friendRecords.html";i:1526545046;s:73:"D:\IT_study\recordthing\application\index\view\user\index\friendList.html";i:1526544993;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addFriend.html";i:1526545226;s:69:"D:\IT_study\recordthing\application\index\view\user\index\logout.html";i:1526545292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526606671;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526606083;s:72:"D:\IT_study\recordthing\application\index\view\user\index\myRecords.html";i:1526604322;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addRecord.html";i:1526545158;s:76:"D:\IT_study\recordthing\application\index\view\user\index\friendRecords.html";i:1526545046;s:73:"D:\IT_study\recordthing\application\index\view\user\index\friendList.html";i:1526544993;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addFriend.html";i:1526545226;s:69:"D:\IT_study\recordthing\application\index\view\user\index\logout.html";i:1526545292;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +37,7 @@
 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
 	<h4><?php echo $check; ?></h4>
 	<button class="btn btn-success" onclick="Control()">编辑</button>
-	<button data-toggle="modal" data-target="#reply_comment">打开评论回复界面</button>
+	
 </header>
 <content>
 
@@ -49,17 +49,16 @@
         <h4 class="modal-title">回复评论</h4>
       </div>
       <div class="modal-body">
-		<form action="<?php echo \think\Config::get('INDEX'); ?>/user_r_update" method="POST" role="form">
+		<div>
 	    <legend></legend>
 	
 	    <div class="form-group">
 	        <label for="">请输入回复内容</label>
-	        <input id="old_record" name="content" type="text" class="form-control"  placeholder="">
-	        <input type="hidden" name="id" id="old_record_id" >
-	        <input type="hidden" name="user_id" id="user_id" >
+	        <input id="reply_content" name="content" type="text" class="form-control"  placeholder="" value="">
+          <input type="button" value="回复" onclick="reply()">
 	    </div>
-	    <button type="submit"  class="btn btn-primary">提交</button>
-		</form>        
+	    
+		</div>        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -108,12 +107,12 @@
 			  	评论：<input type="text" name='content' class="form-control">
 			  	<input type="hidden" name="record_id"  value="<?php echo $record_item['id']; ?>">
 						<input class="btn btn-info" type="submit" value="提交">
-					<?php if(is_array($record_item['comments']) || $record_item['comments'] instanceof \think\Collection || $record_item['comments'] instanceof \think\Paginator): $i = 0; $__LIST__ = $record_item['comments'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$c_item): $mod = ($i % 2 );++$i;?>
-					<!-- <li  id="c_<?php echo $c_item['id']; ?>">
-						<button onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $c_item['comment_author_id']; ?>);return false;">删除</button>
-					</li> -->
-					<?php 
+					<?php if(is_array($record_item['comments']) || $record_item['comments'] instanceof \think\Collection || $record_item['comments'] instanceof \think\Paginator): $i = 0; $__LIST__ = $record_item['comments'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$c_item): $mod = ($i % 2 );++$i;
 						$arr1 =array();
+						/**
+						 * 多维评论线性化
+						 * @var [type]
+						 */
 						$test =function($data,&$arr=array(),$last_comment_author='')use(&$test){
 							if(empty($data['comment_children']))
 							{
@@ -121,11 +120,6 @@
 								unset($d['comment_children']);
 								$d['last_comment_author']=$last_comment_author;
 								$arr[]=$d;
-								
-								// echo "<pre>";
-								// print_r($data);
-								// echo "</pre>";
-
 							}else
 							{
 								foreach ($data['comment_children'] as $d_item) {
@@ -148,13 +142,15 @@
 							<li id="c_<?php echo $c_item['id']; ?>">
 							<?php if(empty($child_item['last_comment_author'])): ?>
 
-							<?php echo $child_item['name']; ?>:<?php echo $child_item['content']; else: ?>
+								<?php echo $child_item['name']; ?>:<?php echo $child_item['content']; else: ?>
 
-							<?php echo $child_item['name']; ?>回复<?php echo $child_item['last_comment_author']; ?>:<?php echo $child_item['content']; endif; ?>
-							<button onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $c_item['comment_author_id']; ?>);return false;">删除</button>
+								<?php echo $child_item['name']; ?>回复<?php echo $child_item['last_comment_author']; ?>:<?php echo $child_item['content']; endif; ?>
+							<button class="btn btn-danger btn-sm" onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $c_item['comment_author_id']; ?>);return false;">删除</button>
+							
+							<button type="button" class="btn btn-info btn-sm"  onmouseover="pushData(<?php echo $child_item['record_id']; ?>,<?php echo $child_item['id']; ?>,<?php echo $child_item['comment_author_id']; ?>)" data-toggle="modal" data-target="#reply_comment">回复</button>
 							</li>
-						<?php endforeach; endif; else: echo "" ;endif; $arr1=[]; endforeach; endif; else: echo "" ;endif; ?>
-					
+						<?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
+				
 
 				</form>
 
@@ -271,11 +267,30 @@
 </div><!-- /.modal -->
 
 <footer>
-	
+	<h1 id="test"></h1>
+	<button onclick="testData()">测试data暂存数据</button>
+	<h2 id="tda"></h2>
 </footer>	
 
 <script>
 	
+	var dataTmp ;
+	//暂存数据
+	
+	function pushData(record_id='',comment_id='',comment_author_id='')
+	{
+		//TODO：全局变量
+		dataTmp=[];
+		dataTmp['record_id']=record_id;
+		dataTmp['comment_id']=comment_id;
+		dataTmp['comment_author_id']=comment_author_id;
+		$('#test').html(dataTmp['comment_id']);
+		return false;
+	}
+	// function testData()
+	// {
+	// 	$('#tda').html(data['comment_id']);
+	// }
 	function Load(record_id)
 	{
 		console.log(record_id);
@@ -309,14 +324,14 @@
 		else
 			$(".control").css("visibility","hidden");
 	}
-	function myCommentDel(id,cmt_au_id)
+	function myCommentDel(record_id,comment_author_id)
 	{
-		console.log('删除评论：'+id);
+		console.log('删除评论：'+record_id);
 		$.ajax({
 			url: '/index.php/user_c_del',
 			type: 'GET',
 			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-			data: {id:id,comment_author_id:cmt_au_id},
+			data: {record_id:id,comment_author_id:comment_author_id},
 
 		})
 		.done(function(data) {
@@ -331,6 +346,44 @@
 		.always(function() {
 			console.log("del comment:complete");
 		});
+	}
+	function reply() {
+		rep_content = $('#reply_content').val()
+		// if(data.length==0)
+		// {
+		// 	alert('暂存数据为空');
+		// 	return 0;
+		// }
+		console.log(typeof rep_content);
+		dataTmp['rep_content']=rep_content;
+		console.log(dataTmp);
+		console.log(rep_content);
+		$.ajax({
+			url: '/index.php/user_c_reply',
+			type: 'POST',
+			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+			data: {
+				//从全局暂存数据得到
+				'record_id':dataTmp['record_id'],
+				'comment_author_id':dataTmp['comment_author_id'],
+				'parent_id':dataTmp['comment_id'],
+				'rep_content':dataTmp['rep_content'],
+			}
+
+		})
+		.done(function(data) {
+			console.log("reply comment:success");
+			console.log(data);
+			//删除Dom节点
+			//$('#c_'+id).remove();
+		})
+		.fail(function() {
+			console.log("reply comment:error");
+		})
+		.always(function() {
+			console.log("reply comment:complete");
+		});
+		return false;
 	}
 </script>	
 </body>

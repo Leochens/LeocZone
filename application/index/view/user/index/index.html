@@ -23,7 +23,7 @@
 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
 	<h4>{$check}</h4>
 	<button class="btn btn-success" onclick="Control()">编辑</button>
-	<button data-toggle="modal" data-target="#reply_comment">打开评论回复界面</button>
+	
 </header>
 <content>
 {include file='user/index/reply'}
@@ -79,11 +79,30 @@
 </div><!-- /.modal -->
 
 <footer>
-	
+	<h1 id="test"></h1>
+	<button onclick="testData()">测试data暂存数据</button>
+	<h2 id="tda"></h2>
 </footer>	
 
 <script>
 	
+	var dataTmp ;
+	//暂存数据
+	
+	function pushData(record_id='',comment_id='',comment_author_id='')
+	{
+		//TODO：全局变量
+		dataTmp=[];
+		dataTmp['record_id']=record_id;
+		dataTmp['comment_id']=comment_id;
+		dataTmp['comment_author_id']=comment_author_id;
+		$('#test').html(dataTmp['comment_id']);
+		return false;
+	}
+	// function testData()
+	// {
+	// 	$('#tda').html(data['comment_id']);
+	// }
 	function Load(record_id)
 	{
 		console.log(record_id);
@@ -117,14 +136,14 @@
 		else
 			$(".control").css("visibility","hidden");
 	}
-	function myCommentDel(id,cmt_au_id)
+	function myCommentDel(record_id,comment_author_id)
 	{
-		console.log('删除评论：'+id);
+		console.log('删除评论：'+record_id);
 		$.ajax({
 			url: '/index.php/user_c_del',
 			type: 'GET',
 			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-			data: {id:id,comment_author_id:cmt_au_id},
+			data: {record_id:id,comment_author_id:comment_author_id},
 
 		})
 		.done(function(data) {
@@ -139,6 +158,44 @@
 		.always(function() {
 			console.log("del comment:complete");
 		});
+	}
+	function reply() {
+		rep_content = $('#reply_content').val()
+		// if(data.length==0)
+		// {
+		// 	alert('暂存数据为空');
+		// 	return 0;
+		// }
+		console.log(typeof rep_content);
+		dataTmp['rep_content']=rep_content;
+		console.log(dataTmp);
+		console.log(rep_content);
+		$.ajax({
+			url: '/index.php/user_c_reply',
+			type: 'POST',
+			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+			data: {
+				//从全局暂存数据得到
+				'record_id':dataTmp['record_id'],
+				'comment_author_id':dataTmp['comment_author_id'],
+				'parent_id':dataTmp['comment_id'],
+				'rep_content':dataTmp['rep_content'],
+			}
+
+		})
+		.done(function(data) {
+			console.log("reply comment:success");
+			console.log(data);
+			//删除Dom节点
+			//$('#c_'+id).remove();
+		})
+		.fail(function() {
+			console.log("reply comment:error");
+		})
+		.always(function() {
+			console.log("reply comment:complete");
+		});
+		return false;
 	}
 </script>	
 </body>
