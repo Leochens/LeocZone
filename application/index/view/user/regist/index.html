@@ -11,10 +11,12 @@
 	<h3>注册到Leoc</h3>
 	</div>
 	<form class="form-group col-lg-4 col-lg-offset-4" action="regist" method="post">
-		<input class="input form-control" type="text" name="username" placeholder="用户名" ><br>
+		<input class="input form-control" type="text" name="username" onblur="checkName(this.value)" placeholder="用户名" ><span class="color:red;" id="check_name_msg"></span><br>
 		<input class="input form-control" type="password" name="password" placeholder="密码" ><br>
 		<input class="form-control btn btn-info" type="submit" value="注册">	
 		<a href="{$Think.config.INDEX}/user_login/index">已有账号,去登录！</a>
 	</form>
+{include file="common/script"}
 </body>
 </html>
+

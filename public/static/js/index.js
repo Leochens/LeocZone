@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2018-05-18 13:41:58
 * @Last Modified by:   Administrator
-* @Last Modified time: 2018-05-18 13:41:59
+* @Last Modified time: 2018-05-18 23:20:51
 */
 	
 	var dataTmp ;
@@ -120,6 +120,34 @@
 		})
 		.always(function() {
 			console.log("reply comment:complete");
+		});
+		return false;
+	}
+
+	function checkName(name)
+	{	
+		console.log(name);
+		$.ajax({
+			url: '/index.php/user_name_check',
+			type: 'post',
+			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+			data: {
+				'username':name
+			}
+
+		})
+		.done(function(data) {
+			//console.log("reply comment:success");
+			console.log(data);
+			$('#check_name_msg').html(data.msg);
+			if(data.code!=1)
+				return false;
+		})
+		.fail(function() {
+			console.log("check name:error");
+		})
+		.always(function() {
+			console.log("check name:complete");
 		});
 		return false;
 	}

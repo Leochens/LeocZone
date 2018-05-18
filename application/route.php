@@ -30,6 +30,7 @@ use think\Route;
 \think\Route::rule('user_c_add','index/user.Index/addComment');
 \think\Route::rule('user_c_del','index/user.Index/delMyComment');
 \think\Route::rule('user_c_reply','index/user.Index/replyComment');
+\think\Route::rule('user_name_check','index/user.Regist/checkName');
 
 //管理员
 \think\Route::rule('admin_page','index/admin.Admin/index');

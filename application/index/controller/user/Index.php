@@ -66,7 +66,7 @@ class Index extends Controller
         $this->accessCheck();
         $req = Request::instance();
         $data = $req->param();
-        if($data['title']=="")
+        if(empty($data['title']))
             $data['title']="无标题";
         if($data['content']=="")
             $this->error("你总得说点什么吧老铁~~");
