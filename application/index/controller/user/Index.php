@@ -201,7 +201,7 @@ class Index extends Controller
     public function replyComment()
     {
         $record_id = getParam('record_id','获取评论id失败','post');
-        $comment_author_id = getParam('comment_author_id','获取评论作者id失败','post');
+        //$comment_author_id = getParam('comment_author_id','获取评论作者id失败','post');
         $parent_id = getParam('parent_id','获取父评论id失败','post');
         //return json_encode([$record_id,$comment_author_id,$parent_id]);
         $rep_content = getParam('rep_content','获取回复内容失败','post');
@@ -210,7 +210,8 @@ class Index extends Controller
             'content'=>$rep_content,
             'create_time'=>date('Y-m-d h-i-s'),
             'parent_id'=>$parent_id,
-            'comment_author_id'=>$comment_author_id
+            //评论作者就是当前用户
+            'comment_author_id'=>$this->user_id
         ];
         $res = $this->c->addComment($data);
         return $res?$data:0;

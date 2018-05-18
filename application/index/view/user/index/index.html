@@ -143,14 +143,14 @@
 			url: '/index.php/user_c_del',
 			type: 'GET',
 			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-			data: {record_id:id,comment_author_id:comment_author_id},
+			data: {record_id:record_id,comment_author_id:comment_author_id},
 
 		})
 		.done(function(data) {
 			console.log("del comment:success");
 			console.log('已删除 返回值： '+data);
 			//删除Dom节点
-			$('#c_'+id).remove();
+			$('#c_'+record_id).remove();
 		})
 		.fail(function() {
 			console.log("del comment:error");
@@ -177,7 +177,7 @@
 			data: {
 				//从全局暂存数据得到
 				'record_id':dataTmp['record_id'],
-				'comment_author_id':dataTmp['comment_author_id'],
+				//'comment_author_id':dataTmp['comment_author_id'],
 				'parent_id':dataTmp['comment_id'],
 				'rep_content':dataTmp['rep_content'],
 			}

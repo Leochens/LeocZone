@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526606671;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526606083;s:72:"D:\IT_study\recordthing\application\index\view\user\index\myRecords.html";i:1526604322;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addRecord.html";i:1526545158;s:76:"D:\IT_study\recordthing\application\index\view\user\index\friendRecords.html";i:1526545046;s:73:"D:\IT_study\recordthing\application\index\view\user\index\friendList.html";i:1526544993;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addFriend.html";i:1526545226;s:69:"D:\IT_study\recordthing\application\index\view\user\index\logout.html";i:1526545292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526607180;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526606083;s:72:"D:\IT_study\recordthing\application\index\view\user\index\myRecords.html";i:1526607437;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addRecord.html";i:1526545158;s:76:"D:\IT_study\recordthing\application\index\view\user\index\friendRecords.html";i:1526607600;s:73:"D:\IT_study\recordthing\application\index\view\user\index\friendList.html";i:1526544993;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addFriend.html";i:1526545226;s:69:"D:\IT_study\recordthing\application\index\view\user\index\logout.html";i:1526545292;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -145,7 +145,7 @@
 								<?php echo $child_item['name']; ?>:<?php echo $child_item['content']; else: ?>
 
 								<?php echo $child_item['name']; ?>回复<?php echo $child_item['last_comment_author']; ?>:<?php echo $child_item['content']; endif; ?>
-							<button class="btn btn-danger btn-sm" onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $c_item['comment_author_id']; ?>);return false;">删除</button>
+							<button type="button" class="btn btn-danger btn-sm" onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $c_item['comment_author_id']; ?>)">删除</button>
 							
 							<button type="button" class="btn btn-info btn-sm"  onmouseover="pushData(<?php echo $child_item['record_id']; ?>,<?php echo $child_item['id']; ?>,<?php echo $child_item['comment_author_id']; ?>)" data-toggle="modal" data-target="#reply_comment">回复</button>
 							</li>
@@ -191,11 +191,49 @@
 				  	评论：<input type="text" name='content' class="form-control">
 				  	<input type="hidden" name="record_id"  value="<?php echo $item['id']; ?>">
 							<input type="submit" value="提交">
-						<?php if(is_array($item['comments']) || $item['comments'] instanceof \think\Collection || $item['comments'] instanceof \think\Paginator): $i = 0; $__LIST__ = $item['comments'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$c_item): $mod = ($i % 2 );++$i;?>
-						<li><?php echo $c_item['name']; ?>:<?php echo $c_item['content']; ?></li>
-							<?php if(is_array($c_item['comment_children']) || $c_item['comment_children'] instanceof \think\Collection || $c_item['comment_children'] instanceof \think\Paginator): $i = 0; $__LIST__ = $c_item['comment_children'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child_item): $mod = ($i % 2 );++$i;?>
-								<li style="padding-left:40px ;"><?php echo $child_item['name']; ?>回复<?php echo $c_item['name']; ?>:<?php echo $child_item['content']; ?></li>
-							<?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
+						<?php if(is_array($item['comments']) || $item['comments'] instanceof \think\Collection || $item['comments'] instanceof \think\Paginator): $i = 0; $__LIST__ = $item['comments'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$c_item): $mod = ($i % 2 );++$i;
+						$arr1 =array();
+						/**
+						 * 多维评论线性化
+						 * @var [type]
+						 */
+						$test =function($data,&$arr=array(),$last_comment_author='')use(&$test){
+							if(empty($data['comment_children']))
+							{
+								$d = $data;
+								unset($d['comment_children']);
+								$d['last_comment_author']=$last_comment_author;
+								$arr[]=$d;
+							}else
+							{
+								foreach ($data['comment_children'] as $d_item) {
+									$d = $data;
+									unset($d['comment_children']);
+									$d['last_comment_author']=$last_comment_author;
+									$arr[]=$d;
+									$test($d_item,$arr,$d['name']);
+								}
+							}
+						};
+						$test($c_item,$arr1);
+						$arr1[0]['parent']=1;
+						// echo "<pre>";
+						// print_r($arr1);
+						// echo "</pre>";
+						//$child_comment_list=$test($c_item);
+						
+					 if(is_array($arr1) || $arr1 instanceof \think\Collection || $arr1 instanceof \think\Paginator): $i = 0; $__LIST__ = $arr1;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child_item): $mod = ($i % 2 );++$i;?>
+							<li id="c_<?php echo $c_item['id']; ?>">
+							<?php if(empty($child_item['last_comment_author'])): ?>
+
+								<?php echo $child_item['name']; ?>:<?php echo $child_item['content']; else: ?>
+
+								<?php echo $child_item['name']; ?>回复<?php echo $child_item['last_comment_author']; ?>:<?php echo $child_item['content']; endif; ?>
+							<button type="button" class="btn btn-danger btn-sm" onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $c_item['comment_author_id']; ?>)">删除</button>
+							
+							<button type="button" class="btn btn-info btn-sm"  onmouseover="pushData(<?php echo $child_item['record_id']; ?>,<?php echo $child_item['id']; ?>,<?php echo $child_item['comment_author_id']; ?>)" data-toggle="modal" data-target="#reply_comment">回复</button>
+							</li>
+						<?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
 					</form>
 			  	</div>
 			  </div>
@@ -331,14 +369,14 @@
 			url: '/index.php/user_c_del',
 			type: 'GET',
 			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-			data: {record_id:id,comment_author_id:comment_author_id},
+			data: {record_id:record_id,comment_author_id:comment_author_id},
 
 		})
 		.done(function(data) {
 			console.log("del comment:success");
 			console.log('已删除 返回值： '+data);
 			//删除Dom节点
-			$('#c_'+id).remove();
+			$('#c_'+record_id).remove();
 		})
 		.fail(function() {
 			console.log("del comment:error");
@@ -365,7 +403,7 @@
 			data: {
 				//从全局暂存数据得到
 				'record_id':dataTmp['record_id'],
-				'comment_author_id':dataTmp['comment_author_id'],
+				//'comment_author_id':dataTmp['comment_author_id'],
 				'parent_id':dataTmp['comment_id'],
 				'rep_content':dataTmp['rep_content'],
 			}

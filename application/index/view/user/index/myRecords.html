@@ -69,7 +69,7 @@
 								{$child_item.name}回复{$child_item.last_comment_author}:{$child_item.content}
 
 							{/if}
-							<button class="btn btn-danger btn-sm" onclick="myCommentDel({$c_item.id},{$c_item.comment_author_id});return false;">删除</button>
+							<button type="button" class="btn btn-danger btn-sm" onclick="myCommentDel({$c_item.id},{$c_item.comment_author_id})">删除</button>
 							
 							<button type="button" class="btn btn-info btn-sm"  onmouseover="pushData({$child_item.record_id},{$child_item.id},{$child_item.comment_author_id})" data-toggle="modal" data-target="#reply_comment">回复</button>
 							</li>
