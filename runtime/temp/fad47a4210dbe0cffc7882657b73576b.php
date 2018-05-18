@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526607180;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526606083;s:72:"D:\IT_study\recordthing\application\index\view\user\index\myRecords.html";i:1526607437;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addRecord.html";i:1526545158;s:76:"D:\IT_study\recordthing\application\index\view\user\index\friendRecords.html";i:1526607600;s:73:"D:\IT_study\recordthing\application\index\view\user\index\friendList.html";i:1526544993;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addFriend.html";i:1526545226;s:69:"D:\IT_study\recordthing\application\index\view\user\index\logout.html";i:1526545292;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:9:{s:78:"D:\IT_study\recordthing\public/../application/index\view\user\index\index.html";i:1526608127;s:65:"D:\IT_study\recordthing\application\index\view\common\header.html";i:1526200105;s:68:"D:\IT_study\recordthing\application\index\view\user\index\reply.html";i:1526606083;s:72:"D:\IT_study\recordthing\application\index\view\user\index\myRecords.html";i:1526608247;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addRecord.html";i:1526545158;s:76:"D:\IT_study\recordthing\application\index\view\user\index\friendRecords.html";i:1526607744;s:73:"D:\IT_study\recordthing\application\index\view\user\index\friendList.html";i:1526544993;s:72:"D:\IT_study\recordthing\application\index\view\user\index\addFriend.html";i:1526545226;s:69:"D:\IT_study\recordthing\application\index\view\user\index\logout.html";i:1526545292;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -145,7 +145,7 @@
 								<?php echo $child_item['name']; ?>:<?php echo $child_item['content']; else: ?>
 
 								<?php echo $child_item['name']; ?>回复<?php echo $child_item['last_comment_author']; ?>:<?php echo $child_item['content']; endif; ?>
-							<button type="button" class="btn btn-danger btn-sm" onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $c_item['comment_author_id']; ?>)">删除</button>
+							<button type="button" class="btn btn-danger btn-sm" onclick="myCommentDel(<?php echo $c_item['id']; ?>,<?php echo $child_item['comment_author_id']; ?>)">删除</button>
 							
 							<button type="button" class="btn btn-info btn-sm"  onmouseover="pushData(<?php echo $child_item['record_id']; ?>,<?php echo $child_item['id']; ?>,<?php echo $child_item['comment_author_id']; ?>)" data-toggle="modal" data-target="#reply_comment">回复</button>
 							</li>
@@ -374,8 +374,13 @@
 		})
 		.done(function(data) {
 			console.log("del comment:success");
-			console.log('已删除 返回值： '+data);
+			//console.log(data);
 			//删除Dom节点
+			if(data==-2)
+			{
+				alert('你不能删除别人的评论！');
+				return 0;
+			}
 			$('#c_'+record_id).remove();
 		})
 		.fail(function() {

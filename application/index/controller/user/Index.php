@@ -192,8 +192,8 @@ class Index extends Controller
         $this->check();
         $c_id = getParam('record_id','获取评论id失败');
         $comment_author_id = getParam('comment_author_id','获取评论作者id失败');
-        // if($comment_author_id!=$this->user_id)
-        //     return -2;
+        if($comment_author_id!=$this->user_id)
+            return -2;
         $res = $this->c->delComment($c_id);
         return json_encode($res?1:0);
     }

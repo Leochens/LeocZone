@@ -148,8 +148,13 @@
 		})
 		.done(function(data) {
 			console.log("del comment:success");
-			console.log('已删除 返回值： '+data);
+			//console.log(data);
 			//删除Dom节点
+			if(data==-2)
+			{
+				alert('你不能删除别人的评论！');
+				return 0;
+			}
 			$('#c_'+record_id).remove();
 		})
 		.fail(function() {
