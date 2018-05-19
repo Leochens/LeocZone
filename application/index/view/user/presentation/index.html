@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>分享页面</title>
+	{include file='common/header'}
+</head>
+<body>
+
+
+<div class="post" id="r_{$record.id}">
+				 <div class="control pull-right">
+				    <a class="button small" href="{$Think.config.INDEX}/user_r_delete?user_id={$record.user_id}&id={$record.id}" >删除</a>
+					<button type="button" class="button small" onclick="Load({$record.id})" data-toggle="modal" data-target="#update_record">编辑</button>
+					<button type="button" class="button small">占位</button>
+					
+				  </div>
+				  <div class="title">
+					<h2>{$record.author}</h2>
+					<p>{$record.content}</p>
+				  </div>
+				  <div class="meta">
+					<span class="author name">来自Vivo X21</span>
+				  </div>
+				  <footer>
+					<ul class="stats">
+						<li><a href="#">发表于：{$record.create_time}</a></li>
+						<li><a href="#" class="icon fa-heart">{$record.hits}</a></li>
+						<li><a href="javascript:(void);" class="icon fa-comment">评论</a></li>
+					</ul>
+					</footer>
+			  </div>
+
+
+{include file='common/script'}
+
+</body>
+</html>

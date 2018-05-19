@@ -39,6 +39,10 @@ use think\Route;
 \think\Route::rule('admin_f_user','index/admin.Admin/forbiddenUser');
 \think\Route::rule('admin_uf_user','index/admin.Admin/unForbiddenUser');
 
+//分享
+\think\Route::rule('share','index/user.Presentation/index');
+
+
 return [
     '__pattern__' => [
         'name' => '\w+',

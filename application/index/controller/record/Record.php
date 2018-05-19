@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-09 21:46:03 
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-17 17:01:43
+ * @Last Modified time: 2018-05-19 15:48:47
  * 分层控制器  主要提供其他控制器数据集
  */
 
@@ -37,9 +37,9 @@ class Record extends Controller{
 	}
 	/*
 		获取对应用户的记录数据
-		包括说说的内容和评论 
+		包括说说的内容和评论  
 	 */
-	public function getByUser($user_id)
+	public function getByUser($user_id) 
 	{
 
 		$c= controller('index/record/Comment');
@@ -48,21 +48,7 @@ class Record extends Controller{
 		//test($this->getTree($record_with_comment,null));
 		return $record_with_comment;
 	}
-	// public function getTree($data,$p_id)
-	// {
-	// 	static $arr=array();
-	// 	foreach ($data as  $d_item) {
-	// 		foreach ($d_item['comments'] as $key => $item) {
-	// 					if($item['parent_id']==$p_id)
-	// 					{
-	// 						$arr[]=$item;
-	// 					}else
-	// 						$arr[]=$this->getTree($item,$item['parent_id']);
-	// 				}
-	// 	}
-		
-	// 	return $arr;
-	// }
+
 	/**
 	 * 根据用户插入记录
 	 * @param [type] $user_id [description]
