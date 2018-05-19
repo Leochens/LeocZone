@@ -45,12 +45,14 @@
 				  <div class="meta">
 					<span class="author name">来自Leoc趣说</span>
 				  </div>
+				  <br>
 				  <footer>
-					<ul class="stats">
-						<li><a href="#">发表于：{$record_item.create_time}</a></li>
+					<ul class="stats" style="">
 						<li onclick="hit({$record_item.id})">
 						<a href="javascript:void(0)" class="icon fa-heart"><i class="hit" >{$record_item.hits}</i> </a></li>
 						<li onclick="showComment({$record_item.id})" ><a href="javascript:void(0)" class="icon fa-comment">评论</a></li>
+						<li><a href="#">发表于：{$record_item.create_time}</a></li>
+
 					</ul>
 					</footer>
 				  <div >

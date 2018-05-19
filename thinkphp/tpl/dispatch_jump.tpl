@@ -6,13 +6,15 @@
     {include file="../application/index/view/common/header.html" /}
     <title>跳转提示</title>
     <style>
-
+    .msg{
+        display: none;
+    }
     </style>
 </head>
 <body>
     <div class="col-lg-8 col-lg-offset-2 col-xs-10 col-xs-offset-1">
        
-        <div class="post">
+        <div class="msg post animated slideInUp">
             
             <?php switch ($code) {?>
             <?php case 1:?>
@@ -54,6 +56,8 @@
 
 
     {include file="../application/index/view/common/script.html" /}
-
+    <script>
+    $('.msg').css('display','block');
+    </script>
 </body>
 </html>
