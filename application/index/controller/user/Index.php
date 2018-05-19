@@ -22,17 +22,18 @@ class Index extends Controller
     	
         $this->check();
     	$check = "用户".$this->user_name."已登录,id为：".$this->user_id;
-        $show=1;
         $record_with_comment_list = $this->getRecord();
         $friendList= $this->getFriends();
         $friendsRecordList=$this->getFriendsRecord();
+        $userinfo = $this->getUserInfo();
         //test($record_with_comment_list);
         $this->assign([
-            'msg'=>'这里是首页', 
             'check'=>$check,
             'recordList'=>$record_with_comment_list,
             'friendList'=>$friendList,
-            'friendsRecordList'=>$friendsRecordList
+            'friendsRecordList'=>$friendsRecordList,
+            'userinfo'=>$userinfo,
+
             ]);
  
     	return $this->fetch();  	
@@ -53,7 +54,11 @@ class Index extends Controller
         else
             return 1;
     }
-
+    private function getUserInfo()
+    {
+        $res = Db::table('users')->where('id',$this->user_id)->find();
+        return $res?$res:0;
+    }
     // 用户对记录的操作
     private function getRecord(){
         //echo "当前用户的带评论说说数据 begin";

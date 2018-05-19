@@ -20,9 +20,9 @@
 
 	<div>
 		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#my_records" aria-controls="my_records" role="tab" data-toggle="tab">我的说说</a></li>
+			<li role="presentation" ><a href="#my_records" aria-controls="my_records" role="tab" data-toggle="tab">我的说说</a></li>
 		    <li role="presentation"><a href="#add_record" aria-controls="add_record" role="tab" data-toggle="tab">添加说说</a></li>
-		    <li role="presentation"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">好友说说</a></li>
+		    <li role="presentation" class="active"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">好友说说</a></li>
 		    <li role="presentation"><a href="#friends_list" aria-controls="friends_list" role="tab" data-toggle="tab">好友列表</a></li>
 		    <li role="presentation"><a href="#add_friend" aria-controls="add_friend" role="tab" data-toggle="tab">添加好友</a></li>
 		    <li role="presentation"><a href="#logout" aria-controls="logout" role="tab" data-toggle="tab">注销登录</a></li>
@@ -47,11 +47,74 @@
 	</nav>
 	 <!-- Tab panes -->
 </header>
-<content>
-{include file='user/index/reply'}
 
-<div class="col-lg-8 col-lg-offset-2">
-{include file='user/index/tabContent'}
+<content class="col-lg-10 col-lg-offset-2">
+
+{include file='user/index/reply'}
+				<section id="menu">
+
+						<!-- Search -->
+							<section>
+								<form class="search" method="get" action="#">
+									<input type="text" name="query" placeholder="Search" />
+								</form>
+							</section>
+								<ul class="nav nav-tabs" role="tablist">
+									<li role="presentation" class="active"><a href="#my_records" aria-controls="my_records" role="tab" data-toggle="tab">我的说说</a></li>
+								    <li role="presentation"><a href="#add_record" aria-controls="add_record" role="tab" data-toggle="tab">添加说说</a></li>
+								    <li role="presentation"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">好友说说</a></li>
+								    <li role="presentation"><a href="#friends_list" aria-controls="friends_list" role="tab" data-toggle="tab">好友列表</a></li>
+								    <li role="presentation"><a href="#add_friend" aria-controls="add_friend" role="tab" data-toggle="tab">添加好友</a></li>
+								    <li role="presentation"><a href="#logout" aria-controls="logout" role="tab" data-toggle="tab">注销登录</a></li>
+								</ul>
+	
+						<!-- Links -->
+							<section>
+								<ul class="links">
+									<li>
+										<a href="#">
+											<h3>Lorem ipsum</h3>
+											<p>Feugiat tempus veroeros dolor</p>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<h3>Dolor sit amet</h3>
+											<p>Sed vitae justo condimentum</p>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<h3>Feugiat veroeros</h3>
+											<p>Phasellus sed ultricies mi congue</p>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<h3>Etiam sed consequat</h3>
+											<p>Porta lectus amet ultricies</p>
+										</a>
+									</li>
+								</ul>
+							</section>
+
+						<!-- Actions -->
+							<section>
+								<ul class="actions vertical">
+									<li><a href="#" class="button big fit">Log In</a></li>
+								</ul>
+							</section>
+
+					</section>
+<div class="row">
+	<div class="col-lg-5">
+		<div class="col-lg-12">
+			{include file='user/index/info'}
+		</div>
+	</div>
+	<div class="col-lg-5">
+	{include file='user/index/tabContent'}
+	</div>
 </div>
 </content>
 
@@ -89,7 +152,9 @@
 	<h2 id="tda"></h2>
 
 </footer>	
-
+			<!-- Menu -->
+	
+         
 {include file="common/script" /}
 
 </body>
