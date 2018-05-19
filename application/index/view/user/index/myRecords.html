@@ -37,12 +37,13 @@
 					<p>{$record_item.content}</p>
 				  </div>
 				  <div class="meta">
-					<span class="author name">来自Vivo X21</span>
+					<span class="author name">来自Leoc趣说</span>
 				  </div>
 				  <footer>
 					<ul class="stats">
 						<li><a href="#">发表于：{$record_item.create_time}</a></li>
-						<li onclick="hit({$record_item.id})"><a class="hit" href="javascript:(void)" class="icon fa-heart">{$record_item.hits}</a></li>
+						<li onclick="hit({$record_item.id})">
+						<a href="javascript:(void);" class="icon fa-heart"><i class="hit" >{$record_item.hits}</i> </a></li>
 						<li onclick="showComment()"><a href="javascript:(void);" class="icon fa-comment">评论</a></li>
 					</ul>
 					</footer>
