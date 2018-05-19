@@ -14,12 +14,12 @@
 <!-- 	<div class="h3 col-lg-12 bg-info">Leoc——记事共享</div>
 	<h4>{$check}</h4>	 -->
 </header>
-<header id="header">
+<header id="header" class="col-xm-12">
 	<h1><a href="#">LEOC</a></h1>
 	<nav>
 
 	<div>
-		<ul class="nav nav-tabs" role="tablist">
+		<ul class="nav nav-tabs col-xm-12 visible-lg-block"  role="tablist">
 			<li role="presentation" ><a href="#my_records" aria-controls="my_records" role="tab" data-toggle="tab">我的说说</a></li>
 		    <li role="presentation"><a href="#add_record" aria-controls="add_record" role="tab" data-toggle="tab">添加说说</a></li>
 		    <li role="presentation" class="active"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">好友说说</a></li>
@@ -27,7 +27,30 @@
 		    <li role="presentation"><a href="#add_friend" aria-controls="add_friend" role="tab" data-toggle="tab">添加好友</a></li>
 		    <li role="presentation"><a href="#logout" aria-controls="logout" role="tab" data-toggle="tab">注销登录</a></li>
 		</ul>
-	
+		<ul class="nav nav-tabs col-xm-12 visible-xs-block"  role="tablist">
+			<li role="presentation"><a href="#my_records" aria-controls="my_records" role="tab" data-toggle="tab">
+			<i class="fa fa-user fa-sm" aria-hidden="true"></i>
+			</a></li>
+		    <li role="presentation"><a href="#add_record" aria-controls="add_record" role="tab" data-toggle="tab">
+		    <i class="fa fa-edit fa-sm" aria-hidden="true"></i>
+		    </a></li>
+		    <li role="presentation" class="active"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">
+		    <i class="fa fa-list-alt fa-sm" aria-hidden="true"></i>
+		    
+		    </a></li>
+		    <li role="presentation"><a href="#friends_list" aria-controls="friends_list" role="tab" data-toggle="tab">
+		    <i class="fa fa-group fa-sm" aria-hidden="true"></i>
+		    	
+		    </a></li>
+		    <li role="presentation"><a href="#add_friend" aria-controls="add_friend" role="tab" data-toggle="tab">
+		    <i class="fa fa-user-plus fa-sm" aria-hidden="true"></i>
+		    	
+		    </a></li>
+		    <li role="presentation"><a href="#logout" aria-controls="logout" role="tab" data-toggle="tab">
+		    <i class="fa fa-sign-out fa-sm" aria-hidden="true"></i>
+		    	
+		    </a></li>
+			</ul>
 	</div>
 
 
@@ -40,79 +63,25 @@
 					<input type="text" name="query" placeholder="Search" />
 				</form>
 			</li>
-			<li class="menu">
+			<!-- <li class="menu visible-lg-block">
 				<a class="fa-bars" href="#menu">Menu</a>
-			</li>
+			</li> -->
 		</ul>
 	</nav>
 	 <!-- Tab panes -->
 </header>
 
-<content class="col-lg-10 col-lg-offset-2">
+<content class="col-lg-10 col-lg-offset-1">
 
 {include file='user/index/reply'}
-				<section id="menu">
 
-						<!-- Search -->
-							<section>
-								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Search" />
-								</form>
-							</section>
-								<ul class="nav nav-tabs" role="tablist">
-									<li role="presentation" class="active"><a href="#my_records" aria-controls="my_records" role="tab" data-toggle="tab">我的说说</a></li>
-								    <li role="presentation"><a href="#add_record" aria-controls="add_record" role="tab" data-toggle="tab">添加说说</a></li>
-								    <li role="presentation"><a href="#friends_records" aria-controls="friends_records" role="tab" data-toggle="tab">好友说说</a></li>
-								    <li role="presentation"><a href="#friends_list" aria-controls="friends_list" role="tab" data-toggle="tab">好友列表</a></li>
-								    <li role="presentation"><a href="#add_friend" aria-controls="add_friend" role="tab" data-toggle="tab">添加好友</a></li>
-								    <li role="presentation"><a href="#logout" aria-controls="logout" role="tab" data-toggle="tab">注销登录</a></li>
-								</ul>
-	
-						<!-- Links -->
-							<section>
-								<ul class="links">
-									<li>
-										<a href="#">
-											<h3>Lorem ipsum</h3>
-											<p>Feugiat tempus veroeros dolor</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Dolor sit amet</h3>
-											<p>Sed vitae justo condimentum</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Feugiat veroeros</h3>
-											<p>Phasellus sed ultricies mi congue</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Etiam sed consequat</h3>
-											<p>Porta lectus amet ultricies</p>
-										</a>
-									</li>
-								</ul>
-							</section>
-
-						<!-- Actions -->
-							<section>
-								<ul class="actions vertical">
-									<li><a href="#" class="button big fit">Log In</a></li>
-								</ul>
-							</section>
-
-					</section>
 <div class="row">
 	<div class="col-lg-5">
-		<div class="col-lg-12">
+		<div class="col-lg-10 col-lg-offset-2">
 			{include file='user/index/info'}
 		</div>
 	</div>
-	<div class="col-lg-5">
+	<div class="col-lg-6 col-xs-10 col-xs-offset-1" >
 	{include file='user/index/tabContent'}
 	</div>
 </div>
@@ -122,8 +91,8 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">编辑记事</h4>
+       <!--  <button type="button" class="button small" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;X</span></button> -->
+        <!-- <h4 class="modal-title">编辑记事</h4> -->
       </div>
       <div class="modal-body">
 		<form action="{$Think.config.INDEX}/user_r_update" method="POST" role="form">
@@ -135,11 +104,11 @@
 	        <input type="hidden" name="id" id="old_record_id" >
 	        <input type="hidden" name="user_id" id="user_id" >
 	    </div>
-	    <button type="submit"  class="btn btn-primary">保存</button>
+	    <button type="submit"   class="button small">保存</button>
 		</form>        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="button small" data-dismiss="modal">Close</button>
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div><!-- /.modal-content -->
@@ -147,9 +116,9 @@
 </div><!-- /.modal -->
 
 <footer>
-	<h1 id="test"></h1>
+<!-- 	<h1 id="test"></h1>
 	<button onclick="testData()">测试data暂存数据</button>
-	<h2 id="tda"></h2>
+	<h2 id="tda"></h2> -->
 
 </footer>	
 			<!-- Menu -->
