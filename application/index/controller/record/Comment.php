@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-14 21:26:17
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-17 16:45:48
+ * @Last Modified time: 2018-05-19 16:14:57
  */
 class Comment extends Controller{
 	private $commentModel ; 
@@ -45,6 +45,7 @@ class Comment extends Controller{
 		//指定所有好友用户说说列表
 		$recordList = Db::table('single_user_records')
 			->where('user_id in ('.$user_id.')')
+			->order('create_time desc')
 			->select();
 
 		//组合 使每一条说说都增加自己的评论字段 保存在$record_with_comment中
