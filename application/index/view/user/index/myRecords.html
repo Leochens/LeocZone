@@ -60,7 +60,7 @@
 					
 								{volist name='arr1' id='child_item'}
 								<div class="row">
-									<li class="com_item " id="c_{$c_item.id}">
+									<li class="com_item " id="c_{$child_item.id}">
 									{if condition="empty($child_item.last_comment_author)"}
 
 										<span class="h5" onmouseover="pushData({$child_item.record_id},{$child_item.id},{$child_item.comment_author_id})" data-toggle="modal" data-target="#reply_comment">{$child_item.name} : {$child_item.content}</span>
@@ -71,8 +71,10 @@
 
 									{/if}
 									<div class="item_control">
-									<button type="button" class="button small" onclick="myCommentDel({$c_item.id},{$child_item.record_author_id})">删除</button>
-									<button type="button" class="button small"  onmouseover="pushData({$child_item.record_id},{$child_item.id},{$child_item.comment_author_id})" data-toggle="modal" data-target="#reply_comment">回复</button>
+									<button type="button" class="button small" 
+									onclick="myCommentDel({$child_item.id},{$child_item.record_author_id})">删除</button>
+									<button type="button" class="button small"  
+									onmouseover="pushData({$child_item.record_id},{$child_item.id},{$child_item.comment_author_id})" data-toggle="modal" data-target="#reply_comment">回复</button>
 									</div>
 									</li>
 								</div>
