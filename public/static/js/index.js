@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2018-05-18 13:41:58
 * @Last Modified by:   Administrator
-* @Last Modified time: 2018-05-18 23:20:51
+* @Last Modified time: 2018-05-19 14:29:34
 */
 	
 	var dataTmp ;
@@ -112,6 +112,7 @@
 		.done(function(data) {
 			console.log("reply comment:success");
 			console.log(data);
+			window.location.reload();
 			//删除Dom节点
 			//$('#c_'+id).remove();
 		})
@@ -120,8 +121,9 @@
 		})
 		.always(function() {
 			console.log("reply comment:complete");
+			
+
 		});
-		return false;
 	}
 
 	function checkName(name)
