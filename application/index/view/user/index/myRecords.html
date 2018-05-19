@@ -1,36 +1,42 @@
 
  <div  role="tabpanel" class="tab-pane fade" id="my_records">
 
-		<button class="button small" onclick="Control()">编辑</button>
-
 			{volist name='recordList' id='record_item'}
 			<!-- <div class="panel panel-default"> -->
 			<div class="post" id="r_{$record_item.id}">
-				 <div class="control pull-right">
-				    <a class="button small" href="{$Think.config.INDEX}/user_r_delete?user_id={$record_item.user_id}&id={$record_item.id}" >删除</a>
-					<button type="button" class="button small" onclick="Load({$record_item.id})" data-toggle="modal" data-target="#update_record">编辑</button>
-					<button type="button" class="button small">占位</button>
-					<script type="text/javascript">
-						(function(){
-						var p = {
-						url:share_root+'/index.php/share'+'?r_id={$record_item.id}',
-						showcount:'1',/*是否显示分享总数,显示：'1'，不显示：'0' */
-						desc:'看我在Leoc上刚说了什么！',/*默认分享理由(可选)*/
-						summary:'{$record_item.content}',/*分享摘要(可选)*/
-						title:'{$record_item.author}'+'在趣说上说了..',/*分享标题(可选)*/
-						site:'Leoc趣说',/*分享来源 如：腾讯网(可选)*/
-						pics:'', /*分享图片的路径(可选)*/
-						style:'203',
-						width:98,
-						height:22
-						};
-						var s = [];
-						for(var i in p){
-						s.push(i + '=' + encodeURIComponent(p[i]||''));
-						}
-						document.write(['<button  class="button small" ><a version="1.0"href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?',s.join('&'),'" target="_blank">分享</a></button>'].join(''));
-						})();
-					</script>
+			<div class="dropdown pull-right">
+			  <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu animated rotateInDownRight" aria-labelledby="dLabel">
+			 	<a class="button small" href="{$Think.config.INDEX}/user_r_delete?user_id={$record_item.user_id}&id={$record_item.id}" >删除</a>
+				<a type="button" class="button small" onclick="Load({$record_item.id})" data-toggle="modal" data-target="#update_record">编辑</a>
+				<a type="button" class="button small">占位</a>
+				<script type="text/javascript">
+					(function(){
+					var p = {
+					url:share_root+'/index.php/share'+'?r_id={$record_item.id}',
+					showcount:'1',/*是否显示分享总数,显示：'1'，不显示：'0' */
+					desc:'看我在Leoc上刚说了什么！',/*默认分享理由(可选)*/
+					summary:'{$record_item.content}',/*分享摘要(可选)*/
+					title:'{$record_item.author}'+'在趣说上说了..',/*分享标题(可选)*/
+					site:'Leoc趣说',/*分享来源 如：腾讯网(可选)*/
+					pics:'', /*分享图片的路径(可选)*/
+					style:'203',
+					width:98,
+					height:22
+					};
+					var s = [];
+					for(var i in p){
+					s.push(i + '=' + encodeURIComponent(p[i]||''));
+					}
+					document.write(['<button  class="button small" ><a version="1.0"href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?',s.join('&'),'" target="_blank">分享</a></button>'].join(''));
+					})();
+				</script>
+			  </ul>
+			</div>
+				 <div class="control pull-right">	
+				    
 				  </div>
 				  <div class="title">
 					<h2>{$record_item.author}</h2>
@@ -43,16 +49,17 @@
 					<ul class="stats">
 						<li><a href="#">发表于：{$record_item.create_time}</a></li>
 						<li onclick="hit({$record_item.id})">
-						<a href="javascript:(void);" class="icon fa-heart"><i class="hit" >{$record_item.hits}</i> </a></li>
-						<li onclick="showComment()"><a href="javascript:(void);" class="icon fa-comment">评论</a></li>
+						<a href="javascript:void(0)" class="icon fa-heart"><i class="hit" >{$record_item.hits}</i> </a></li>
+						<li onclick="showComment({$record_item.id})" ><a href="javascript:void(0)" class="icon fa-comment">评论</a></li>
 					</ul>
 					</footer>
-				  <div class="comment">
-						<form method="post" action='{$Think.config.INDEX}/user_c_add' class="form-group">
+				  <div >
+						<form class="record_comment animated flipInX" method="post" action='{$Think.config.INDEX}/user_c_add' class="form-group">
 					  	<input type="text" name='content' class="form-control" placeholder="评论">
 					  	<input type="hidden" name="record_id"  value="{$record_item.id}">
 					  	<button class="button small" type="submit" value="提交">提交</button>
-							{volist name='$record_item.comments' id='c_item'}
+					</form>
+						{volist name='$record_item.comments' id='c_item'}
 							<?php 
 								$arr1 =array();
 								$test($c_item,$arr1);
@@ -61,7 +68,7 @@
 					
 								{volist name='arr1' id='child_item'}
 								<div class="row">
-									<li class="com_item " id="c_{$child_item.id}">
+									<li class="com_item animated zoomInLeft" id="c_{$child_item.id}">
 									{if condition="empty($child_item.last_comment_author)"}
 
 										<span class="h5" onmouseover="pushData({$child_item.record_id},{$child_item.id},{$child_item.comment_author_id})" data-toggle="modal" data-target="#reply_comment">{$child_item.name} : {$child_item.content}</span>
@@ -80,8 +87,7 @@
 									</li>
 								</div>
 								{/volist}
-							{/volist}
-						</form>
+						{/volist}
 			 	  </div>
 			  </div>
 			 	 {/volist}

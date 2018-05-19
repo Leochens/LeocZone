@@ -4,10 +4,7 @@
 
 			{volist name='friendsRecordList' id='record_item'}
 				<div class="post" id="r_{$record_item.id}">
-				 <div class="control pull-right">
-				    <a class="button small" href="{$Think.config.INDEX}/user_r_delete?user_id={$record_item.user_id}&id={$record_item.id}" >删除</a>
-					<button type="button" class="button small" onclick="Load({$record_item.id})" data-toggle="modal" data-target="#update_record">编辑</button>
-				  </div>
+		
 				  <div class="title">
 					<h2>{$record_item.author}</h2>
 					<p>{$record_item.content}</p>
@@ -18,8 +15,8 @@
 				  <footer>
 					<ul class="stats">
 						<li><a href="#">发表于：{$record_item.create_time}</a></li>
-						<li  onclick="hit({$record_item.id})"><a href="javascript:(void);" class="icon fa-heart"><i class="hit" >{$record_item.hits}</i> </a></li>
-						<li onclick="showComment()"><a href="javascript:(void);" class="icon fa-comment">评论</a></li>
+						<li  onclick="hit({$record_item.id})"><a href="javascript:void(0);" class="icon fa-heart"><i class="hit" >{$record_item.hits}</i> </a></li>
+						<li onclick="showComment({$record_item.id})" ><a href="javascript:void(0);" class="icon fa-comment">评论</a></li>
 						<li>
 						<script type="text/javascript">
 						(function(){
@@ -46,11 +43,12 @@
 					</ul>
 					</footer>
 				  <div class="comment">
-						<form method="post" action='{$Think.config.INDEX}/user_c_add' class="form-group">
+						<form class="record_comment animated flipInX" method="post" action='{$Think.config.INDEX}/user_c_add' class="form-group">
 					  	<input type="text" name='content' class="form-control" placeholder="评论">
 					  	<input type="hidden" name="record_id"  value="{$record_item.id}">
 					  	<button class="button small" type="submit" value="提交">提交</button>
-							{volist name='$record_item.comments' id='c_item'}
+						</form>
+						{volist name='$record_item.comments' id='c_item'}
 							<?php 
 								$arr1 =array();
 								$test($c_item,$arr1);
@@ -69,7 +67,7 @@
 										<span class="h5" onmouseover="pushData({$child_item.record_id},{$child_item.id},{$child_item.comment_author_id})" data-toggle="modal" data-target="#reply_comment">{$child_item.name} 回复 {$child_item.last_comment_author} : {$child_item.content}</span>
 
 									{/if}
-									<div class="item_control">
+									<div class="item_control animated zoomInLeft">
 									<button type="button" class="button small" onclick="myCommentDel({$child_item.id},{$c_item.record_author_id})">删除</button>
 									<button type="button" class="button small"  onmouseover="pushData({$child_item.record_id},{$child_item.id},{$child_item.comment_author_id})" data-toggle="modal" data-target="#reply_comment">回复</button>
 									</div>
@@ -77,7 +75,6 @@
 								</div>
 								{/volist}
 							{/volist}
-						</form>
 			 	  </div>
 			  </div>
 

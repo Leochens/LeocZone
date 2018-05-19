@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2018-05-18 13:41:58
 * @Last Modified by:   Administrator
-* @Last Modified time: 2018-05-19 22:33:33
+* @Last Modified time: 2018-05-19 23:05:11
 */
 	
 	var dataTmp ;
@@ -125,7 +125,19 @@
 
 		});
 	}
+	function showComment(r_id)
+	{
+		flag = $('#r_'+r_id+' .record_comment').css('display');
 
+		console.log(flag);
+		if(flag=='none')
+		{
+			$('#r_'+r_id+' .record_comment').css('display','block');
+		}else
+		{
+			$('#r_'+r_id+' .record_comment').css('display','none');
+		}
+	}
 	function checkName(name)
 	{	
 		console.log(name);

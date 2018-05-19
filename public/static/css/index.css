@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2018-05-18 12:53:27
 * @Last Modified by:   Administrator
-* @Last Modified time: 2018-05-19 22:07:53
+* @Last Modified time: 2018-05-19 23:23:44
 */
 body{
 	    color: #293233;
@@ -16,15 +16,22 @@ ul,li{
 	display: none;
 }
 .com_item{
-
+	height: 46.2px;
+	line-height: 46.2px;
+}
+.record_comment
+{
+	display: none;
+	animation:bounceInUp;
 }
 .com_item .item_control{
-	visibility: hidden;
-	display: inline-block;	
+	display: none;
+	/*display: inline-block;	*/
 }
 .com_item:hover > .item_control
 {
-	visibility: visible;
+	display: inline-block;	
+
 }
 .main{
 
