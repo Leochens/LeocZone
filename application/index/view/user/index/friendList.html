@@ -3,8 +3,10 @@
 	  	<br>
 		<ul class="list">
 		{volist name='friendList' id='item' }
-			<li>{$item.friend_name} 
-			<a href="{$Think.config.INDEX}/user_f_delete?friend_id={$item.friend_id}">删除</a>
+			<li>
+			<h3 style="display:inline-block">{$item.friend_name}</h3> 
+
+			<a class="button small" href="{$Think.config.INDEX}/user_f_delete?friend_id={$item.friend_id}">删除</a>
 			</li>
 		{/volist}
 		</ul>

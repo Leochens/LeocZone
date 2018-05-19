@@ -13,7 +13,7 @@ use think\Route;
 
 \think\Route::rule('','index.php');
 \think\Route::rule('','index/user.Index/index');
-
+ 
 //用户登录项
 \think\Route::rule('user_login/index','index/user.Login/index');
 \think\Route::rule('user_login/login','index/user.Login/login');
