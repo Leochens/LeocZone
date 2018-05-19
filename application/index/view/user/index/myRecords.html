@@ -42,7 +42,7 @@
 				  <footer>
 					<ul class="stats">
 						<li><a href="#">发表于：{$record_item.create_time}</a></li>
-						<li><a href="#" class="icon fa-heart">{$record_item.hits}</a></li>
+						<li onclick="hit({$record_item.id})"><a class="hit" href="javascript:(void)" class="icon fa-heart">{$record_item.hits}</a></li>
 						<li onclick="showComment()"><a href="javascript:(void);" class="icon fa-comment">评论</a></li>
 					</ul>
 					</footer>

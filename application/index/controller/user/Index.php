@@ -222,6 +222,21 @@ class Index extends Controller
         $res = $this->c->addComment($data);
         return $res?$data:0;
     }
+
+    public function hit()
+    {
+        $r_id = getParam('r_id','获取要点赞的记录id失败','get');
+        $res = Db::table('records')->where('id',$r_id)->setInc('hits');
+        if($res)
+        {
+            $now_hit = Db::table('records')->where('id',$r_id)->column('hits');
+            return ['code'=>1,'msg'=>"$this->user_id 号用户 {$this->user_name} 点赞成功",'hit'=>$now_hit];
+        }else
+        {
+            return ['code'=>0,'msg'=>$this->user_id.' 点赞失败'];
+        }
+    }
+
     /**
      * 注销登录
      * @return [type] [description]

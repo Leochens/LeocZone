@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2018-05-18 13:41:58
 * @Last Modified by:   Administrator
-* @Last Modified time: 2018-05-19 14:29:34
+* @Last Modified time: 2018-05-19 22:33:33
 */
 	
 	var dataTmp ;
@@ -48,12 +48,12 @@
 		});
 	}
 	function Control(){
-		console.log('hello');
-		flag=$(".control").css("visibility");
-		if(flag=="hidden")
-			$(".control").css("visibility","visible");
+		//console.log('hello');
+		flag=$(".control").css("display");
+		if(flag=="none")
+			$(".control").css("display","inline-block");
 		else
-			$(".control").css("visibility","hidden");
+			$(".control").css("display","none");
 	}
 	function myCommentDel(record_id,record_author_id)
 	{
@@ -152,4 +152,37 @@
 			console.log("check name:complete");
 		});
 		return false;
+	}
+	function hit(r_id)
+	{
+		console.log('hit '+r_id);
+		$.ajax({
+			url: '/index.php/hit',
+			type: 'get',
+			//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+			data: {
+				'r_id':r_id
+			}
+
+		})
+		.done(function(data) {
+			//console.log("reply comment:success");
+			console.log(data);
+			console.log("hit:success");
+
+			if(data.code==1)
+			{
+				$('#r_'+r_id+' .hit').html(data.hit);
+			}
+			else{
+				return false;
+			}
+			
+		})
+		.fail(function() {
+			console.log("hit:error");
+		})
+		.always(function() {
+			console.log("hit:complete");
+		});
 	}

@@ -42,6 +42,9 @@ use think\Route;
 //分享
 \think\Route::rule('share','index/user.Presentation/index');
 
+//点赞
+\think\Route::rule('hit','index/user.Index/hit');
+
 
 return [
     '__pattern__' => [
