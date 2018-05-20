@@ -7,7 +7,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-09 21:46:03 
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-19 15:48:47
+ * @Last Modified time: 2018-05-20 19:07:17
  * 分层控制器  主要提供其他控制器数据集
  */
 
@@ -57,7 +57,7 @@ class Record extends Controller{
 	public function insertByUser($user_id,$data)
 	{
 		$data['user_id']=$user_id;
-		$data['create_time']=Date('y-m-d h-i-s');
+		$data['create_time']=Date('y-m-d H-i-s');
 		$flag = $this->table
 				->insert($data);
 
