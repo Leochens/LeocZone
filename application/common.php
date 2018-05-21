@@ -45,8 +45,13 @@ function test($T)
  * @param string  $extra       [附加json值]
  * @param string  $head_pic       [用户头像路径]
  */
-function addMsg($from_id,$to_id,$content,$link='',$type=1,$create_time=date('y-m-d H-i-s'),$extra='',$head_pic='')
+
+function addMsg($from_id,$to_id,$content,$link='',$type=1,$create_time='',$extra='',$head_pic='')
 {
+
+    if($create_time=='')
+        $create_time=date('y-m-d H-i-s');
+    
     $data=[
     'from_id'=>$from_id,
     'to_id'=>$to_id,
@@ -57,7 +62,7 @@ function addMsg($from_id,$to_id,$content,$link='',$type=1,$create_time=date('y-m
     'extra'=>$extra,
 
     ];
-    return \Think\Db::table('massages')->insert($data);
+    return \think\Db::table('massages')->insert($data);
 }
 
 

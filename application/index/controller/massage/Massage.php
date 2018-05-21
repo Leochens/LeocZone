@@ -9,7 +9,7 @@ use think\Request;
  * @Author: Administrator
  * @Date:   2018-05-21 17:20:59
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-21 17:28:12
+ * @Last Modified time: 2018-05-21 17:41:19
  */
 
 /**
@@ -23,7 +23,13 @@ class Massage extends Controller{
 		$msgs = $this->getMsgs($user_id);
 		return $this->fetch();
 	}
-
+	public function test()
+	{
+		if (addMsg(3,5,'测试消息','http://record.mokis.top',1,date('y-m-d H-i-s')))
+			return 1;
+		else 
+			return 0;
+	}
 	/**
 	 * 根据用户id获得当前用户的消息列表
 	 * @param  [type] $user_id [description]
