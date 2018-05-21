@@ -33,3 +33,40 @@ function test($T)
         print_r($T);
         echo "</pre>";
 }
+
+/**
+ * 消息添加助手函数
+ * @param [type]  $from_id     [发布者id ]    
+ * @param [type]  $to_id       [接受者id]
+ * @param [type]  $content     [消息内容]
+ * @param string  $link        [跳转链接]
+ * @param integer $type        [消息类型]
+ * @param [type]  $create_time [时间戳 用来和用户最后一次刷新页面比对]
+ * @param string  $extra       [附加json值]
+ * @param string  $head_pic       [用户头像路径]
+ */
+function addMsg($from_id,$to_id,$content,$link='',$type=1,$create_time=date('y-m-d H-i-s'),$extra='',$head_pic='')
+{
+    $data=[
+    'from_id'=>$from_id,
+    'to_id'=>$to_id,
+    'content'=>$content,
+    'link'=>$link,
+    'type'=>$type,
+    'create_time'=>$create_time,
+    'extra'=>$extra,
+
+    ];
+    return \Think\Db::table('massages')->insert($data);
+}
+
+
+
+
+
+
+
+
+
+
+
