@@ -27,7 +27,7 @@
             <?php break;?>
             <?php } ?>
               <p class="">
-             我马上就要<a  id="href" href="<?php echo($url);?>"><b style="color:#49c0b6">飞啦</b></a> 嘟嘟嘟： <b id="wait">2</b>
+             页面马上进行<a  id="href" href="<?php echo($url);?>"><b style="color:#49c0b6">跳转</b></a> 等待 <b id="wait">2</b>
                 </p>
 
         </div>
