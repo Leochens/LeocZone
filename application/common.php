@@ -44,6 +44,7 @@ function test($T)
  * @param [type]  $create_time [时间戳 用来和用户最后一次刷新页面比对]
  * @param string  $extra       [附加json值]
  * @param string  $head_pic       [用户头像路径]
+ * @return 0 失败 1 成功 
  */
 
 function addMsg($from_id,$to_id,$content,$link='',$type=1,$create_time='',$extra='',$head_pic='')
@@ -51,7 +52,7 @@ function addMsg($from_id,$to_id,$content,$link='',$type=1,$create_time='',$extra
 
     if($create_time=='')
         $create_time=date('y-m-d H-i-s');
-    
+
     $data=[
     'from_id'=>$from_id,
     'to_id'=>$to_id,
