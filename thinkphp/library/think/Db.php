@@ -131,6 +131,7 @@ class Db
 
         return is_string($config) ? self::parseDsn($config) : $config;
     }
+    
 
     /**
      * DSN 解析

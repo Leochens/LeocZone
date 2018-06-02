@@ -8,7 +8,7 @@ use think\Session;
  * @Author: Administrator
  * @Date:   2018-05-10 08:59:08
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-05-12 21:11:08
+ * @Last Modified time: 2018-05-30 17:07:59
  */
 
 //登陆程序
@@ -48,9 +48,9 @@ class Login extends Controller{
 	}
 
 	/**
-	 * 判断数据库内是否有这个管理员
+	 * 判断数据库内是否有这个用户
 	 * @param  [type]  $e [获得的参数]
-	 * @return boolean    [返回id是管理员 0 未找到管理员]
+	 * @return boolean    [返回id是用户 0 未找到用户]
 	 */
 	private function isUser($e){
 

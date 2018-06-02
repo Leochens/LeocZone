@@ -11,7 +11,7 @@
 	<h2>{$msg}</h2>
 
 	<h2>用户列表</h2>
-	<ul>
+	<ul class="list">
 	{volist name='userList' id='item' }
 		<h3>用户{$item.id} <a href="{$Think.config.INDEX}/admin_f_user?user_id={$item.id}">禁言</a>
 							<a href="{$Think.config.INDEX}/admin_uf_user?user_id={$item.id}">解禁</a></h3>
