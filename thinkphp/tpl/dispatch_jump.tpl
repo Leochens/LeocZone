@@ -45,7 +45,7 @@
             }, 1000);
         })();
         // $('#MSG').modal(show);
-        // $(document).ready(function(){  
+        // $(document).ready(function(){    
         // $("#Mymodal").click(function(){  
         //     $("#new").modal("show")  
         // })  
