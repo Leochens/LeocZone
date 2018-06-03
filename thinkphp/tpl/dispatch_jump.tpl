@@ -49,7 +49,7 @@
         // $("#Mymodal").click(function(){  
         //     $("#new").modal("show")  
         // })  
-    })  
+    // })  
     </script>
 
 
