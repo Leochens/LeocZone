@@ -173,6 +173,9 @@ class Index extends Controller
         return $res?$res:0;
     }
     public function addComment(){
+
+        $this->accessCheck();
+        
         $content = trim(getParam('content','content lost','post'));
         if(empty($content)) $this->error('评论内容不能为空！');
         $record_id = getParam('record_id','record_id lost','post');
@@ -206,6 +209,9 @@ class Index extends Controller
 
     public function replyComment()
     {
+
+        $this->accessCheck();
+
         $record_id = getParam('record_id','获取评论id失败','post');
         //$comment_author_id = getParam('comment_author_id','获取评论作者id失败','post');
         $parent_id = getParam('parent_id','获取父评论id失败','post');

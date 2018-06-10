@@ -9,7 +9,16 @@
 <body>
 	<h1 class="text-center">这里是管理员界面</h1>
 
-	<table class="col-lg-8 col-lg-offset-2">
+<div style="margin-bottom: 25px;" class="container col-lg-10 col-lg-offset-1 text-center" >
+	
+<button onclick="showUsers()">显示用户信息</button>
+<button onclick="showRecords()">显示说说信息</button>
+<button>
+<a href="{$Think.config.INDEX}/admin_logout">注销</a>
+</button>
+</div>
+<br>
+	<table class="users col-lg-8 col-lg-offset-2">
 		<th>用户id</th>
 		<th>用户名</th>
 		<th>是否禁言(1 禁言 0 未禁言)</th>
@@ -32,7 +41,7 @@
 		
 	</table>
 
-	<table class="col-lg-8 col-lg-offset-2">
+	<table class="records col-lg-8 col-lg-offset-2">
 	<th>说说id</th>
 	<th>作者</th>
 	<th>创建时间</th>
@@ -49,8 +58,27 @@
 	{/volist}
 	</table>
 
-<button>
-<a href="{$Think.config.INDEX}/admin_logout">注销</a>
-</button>
+
+{include file="common/script" /}
+<script>
+
+	(function init()
+	{
+		//alert('hello');
+		$('.records').hide();
+
+	})()
+	function showUsers()
+	{
+		$('.users').toggle();
+		$('.records').hide();
+	}
+	function showRecords()
+	{
+		$('.records').toggle();
+		$('.users').hide();
+
+	}
+</script>
 </body>
 </html>
