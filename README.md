@@ -46,6 +46,7 @@
 
 3. 登录URL:
 	用户登录(本机安装)：http://localhost[:端口]:index.php
+	
 	管理员登录(本机安装)：http://localhost[:端口]:index.php/admin_page
 
 	
