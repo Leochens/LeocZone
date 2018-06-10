@@ -58,11 +58,25 @@ class Admin extends Controller
     }
     private function check()
     {
-    	if(Session::has('admin'))
+    	if(Session::has('admin')) 
     		return 1;
     	else 
     		return 0;
 	}
+
+    public function deleteRecord()
+    {
+        if(!$this->check())
+            $this->error('管理员未登陆');
+        else{
+            $id = getParam('r_id','未获取到说说id');
+            if(Db::table('records')->delete($id))
+                $this->success('删除成功');
+            else 
+                $this->error('删除失败');
+            
+        }
+    }
 	public function logout(){
 		Session::delete('user');
 		$this->success('删除session成功','admin/Login');    //

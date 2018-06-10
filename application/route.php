@@ -38,6 +38,7 @@ use think\Route;
 \think\Route::rule('admin_login','index/admin.Login/login');
 \think\Route::rule('admin_f_user','index/admin.Admin/forbiddenUser');
 \think\Route::rule('admin_uf_user','index/admin.Admin/unForbiddenUser');
+\think\Route::rule('admin_del_record','index/admin.Admin/deleteRecord');
 
 //分享
 \think\Route::rule('share','index/user.Presentation/index');

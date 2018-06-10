@@ -40,7 +40,7 @@
 		<td>{$item.author}</td>
 		<td>{$item.create_time}</td>
 		<td>{$item.content}</td>
-		<td><a href="">删除</a></td>
+		<td><a href="{$Think.config.INDEX}/admin_del_record?r_id={$item.id}">删除</a></td>
 	</tr>
 	{/volist}
 	</table>
