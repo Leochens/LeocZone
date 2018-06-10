@@ -17,7 +17,11 @@
 		{volist name='userList' id='item' }
 		<tr>
 			<td>{$item.id}</td>
+			{if condition="$item.is_forbidden==1"}
+			<td style="color:red;">{$item.name}</td>
+			{else/}
 			<td>{$item.name}</td>
+			{/if}
 			<td>{$item.is_forbidden}</td>
 			<td>
 				<a href="{$Think.config.INDEX}/admin_f_user?user_id={$item.id}">禁言</a>
